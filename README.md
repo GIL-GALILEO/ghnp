@@ -1,11 +1,14 @@
 DEV SETUP
+=========
 
-vagrant up
-export DJANGO_SETTINGS_MODULE=chronam.settings
-sudo service jetty start
-django-admin runserver 0.0.0.0:8000
+    vagrant up
+    export DJANGO_SETTINGS_MODULE=chronam.settings
+    source /opt/chronam/ENV/bin/activate
+    sudo service jetty start
+    django-admin runserver 0.0.0.0:8000
 
 CHRONAM ENV SETUP
+=================
 
 ubuntu/trusty64 vagrant box
 
