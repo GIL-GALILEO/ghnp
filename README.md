@@ -14,6 +14,7 @@ But since we aren't NDNP awardees, we have to hack some things...
 
 ### Loading Batches
 
++ place batch files in `data/dlg_batches`
 + ensure that an xml file containing MARC data for the Titles contained in the batch is present in the `data/nonlccn` directory with the filename `{newspaper_lccn}.xml`
 + run the chronam load_batch job like this:
 
