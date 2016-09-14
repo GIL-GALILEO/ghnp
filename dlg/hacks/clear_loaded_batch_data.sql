@@ -13,6 +13,7 @@ TRUNCATE TABLE chronam.core_pagenote;
 TRUNCATE TABLE chronam.core_place_titles;
 TRUNCATE TABLE chronam.core_preceedingtitlelink;
 TRUNCATE TABLE chronam.core_publicationdate;
+TRUNCATE TABLE chronam.core_reel;
 TRUNCATE TABLE chronam.core_relatedtitlelink;
 TRUNCATE TABLE chronam.core_subject;
 TRUNCATE TABLE chronam.core_subject_titles;

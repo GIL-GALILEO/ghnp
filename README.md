@@ -1,49 +1,20 @@
-DEV SETUP
-=========
+= Georgia Historic Newspapers
+== aka ChronAm for the DLG
 
-    vagrant up
-    export DJANGO_SETTINGS_MODULE=chronam.settings
-    source /opt/chronam/ENV/bin/activate
-    sudo service jetty start
-    django-admin runserver 0.0.0.0:8000
+== Preparing Batches
 
-CHRONAM ENV SETUP
-=================
+In order to import batches, batches must conform to the [NDNP Digital Assets format](http://www.loc.gov/ndnp/guidelines/examples.html) [(examples)](http://chroniclingamerica.loc.gov/data/batches/).
 
-ubuntu/trusty64 vagrant box
+But since we aren't NDNP awardees, we have to hack some things...
 
-vagrant up
-vagrant ssh
+=== Setting up Database for DLG Batches
 
-give vagrant box at least 1024 MB memory
++ clear out any existing loaded batches with `dlg\hacks\clear_loaded_batch_data.sql`
++ execute `dlg/hacks/setup_dlg.sql` to setup the DLG as an awardee and institution
 
-sudo apt-get install python-dev python-virtualenv mysql-server libmysqlclient-dev apache2 libapache2-mod-wsgi libxml2-dev libxslt-dev libjpeg-dev git-core graphicsmagick build-essential
+=== Loading Batches
 
-sudo mkdir /opt/chronam
-sudo chown $USER:users /opt/chronam
-git clone https://github.com/LibraryOfCongress/chronam.git /opt/chronam
++ ensure that an xml file containing MARC data for the Titles contained in the batch is present in the `data/nonlccn` directory with the filename `{newspaper_lccn}.xml`
++ run the chronam load_batch job like this:
 
-change shared dir to /opt/chronam in vagrantfile and reload
-
-wget http://archive.apache.org/dist/lucene/solr/4.10.4/solr-4.10.4.tgz
-
-tar zxvf solr-4.10.4.tgz
-sudo mv solr-4.10.4/example/ /opt/solr
-
-sudo useradd -d /opt/solr -s /bin/bash solr
-sudo chown solr:solr -R /opt/solr
-
-sudo cp /opt/chronam/conf/jetty7.sh /etc/init.d/jetty
-sudo chmod +x /etc/init.d/jetty
-
-sudo cp /opt/chronam/conf/schema.xml /opt/solr/solr/collection1/conf/schema.xml
-sudo cp /opt/chronam/conf/solrconfig.xml /opt/solr/solr/collection1/conf/solrconfig.xml
-
-sudo cp /opt/chronam/conf/jetty-ubuntu /etc/default/jetty
-sudo service jetty start
-
-[dont install/config apache]
-
-then continue: https://github.com/LibraryOfCongress/chronam/blob/master/README.md#install
-
-fix settings.py to refer to solr on port 8080
+`core/manage.py load_batch /full_path_to/chronam/data/dlg_batches/properly_named_batch_folder`
