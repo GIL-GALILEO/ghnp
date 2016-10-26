@@ -861,6 +861,7 @@ class Place(models.Model):
     geonames = models.CharField(null=True, max_length=250)
     latitude = models.FloatField(null=True)
     longitude = models.FloatField(null=True)
+    region = models.ForeignKey('Region', null=True)
 
     def __unicode__(self):
         return u"%s, %s, %s" % (self.city, self.county, self.state)
@@ -1277,7 +1278,8 @@ class Topic(models.Model):
     suggested_search_terms = models.TextField()
     intro_text = models.TextField()    
     important_dates = models.TextField()
-    
+
+
 class TopicPages(models.Model):
     page = models.ForeignKey('Page', null=True)
     topic = models.ForeignKey('Topic')
@@ -1285,3 +1287,7 @@ class TopicPages(models.Model):
     title = models.CharField(max_length=250)
     url = models.CharField(max_length=1000)
     description = models.TextField()
+
+
+class Region(models.Model):
+    name = models.CharField(max_length=250)
