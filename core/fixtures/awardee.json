@@ -1,26 +1,10 @@
 [
   {
-    "pk": "curiv",
+    "pk": "dlg",
     "model": "core.awardee", 
     "fields": {
-      "name": "University of California, Riverside",
-      "created": "2009-02-09 06:44:45"
+      "name": "Digital Library of Georgia",
+      "created": "2016-10-09 06:44:45"
     }
   },
-  {
-    "pk": "dlc",
-    "model": "core.awardee",
-    "fields": {
-      "name": "Library of Congress, Washington, DC",
-      "created": "2009-02-09 06:44:45"
-    }
-  },
-  {
-    "pk": "uuml",
-    "model": "core.awardee",
-    "fields": {
-      "name": "University of Utah, Marriott Library",
-      "created": "2009-02-09 06:44:45"
-    }
-  }
 ]
