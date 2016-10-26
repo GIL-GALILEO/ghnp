@@ -75,12 +75,12 @@ urlpatterns = [
 
 urlpatterns += [
 
-    url(r'^about/$', 
-        views.about, 
+    url(r'^about/$',
+        views.about,
         name="chronam_about"),
 
-    url(r'^help/$', 
-        views.help, 
+    url(r'^help/$',
+        views.help,
         name="chronam_help"),
 
     # explainOCR.html
@@ -99,8 +99,8 @@ urlpatterns += [
         name="chronam_topic"),
 
     # API docs
-    url(r'^about/api/$', 
-        views.about_api, 
+    url(r'^about/api/$',
+        views.about_api,
         name="chronam_about_api"),
 
     # example: /lccn/sn85066387
@@ -308,12 +308,12 @@ urlpatterns += [
         views.event, 
         name='chronam_event'),
 
-    url(r'^awardees/$', 
-        views.awardees, 
+    url(r'^awardees/$',
+        views.awardees,
         name='chronam_awardees'),
 
-    url(r'^awardees.json$', 
-        views.awardees_json, 
+    url(r'^awardees.json$',
+        views.awardees_json,
         name='chronam_awardees_json'),
 
     # example: /titles
@@ -377,13 +377,13 @@ urlpatterns += [
         name='chronam_city_page_number'),
 
     # example: /states
-    url(r'^states/$', 
-        views.states, 
+    url(r'^states/$',
+        views.states,
         name='chronam_states'),
 
     # example: /states_counties/
-    url(r'^states_counties/$', 
-        views.states_counties, 
+    url(r'^states_counties/$',
+        views.states_counties,
         name='chronam_states_counties'),
 
     # example: /states.json
@@ -447,16 +447,16 @@ urlpatterns += [
         name='chronam_institution_titles_page_number'),
 
     # awardee
-    url(r'^awardees/(?P<institution_code>\w+)/$', 
-        views.awardee, 
+    url(r'^awardees/(?P<institution_code>\w+)/$',
+        views.awardee,
         name='chronam_awardee'),
 
-    url(r'^awardees/(?P<institution_code>\w+)/$', 
-        views.awardee, 
+    url(r'^awardees/(?P<institution_code>\w+)/$',
+        views.awardee,
         name='chronam_awardee'),
 
-    url(r'^awardees/(?P<institution_code>\w+).json$', 
-        views.awardee_json, 
+    url(r'^awardees/(?P<institution_code>\w+).json$',
+        views.awardee_json,
         name='chronam_awardee_json'),
 
 
