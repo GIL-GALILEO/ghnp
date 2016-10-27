@@ -39,7 +39,7 @@ def newspapers(request, state=None, region=None, format='html'):
         region = request.GET.get('region',None)
 
     if region:
-        region_obj = models.Region.objects.get(name=region)
+        region_obj = models.Region.objects.get(name=region) # todo catch not found exception?
 
         if not region: # region not found, error
             raise Http404
@@ -106,46 +106,46 @@ def newspapers(request, state=None, region=None, format='html'):
         return render_to_response("newspapers.html",
                                   dictionary=locals(),
                                   context_instance=RequestContext(request))
-    elif format == "txt":
-        host = request.get_host()
-        return render_to_response("newspapers.txt",
-                                  dictionary=locals(),
-                                  context_instance=RequestContext(request),
-                                  content_type="text/plain")
-    elif format == "csv":
-        csv_header_labels = ('Persistent Link', 'State', 'Title', 'LCCN', 'OCLC', 
-                             'ISSN', 'No. of Issues', 'First Issue Date', 
-                             'Last Issue Date', 'More Info')
-        response = HttpResponse(content_type='text/csv')
-        response['Content-Disposition'] = 'attachment; filename="chronam_newspapers.csv"'
-        writer = csv.writer(response)
-        writer.writerow(csv_header_labels)
-        for state, titles in newspapers_by_state:
-            for title in titles:
-                writer.writerow(('http://%s%s' % (request.get_host(), 
-                                                  reverse('chronam_issues', 
-                                                           kwargs={'lccn': title.lccn}),),
-                                 state, title, title.lccn or '', title.oclc or '',
-                                 title.issn or '', title.issues.count(), title.first, 
-                                 title.last, 
-                                 'http://%s%s' % (request.get_host(),
-                                                  reverse('chronam_title_essays',
-                                                           kwargs={'lccn': title.lccn}),),))
-        return response
-
-    elif format == "json":
-        host = request.get_host()
-        results = {"newspapers": []}
-        for state, titles in newspapers_by_state:
-            for title in titles:
-                results["newspapers"].append({
-                    "lccn": title.lccn,
-                    "title": title.display_name,
-                    "url": "http://" + host + title.json_url,
-                    "state": state
-                })
-
-        return HttpResponse(json.dumps(results, indent=2), content_type='application/json')
+    # elif format == "txt":
+    #     host = request.get_host()
+    #     return render_to_response("newspapers.txt",
+    #                               dictionary=locals(),
+    #                               context_instance=RequestContext(request),
+    #                               content_type="text/plain")
+    # elif format == "csv":
+    #     csv_header_labels = ('Persistent Link', 'State', 'Title', 'LCCN', 'OCLC',
+    #                          'ISSN', 'No. of Issues', 'First Issue Date',
+    #                          'Last Issue Date', 'More Info')
+    #     response = HttpResponse(content_type='text/csv')
+    #     response['Content-Disposition'] = 'attachment; filename="chronam_newspapers.csv"'
+    #     writer = csv.writer(response)
+    #     writer.writerow(csv_header_labels)
+    #     for state, titles in newspapers_by_state:
+    #         for title in titles:
+    #             writer.writerow(('http://%s%s' % (request.get_host(),
+    #                                               reverse('chronam_issues',
+    #                                                        kwargs={'lccn': title.lccn}),),
+    #                              state, title, title.lccn or '', title.oclc or '',
+    #                              title.issn or '', title.issues.count(), title.first,
+    #                              title.last,
+    #                              'http://%s%s' % (request.get_host(),
+    #                                               reverse('chronam_title_essays',
+    #                                                        kwargs={'lccn': title.lccn}),),))
+    #     return response
+    #
+    # elif format == "json":
+    #     host = request.get_host()
+    #     results = {"newspapers": []}
+    #     for state, titles in newspapers_by_state:
+    #         for title in titles:
+    #             results["newspapers"].append({
+    #                 "lccn": title.lccn,
+    #                 "title": title.display_name,
+    #                 "url": "http://" + host + title.json_url,
+    #                 "state": state
+    #             })
+    #
+    #     return HttpResponse(json.dumps(results, indent=2), content_type='application/json')
     else:
         return HttpResponseServerError("unsupported format: %s" % format)
 

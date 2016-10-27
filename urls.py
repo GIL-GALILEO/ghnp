@@ -248,9 +248,9 @@ urlpatterns += [
         views.newspapers,
         name='chronam_newspapers_region'),
 
-    url(r'^newspapers/(?P<state>[^/;]+)\.(?P<format>json)$', 
-        views.newspapers, 
-        name='chronam_newspapers_json'),
+    # url(r'^newspapers/(?P<state>[^/;]+)\.(?P<format>json)$',
+    #     views.newspapers,
+    #     name='chronam_newspapers_json'),
 
     url('search/pages/opensearch.xml', 
         views.search_pages_opensearch,
