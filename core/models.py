@@ -1290,4 +1290,5 @@ class TopicPages(models.Model):
 
 
 class Region(models.Model):
-    name = models.CharField(max_length=250)
+    # slug = models.CharField(max_length=100, primary_key=True)
+    name = models.CharField(max_length=100)

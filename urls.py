@@ -240,9 +240,13 @@ urlpatterns += [
         views.newspapers, 
         name='chronam_newspapers_format'),
 
-    url(r'^newspapers/(?P<state>[^/;]+)/$', 
-        views.newspapers, 
-        name='chronam_newspapers_state'),
+    # url(r'^newspapers/(?P<state>[^/;]+)/$',
+    #     views.newspapers,
+    #     name='chronam_newspapers_state'),
+
+    url(r'^newspapers/(?P<region>[^/;]+)/$',
+        views.newspapers,
+        name='chronam_newspapers_region'),
 
     url(r'^newspapers/(?P<state>[^/;]+)\.(?P<format>json)$', 
         views.newspapers, 
