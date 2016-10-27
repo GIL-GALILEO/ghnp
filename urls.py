@@ -248,6 +248,10 @@ urlpatterns += [
         views.newspapers,
         name='chronam_newspapers_region'),
 
+    url(r'^newspapers/city/(?P<city>[^/;]+)/$',
+        views.newspapers,
+        name='chronam_newspapers_city'),
+
     # url(r'^newspapers/(?P<state>[^/;]+)\.(?P<format>json)$',
     #     views.newspapers,
     #     name='chronam_newspapers_json'),

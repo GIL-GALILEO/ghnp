@@ -19,7 +19,7 @@ from chronam.core.utils.url import unpack_url_path
 
 
 @cache_page(settings.DEFAULT_TTL_SECONDS)
-def newspapers(request, state=None, region=None, format='html'):
+def newspapers(request, city=None, region=None, format='html'):
     # if state and state != "all_states":
     #     state = unpack_url_path(state)
     #     if state is None:
@@ -39,10 +39,19 @@ def newspapers(request, state=None, region=None, format='html'):
         region = request.GET.get('region',None)
 
     if region:
-        region_obj = models.Region.objects.get(name=region) # todo catch not found exception?
+        try:
+            region_obj = models.Region.objects.get(name=region)
+        except models.Region.DoesNotExist:
+            raise Http404
 
         if not region: # region not found, error
             raise Http404
+    else:
+        region_obj=None
+
+    if city:
+        city = city.title()
+        city_places = models.Place.objects.filter(city=city)
 
     # language = request.GET.get('language', None)
     # if language:
@@ -52,6 +61,8 @@ def newspapers(request, state=None, region=None, format='html'):
     # if not state and not language and not ethnicity:
     if region:
         page_title = 'Results: Digitized Newspapers for %s' % region
+    elif city:
+        page_title = 'Results: Digitized Newspapers for %s' % city
     else:
         page_title = 'All Digitized Newspapers'
 
@@ -75,8 +86,7 @@ def newspapers(request, state=None, region=None, format='html'):
     #     except models.Ethnicity.DoesNotExist:
     #         pass
 
-    if region_obj:
-        region_places = models.Place.objects.filter(region=region_obj)
+
 
     # _newspapers_by_state = {}
     # for title in titles:
@@ -88,18 +98,30 @@ def newspapers(request, state=None, region=None, format='html'):
     #                 _newspapers_by_state.setdefault(place.state, set()).add(title)
     #
     # newspapers_by_state = [(s, sorted(t, key=lambda title: title.name_normal)) for s, t in sorted(_newspapers_by_state.iteritems())]
-    _newspapers_by_region = {}
-    for title in titles:
-        if region_obj:
+    if region_obj:
+        region_places = models.Place.objects.filter(region=region_obj)
+        _newspapers_by_region = {}
+        for title in titles:
             for place in title.places.all():
                 if place in region_places:
                     _newspapers_by_region.setdefault(region, set()).add(title)
-        # else:
-        #     for place in title.places.all():
-        #         if place.state:
-        #             _newspapers_by_region.setdefault(place.region, set()).add(title)
 
-    newspapers_by_region = [(s, sorted(t, key=lambda title: title.name_normal)) for s, t in sorted(_newspapers_by_region.iteritems())]
+        newspapers = [(s, sorted(t, key=lambda title: title.name_normal)) for s, t in sorted(_newspapers_by_region.iteritems())]
+    elif city:
+        _newspapers_by_city = {}
+        for title in titles:
+            for place in title.places.all():
+                if place in city_places:
+                    _newspapers_by_city.setdefault(city, set()).add(title)
+
+        newspapers = [(s, sorted(t, key=lambda title: title.name_normal)) for s, t in sorted(_newspapers_by_city.iteritems())]
+    else:
+        _newspapers = {}
+        for title in titles:
+            _newspapers.setdefault(None, set()).add(title)
+        newspapers = [(s, sorted(t, key=lambda title: title.name_normal)) for s, t in sorted(_newspapers.iteritems())]
+
+
     crumbs = list(settings.BASE_CRUMBS)
 
     if format == "html":
