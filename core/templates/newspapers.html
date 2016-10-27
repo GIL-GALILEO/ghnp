@@ -24,21 +24,27 @@
     <table id="newspapers" class="table table-striped table-hover browse_collect tablesorter" cellspacing="0" summary="">
         <thead>
         <tr>
-            <th class="headerSortDown left_no_border">State</th>
+            <th class="headerSortDown left_no_border">Region</th>
+            <th>County</th>
+            <th>City</th>
             <th>Newspaper</th>
             <th>Browse Issues</th>
             <th>No. of Issues</th>
             <th>Earliest Issue</th>
             <th>Latest Issue</th>
-            <th>More Info</th>
+            <th>Essay</th>
         </tr>
         </thead>
         <tbody>
-        {% for state, titles in newspapers_by_state %}
+{#        {% for state, titles in newspapers_by_state %}#}
         {% for title in titles %}
             {% with title.lccn as lccn %}
             <tr>
-                <td class="first left_no_border"><a {% ifchanged state %}name="{{state}}" {% endifchanged %}href="{% url 'chronam_newspapers_state' state|pack_url %}">{{state}}</a></td>
+{#                <td class="first left_no_border"><a {% ifchanged state %}name="{{state}}" {% endifchanged %}href="{% url 'chronam_newspapers_state' state|pack_url %}">{{state}}</a></td>#}
+                <td class="first left_no_border">{{ title.places.first.region.name }}</td>
+                <td>{{ title.places.first.county }}</td>
+                <td>{{ title.places.first.city }}</td>
+{#                <td>{% for place in title.places.all %}<p>{{ place.city }}</p>{% endfor %}</td>#}
                 <td><a href="{% url 'chronam_title' lccn %}"><strong>{{title.display_name}}</strong></a><br />{{title.place_of_publication}}, {{title.start_year}}-{{title.end_year}}</td>
                 <td><a href="{% url 'chronam_issues' lccn %}" shape="rect"><img src="{% static 'images/calendar_icon.gif' %}" alt="calendar"/></a></td>
                 <td>{{title.issues.count}}</td>
@@ -48,7 +54,7 @@
             </tr>
             {% endwith %}
         {% endfor %}
-        {% endfor %}
+{#        {% endfor %}#}
         </tbody>
     </table>
     <div class="txt_wrapper">
@@ -89,10 +95,8 @@
     $(document).ready(function() { 
         $("#newspapers").tablesorter({ 
             headers: { 
-                {% if state %}0: { sorter: false},{% endif %}
                 1: {sorter: 'titles'},
-                2: { sorter: false }, 
-                6: { sorter: false } 
+                4: {sorter: false}
             }, 
             widgets: ['zebra'],
             // for all newspapers, sort on state. If state, then sort on title.
