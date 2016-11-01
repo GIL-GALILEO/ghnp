@@ -46,37 +46,29 @@
             </div>
         </div>
 
-        <div id="wrap">
+        <div id="main-container" class="container">
 
-            <div id="main-container" class="container">
-
-                {% if crumbs and crumbs|length > 1 %}
-                <div class="row breadcrumb-area">
-                    <ul class="breadcrumb">
-                        {% for crumb in crumbs %}
-                        <li {% if crumb.active %}class="active"{% endif %}>
-                            <a href="{{crumb.href}}">{{crumb.label}}</a>{% if forloop.last %}{% else %} <span class="divider">/</span>{% endif %}
-                        </li>
-                        {% endfor %}
-                    </ul>
-                </div>
-                {% endif %}
-
-                {# Page content here! #}
-                {% block content %}
-                {% endblock content %}
-
+            {% if crumbs and crumbs|length > 1 %}
+            <div class="row breadcrumb-area">
+                <ul class="breadcrumb">
+                    {% for crumb in crumbs %}
+                    <li {% if crumb.active %}class="active"{% endif %}>
+                        <a href="{{crumb.href}}">{{crumb.label}}</a>{% if forloop.last %}{% else %} <span class="divider">/</span>{% endif %}
+                    </li>
+                    {% endfor %}
+                </ul>
             </div>
+            {% endif %}
 
-            <div id="push"></div>
+            {# Page content here! #}
+            {% block content %}
+            {% endblock content %}
 
         </div>
 
-        <div id="footer">
-            <div class="container">
-                <p>Footer Content</p>
-            </div>
-        </div>
+        <footer>
+            <p>Footer Content</p>
+        </footer>
 
     {% endblock body_content %}
     {% block javascript %}
