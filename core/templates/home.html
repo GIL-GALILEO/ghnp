@@ -1,22 +1,32 @@
 {% extends "site_base.html" %}
 
-{% load static from staticfiles %}
-{% load humanize %}
+{#{% load static from staticfiles %}#}
+{#{% load humanize %}#}
  
 {% block content %}
-<div class="row">
-    <form class="form-inline" action="{% url 'chronam_search_pages_results' %}" method="get">
-        <input type="hidden" name="rows" id="rows" alt="rows" value="20" />
-        <input type="hidden" name="searchType" alt="searchType" value="basic" />
-        <input class="span2" type="text" name="proxtext" placeholder="search words">
-        <button type="submit" class="btn">Search</button>
-    </form>
-    <a href="/search/advanced/">Advanced Search</a>
-</div>
+
+    <div class="row">
+        <div class="span3 left-sidebar">
+            Left Sidebar
+        </div>
+        <div class="span6 center-content">
+            <div class="search-area">
+                <form class="form-inline" action="{% url 'chronam_search_pages_results' %}" method="get">
+                    <input type="hidden" name="rows" id="rows" alt="rows" value="20" />
+                    <input type="hidden" name="searchType" alt="searchType" value="basic" />
+                    <input class="span2" type="text" name="proxtext" placeholder="search words">
+                    <button type="submit" class="btn">Search</button>
+                </form>
+                <a href="/search/advanced/">Advanced Search</a>
+            </div>
+        </div>
+        <div class="span3 right-sidebar">
+            Right Sidebar
+        </div>
+    </div>
+
+
 {% endblock content %}
 
- {% block javascript %}{{ block.super }}
-<script type="text/javascript"> 
-
-</script> 
+{% block javascript %}{{ block.super }}
 {% endblock %}
