@@ -1,27 +1,61 @@
 {% extends "site_base.html" %}
 
-{#{% load static from staticfiles %}#}
+{% load static from staticfiles %}
 {#{% load humanize %}#}
  
 {% block content %}
 
     <div class="row">
         <div class="span3 left-sidebar">
-            Left Sidebar
+            <div class="panel get-involved well">
+                <h4>Get Involved</h4>
+                <p>If you are interested in including a title in the archive, <a href="#">learn how you can participate</a>!</p>
+            </div>
+            <div class="panel connect-dlg well">
+                <h4>Get Connected</h4>
+                <ul>
+                    <li><a href="http://blog.dlg.galileo.usg.edu/">DLG Blog</a></li>
+                    <li><a href="https://twitter.com/DigLibGA">Twitter</a></li>
+                    <li><a href="https://www.facebook.com/DigitalLibraryofGeorgia/">Facebook</a></li>
+                </ul>
+            </div>
         </div>
         <div class="span6 center-content">
-            <div class="search-area">
-                <form class="form-inline" action="{% url 'chronam_search_pages_results' %}" method="get">
-                    <input type="hidden" name="rows" id="rows" alt="rows" value="20" />
-                    <input type="hidden" name="searchType" alt="searchType" value="basic" />
-                    <input class="span2" type="text" name="proxtext" placeholder="search words">
-                    <button type="submit" class="btn">Search</button>
-                </form>
-                <a href="/search/advanced/">Advanced Search</a>
+            <div class="row">
+                <div class="search-area">
+                    <form class="form-inline form-search" action="{% url 'chronam_search_pages_results' %}" method="get">
+                        <input type="hidden" name="rows" id="rows" alt="rows" value="20" />
+                        <input type="hidden" name="searchType" alt="searchType" value="basic" />
+                        <input class="search-query span3" type="text" name="proxtext" placeholder="Search within Newspaper contents">
+                        <select class="">
+                            <option value="">All Regions</option>
+                            <option value="">Metro Atlanta</option>
+                            <option value="">North Georgia</option>
+                            <option value="">South Georgia</option>
+                        </select>
+                        <button type="submit" class="btn btn-primary"><i class="icon-search icon-white"></i></button>
+                        <a href="/search/advanced/" class="btn btn-link pull-right">Advanced Search</a>
+                    </form>
+                </div>
+            </div>
+
+            <div class="georgia-regional-map">
+                <h3>Click on a Region to Browse Available Titles</h3>
+                <img src="{% static 'images/georgia-physical-map.gif' %}" alt="Georgia County Map">
             </div>
         </div>
         <div class="span3 right-sidebar">
-            Right Sidebar
+            <div class="panel updates well">
+                <h4>Latest Updates</h4>
+                <ul>
+                    <li>Update 1</li>
+                    <li>Update 2</li>
+                </ul>
+            </div>
+            <div class="panel 100-years-ago well">
+                <h4>100 Years Ago Today</h4>
+                <p>WIP</p>
+            </div>
         </div>
     </div>
 
