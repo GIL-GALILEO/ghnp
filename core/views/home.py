@@ -1,6 +1,7 @@
 import json
 import datetime
 
+from django.shortcuts import render
 from django.conf import settings
 from django.http import Http404, HttpResponse
 from django.template import RequestContext
@@ -12,15 +13,16 @@ from chronam.core import forms
 
 
 def home(request, date=None):
-    context = RequestContext(request, {})
-    context["crumbs"] = list(settings.BASE_CRUMBS)
-    today = datetime.date.today()
-    context["date"] = date = today.replace(year=today.year-100)
-    context["pages"] = _frontpages(request, date)
-    template = get_template("home.html")
+    crumbs = list(settings.BASE_CRUMBS)
+    # today = datetime.date.today()
+    # context["date"] = date = today.replace(year=today.year-100)
+    # context["pages"] = _frontpages(request, date)
+    regions = models.Region.objects.all()
     # note the date is handled on the client side in javascript
-    return HttpResponse(content=template.render(context))
-
+    return render(request, 'home.html', {
+        "crumbs": crumbs,
+        "regions": regions
+    })
 
 def _frontpages(request, date):
     # if there aren't any issues default to the first 20 which

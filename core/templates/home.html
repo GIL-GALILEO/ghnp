@@ -29,9 +29,9 @@
                         <input class="search-query span3" type="text" name="proxtext" placeholder="Search within Newspaper contents">
                         <select class="">
                             <option value="">All Regions</option>
-                            <option value="">Metro Atlanta</option>
-                            <option value="">North Georgia</option>
-                            <option value="">South Georgia</option>
+                            {% for region in regions %}
+                                <option value="{{ region.id }}">{{ region.name }}</option>
+                            {% endfor %}
                         </select>
                         <button type="submit" class="btn btn-primary"><i class="icon-search icon-white"></i></button>
                         <a href="/search/advanced/" class="btn btn-link pull-right">Advanced Search</a>
