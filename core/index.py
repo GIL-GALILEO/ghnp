@@ -433,7 +433,7 @@ def page_search(d):
     date_boundaries = _fulltext_range()
     date1 = d.get('date1', None)
     date2 = d.get('date2', None)
-   
+
     if not date1:
         date1 = date_boundaries[0]
     if not date2:
@@ -448,10 +448,12 @@ def page_search(d):
         if d1 and d2:
             date1, date2 = map(lambda d: int(str(d)[:4]), (d1, d2))
             q.append('+date:[%i TO %i]' % (d1, d2))
+    # todo this code is shit
     # choose a facet range gap such that the number of date ranges returned
-    # is <= 10. These would be used to populate a select dropdown on search 
+    # is <= 10. These would be used to populate a select dropdown on search
     # results page.
-    gap = max(1, int(math.ceil((date2 - date1)/10)))
+    # gap = max(1, int(math.ceil((d2o - d1o)/10)))
+
     ocrs = ['ocr_%s' % l for l in settings.SOLR_LANGUAGES]
 
     lang = d.get('language', None)
@@ -509,7 +511,8 @@ def page_search(d):
                     'facet_range':'year',
                     'f_year_facet_range_start': date1,
                     'f_year_facet_range_end': date2,
-                    'f_year_facet_range_gap': gap, 'facet_mincount': 1}
+                    # 'f_year_facet_range_gap': gap,
+                    'facet_mincount': 1}
     return ' '.join(q), facet_params
 
 def query_join(values, field, and_clause=False):
