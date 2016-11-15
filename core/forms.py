@@ -1,15 +1,15 @@
 import datetime
 
 from django import forms
-from django.forms import fields
+from django.forms import fields, ModelForm
 from django.conf import settings
 from django.core.cache import cache
 from django.db.models import Min, Max
 
 from chronam.core import models
 
-MIN_YEAR = 1860
-MAX_YEAR = 1922
+MIN_YEAR = 1800
+MAX_YEAR = 2500
 DAY_CHOICES = [(i, i) for i in range(1,32)]
 MONTH_CHOICES = ((1, u'Jan',), (2, u'Feb',), (3, u'Mar',),
                  (4, u'Apr',), (5, u'May',), (6, u'Jun',),
@@ -36,6 +36,40 @@ PROX_CHOICES = (
     ("50", "50"),
     ("100", "100"),
 )
+
+def _counties_options():
+    # form_counties = cache.get("form_counties")
+    # if not form_counties:
+    form_counties = [("", "All Counties")]
+    _counties = set()
+    for title in models.Title.objects.filter(has_issues=True).select_related():
+        for p in title.places.all():
+            _counties.add(p.county)
+    _counties = filter(lambda s: s is not None, _counties)
+    for county in _counties:
+        form_counties.append((county, county))
+    form_counties = sorted(form_counties)
+    cache.set("form_counties", form_counties)
+
+    return form_counties
+
+
+# return dict of id=>name for Cities in Places
+def _cities_options():
+    # form_cities = cache.get("form_cities")
+    # if not form_cities:
+    form_cities = [("", "All Cities")]
+    _cities = set()
+    for title in models.Title.objects.filter(has_issues=True).select_related():
+        for p in title.places.all():
+            _cities.add(p.city)
+    _cities = filter(lambda s: s is not None, _cities)
+    for city in _cities:
+        form_cities.append((city, city))
+    form_cities = sorted(form_cities)
+    cache.set("form_cities", form_cities)
+
+    return form_cities
 
 
 def _titles_states():
@@ -112,6 +146,10 @@ class SearchPagesForm(forms.Form):
 
         self.titles, self.states = _titles_states()
 
+        # added by MK
+        self.cities = _cities_options()
+        self.counties = _counties_options()
+
         fulltextStartYear, fulltextEndYear = _fulltext_range()
 
         self.years = [(year, year) for year in range(fulltextStartYear, fulltextEndYear + 1)]
@@ -131,6 +169,10 @@ class AdvSearchPagesForm(SearchPagesForm):
     date_day = fields.ChoiceField(choices=DAY_CHOICES)
     lccn = fields.MultipleChoiceField(choices=[])
     state = fields.MultipleChoiceField(choices=[])
+
+    city = fields.MultipleChoiceField(_cities_options())
+    county = fields.MultipleChoiceField(_counties_options())
+
     date1 = fields.CharField()
     date2 = fields.CharField()
     sequence = fields.CharField()
@@ -146,6 +188,8 @@ class AdvSearchPagesForm(SearchPagesForm):
 
         self.date = self.data.get('date1', '')
 
+        self.fields["city"].choices = self.cities
+        self.fields["county"].choices = self.counties
         self.fields["lccn"].widget.attrs = {'id': 'id_lccns', 'size': '8'}
         self.fields["lccn"].choices = self.titles
         self.fields["state"].widget.attrs = {'id': 'id_states', 'size': '8'}

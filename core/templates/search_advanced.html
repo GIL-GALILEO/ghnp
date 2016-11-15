@@ -13,8 +13,14 @@
             <legend>Limit Search</legend>
             <div class="row">
                 <!-- state -->
-                <div class="span3"> <label for="id_states">Select States:</label>
-                {{ adv_search_form.state }} </div>
+{#                <div class="span3"> <label for="id_states">Select States:</label>#}
+{#                {{ adv_search_form.state }} </div>#}
+                <!-- city -->
+                <div class="span3"> <label for="id_states">Select Cities:</label>
+                {{ adv_search_form.city }} </div>
+                <!-- county -->
+                <div class="span3"> <label for="id_states">Select Counties:</label>
+                {{ adv_search_form.county }} </div>
                 <!-- newspaper -->
                 <div class="span3"> <label for="id_lccns">Or Select Newspapers:</label>
                 {{ adv_search_form.lccn }} </div>
