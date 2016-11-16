@@ -150,9 +150,10 @@ class SolrPaginator(Paginator):
         params.update(self.facet_params)
         sort_field, sort_order = _get_sort(self.query.get('sort'), in_pages=True)
         solr_response = solr.query(self._q,
-                                   fields=['id', 'title', 'date', 'month', 'day',
-                                           'sequence', 'edition_label', 
-                                           'section_label'],
+                                   # fields=['id', 'title', 'date', 'month', 'day',
+                                   #         'sequence', 'edition_label',
+                                   #         'section_label'],
+                                   fields="*",
                                    highlight=self._ocr_list,
                                    rows=self.per_page,
                                    sort=sort_field,
@@ -426,8 +427,11 @@ def page_search(d):
     if d.get('lccn', None):
         q.append(query_join(d.getlist('lccn'), 'lccn'))
 
-    if d.get('state', None):
-        q.append(query_join(d.getlist('state'), 'state'))
+    if d.get('city', None):
+        q.append(query_join(d.getlist('city'), 'city'))
+        
+    if d.get('county', None):
+        q.append(query_join(d.getlist('county'), 'county'))
 
     date_filter_type = d.get('dateFilterType', None)
     date_boundaries = _fulltext_range()
