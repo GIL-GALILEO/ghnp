@@ -1288,6 +1288,7 @@ class TopicPages(models.Model):
     url = models.CharField(max_length=1000)
     description = models.TextField()
 
+# todo move to non-core file?
 
 class Region(models.Model):
     # slug = models.CharField(max_length=100, primary_key=True)
