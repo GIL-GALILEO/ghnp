@@ -618,3 +618,27 @@ def chronam_topic(request, topic_id):
                       'url': t.url} for t in topic.topicpages_set.all()]
     return render_to_response('topic.html', dictionary=locals(),
                               context_instance=RequestContext(request))
+
+# ripoff of NebNews calendar
+# todo urls
+# todo templates: see https://github.com/CDRH/nebnews/blob/master/nebraska/templates/calendar.html
+def chronam_calendar_issues(request, year=None):
+    issues = models.Issue.objects.all().order_by('date_issued')
+    if issues.count() > 0:
+        if year is None:
+            _year = issues[0].date_issued.year
+        else:
+            _year = int(year)
+    else:
+        _year = 1900  # no issues available
+    year_view = HTMLCalendar(firstweekday=6, issues=issues, all_issues=True).formatyear(_year)
+    dates = issues.dates('date_issued', 'year')
+
+    # class SelectYearForm(django_forms.Form):
+    #     year = fields.ChoiceField(choices=((d.year, d.year) for d in dates),
+    #                               initial=_year)
+    # select_year_form = SelectYearForm()
+    page_title = "Browse All Issues"
+    page_name = "calendar"
+    return render_to_response('calendar.html', dictionary=locals(),
+                              context_instance=RequestContext(request))
