@@ -66,6 +66,7 @@ def newspapers(request, city=None, region=None, format='html'):
     else:
         page_title = 'All Digitized Newspapers'
 
+    # todo titles count is wrong when list is filtered based on parameters (below)
     titles = models.Title.objects.filter(has_issues=True)
     titles = titles.annotate(first=Min('issues__date_issued'))
     titles = titles.annotate(last=Max('issues__date_issued'))
