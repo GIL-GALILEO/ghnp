@@ -24,7 +24,7 @@ PROX_DISTANCE_DEFAULT = 5
 # http://groups.google.com/group/solrpy/browse_thread/thread/f4437b885ecb0037?pli=1
 
 
-#ESCAPE_CHARS_RE = re.compile(r'(?<!\\)(?P<char>[&|+\-!(){}[\]^"~*?:])')
+# ESCAPE_CHARS_RE = re.compile(r'(?<!\\)(?P<char>[&|+\-!(){}[\]^"~*?:])')
 ESCAPE_CHARS_RE = re.compile(r'(?<!\\)(?P<char>[&|+\-!(){}[\]^"~*?:])')
 def solr_escape(value):
     _log.debug("value: %s", value)
@@ -448,11 +448,17 @@ def page_search(d):
         if d1 and d2:
             date1, date2 = map(lambda d: int(str(d)[:4]), (d1, d2))
             q.append('+date:[%i TO %i]' % (d1, d2))
+    else:
+        date1 = _solrize_date(date1)
+        date2 = _solrize_date(date2)
+
+
     # todo this code is shit
     # choose a facet range gap such that the number of date ranges returned
     # is <= 10. These would be used to populate a select dropdown on search
     # results page.
     # gap = max(1, int(math.ceil((d2o - d1o)/10)))
+    gap = 9
 
     ocrs = ['ocr_%s' % l for l in settings.SOLR_LANGUAGES]
 
@@ -511,7 +517,7 @@ def page_search(d):
                     'facet_range':'year',
                     'f_year_facet_range_start': date1,
                     'f_year_facet_range_end': date2,
-                    # 'f_year_facet_range_gap': gap,
+                    'f_year_facet_range_gap': gap,
                     'facet_mincount': 1}
     return ' '.join(q), facet_params
 
