@@ -10,7 +10,7 @@ Vagrant.configure("2") do |config|
   config.vm.synced_folder '.', '/opt/chronam', nfs: true
 
   config.vm.provider :virtualbox do |v, override|
-    v.memory = 1024
+    v.memory = 2048
     v.gui = false
     # box customizations for speed
     v.customize ['modifyvm', :id, '--natdnshostresolver1', 'on']
