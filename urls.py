@@ -471,6 +471,16 @@ urlpatterns += [
     url(r'^status', 
         views.status, 
         name='chronam_stats'),
+
+    # example: /calendar/
+    url(r'^calendar/$',
+        views.chronam_calendar_issues,
+        name="chronam_calendar"),
+
+    # example: /calendar/1900
+    url(r'^calendar/(?P<year>\d{4})/$',
+        views.chronam_calendar_issues,
+        name="chronam_calendar"),
 ]
 
 # linked-data rdf/atom/json views

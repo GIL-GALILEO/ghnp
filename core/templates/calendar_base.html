@@ -1,0 +1,35 @@
+{% extends "site_base.html" %}
+
+{% load static from staticfiles %}
+{% block lc_metadata %}
+{% with title.display_name as title_metadata %}
+{% include "includes/lc_metadata.html" %}
+{% endwith %}
+{% endblock %}
+
+{% block extrahead %}
+
+{% endblock %}
+
+{% block page_head %}
+<h1>
+{{ page_title }}<br />
+<!-- <span>{{title.place_of_publication}} ({{title.start_year}}-{{title.end_year}})</span> -->
+</h1>
+{% endblock %}
+
+{% block subcontent %}
+
+
+
+<div id="std_box">
+    {% block extra_nav %}
+    {% endblock %}
+
+    {% block newspaper_content %}
+    {% endblock %}
+
+    <div class="clear"><!-- --></div>
+</div><!-- end id:std_box -->
+
+{% endblock %}

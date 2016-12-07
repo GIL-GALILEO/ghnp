@@ -634,11 +634,11 @@ def chronam_calendar_issues(request, year=None):
     year_view = HTMLCalendar(firstweekday=6, issues=issues, all_issues=True).formatyear(_year)
     dates = issues.dates('date_issued', 'year')
 
-    # class SelectYearForm(django_forms.Form):
-    #     year = fields.ChoiceField(choices=((d.year, d.year) for d in dates),
-    #                               initial=_year)
-    # select_year_form = SelectYearForm()
-    page_title = "Browse All Issues"
+    class SelectYearForm(django_forms.Form):
+        year = fields.ChoiceField(choices=((d.year, d.year) for d in dates),
+                                  initial=_year)
+    select_year_form = SelectYearForm()
+    page_title = "All Newspapers by Date"
     page_name = "calendar"
     return render_to_response('calendar.html', dictionary=locals(),
                               context_instance=RequestContext(request))
