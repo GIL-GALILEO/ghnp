@@ -1296,3 +1296,7 @@ class Region(models.Model):
 
 class Type(models.Model):
     name = models.CharField(max_length=250)
+
+class FundingSource(models.Model):
+    slug = models.CharField(max_length=50)
+    name = models.CharField(max_length=250)
