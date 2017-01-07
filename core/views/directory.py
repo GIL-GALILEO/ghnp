@@ -19,7 +19,7 @@ from chronam.core.utils.url import unpack_url_path
 
 
 @cache_page(settings.DEFAULT_TTL_SECONDS)
-def newspapers(request, city=None, region=None, format='html'):
+def newspapers(request, city=None, region=None, type=None, format='html'):
     # if state and state != "all_states":
     #     state = unpack_url_path(state)
     #     if state is None:
@@ -29,14 +29,14 @@ def newspapers(request, city=None, region=None, format='html'):
     # else:
     #     state = request.GET.get('state', None)
 
-    if region and region != "all_regions":
-        region = unpack_url_path(region)
-        if region is None:
-            raise Http404
-        else:
-            region = region.title()
-    else:
-        region = request.GET.get('region',None)
+    # if region and region != "all_regions":
+    #     region = unpack_url_path(region)
+    #     if region is None:
+    #         raise Http404
+    #     else:
+    #         region = region.title()
+    # else:
+    #     region = request.GET.get('region',None)
 
     if region:
         try:
@@ -49,9 +49,17 @@ def newspapers(request, city=None, region=None, format='html'):
     else:
         region_obj=None
 
+    if type:
+        try:
+            type_obj = models.Type.objects.get(name=type)
+        except models.Type.DoesNotExist:
+            raise Http404
+    else:
+        type_obj=None
+
+
     if city:
         city = city.title()
-        city_places = models.Place.objects.filter(city=city)
 
     # language = request.GET.get('language', None)
     # if language:
@@ -60,9 +68,11 @@ def newspapers(request, city=None, region=None, format='html'):
 
     # if not state and not language and not ethnicity:
     if region:
-        page_title = 'Results: Digitized Newspapers for %s' % region
+        page_title = 'Results: Digitized Newspapers for %s' % region_obj.name
     elif city:
         page_title = 'Results: Digitized Newspapers for %s' % city
+    elif type:
+        page_title = 'Results: Digitized %s Newspapers ' % type_obj.name
     else:
         page_title = 'All Digitized Newspapers'
 
@@ -88,7 +98,7 @@ def newspapers(request, city=None, region=None, format='html'):
     #         pass
 
 
-
+    _newspapers = {}
     # _newspapers_by_state = {}
     # for title in titles:
     #     if state:
@@ -101,27 +111,37 @@ def newspapers(request, city=None, region=None, format='html'):
     # newspapers_by_state = [(s, sorted(t, key=lambda title: title.name_normal)) for s, t in sorted(_newspapers_by_state.iteritems())]
     if region_obj:
         region_places = models.Place.objects.filter(region=region_obj)
-        _newspapers_by_region = {}
+        # _newspapers_by_region = {}
         for title in titles:
             for place in title.places.all():
                 if place in region_places:
-                    _newspapers_by_region.setdefault(region, set()).add(title)
+                    _newspapers.setdefault(region, set()).add(title)
 
-        newspapers = [(s, sorted(t, key=lambda title: title.name_normal)) for s, t in sorted(_newspapers_by_region.iteritems())]
+        # newspapers = [(s, sorted(t, key=lambda title: title.name_normal)) for s, t in sorted(_newspapers_by_region.iteritems())]
+    elif type_obj:
+        # _newspapers_by_type = {}
+        for title in titles:
+            for t in title.types.all():
+                if t == type_obj:
+                    _newspapers.setdefault(t, set()).add(title)
+        # newspapers = sorted(_newspapers_by_type.iteritems())
+        # newspapers = [(s, sorted(t, key=lambda title: title.name_normal)) for s, t in sorted(_newspapers_by_type.iteritems())]
     elif city:
-        _newspapers_by_city = {}
+        city_places = models.Place.objects.filter(city=city)
+        # _newspapers_by_city = {}
         for title in titles:
             for place in title.places.all():
                 if place in city_places:
-                    _newspapers_by_city.setdefault(city, set()).add(title)
+                    _newspapers.setdefault(city, set()).add(title)
 
-        newspapers = [(s, sorted(t, key=lambda title: title.name_normal)) for s, t in sorted(_newspapers_by_city.iteritems())]
+        # newspapers = [(s, sorted(t, key=lambda title: title.name_normal)) for s, t in sorted(_newspapers_by_city.iteritems())]
     else:
-        _newspapers = {}
+        # _newspapers = {}
         for title in titles:
             _newspapers.setdefault(None, set()).add(title)
-        newspapers = [(s, sorted(t, key=lambda title: title.name_normal)) for s, t in sorted(_newspapers.iteritems())]
+        # newspapers = [(s, sorted(t, key=lambda title: title.name_normal)) for s, t in sorted(_newspapers.iteritems())]
 
+    newspapers = sorted(_newspapers.iteritems())
 
     crumbs = list(settings.BASE_CRUMBS)
 

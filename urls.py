@@ -244,9 +244,13 @@ urlpatterns += [
     #     views.newspapers,
     #     name='chronam_newspapers_state'),
 
-    url(r'^newspapers/(?P<region>[^/;]+)/$',
+    url(r'^newspapers/region/(?P<region>[^/;]+)/$',
         views.newspapers,
         name='chronam_newspapers_region'),
+    
+    url(r'^newspapers/type/(?P<type>[^/;]+)/$',
+        views.newspapers,
+        name='chronam_newspapers_type'),
 
     url(r'^newspapers/city/(?P<city>[^/;]+)/$',
         views.newspapers,

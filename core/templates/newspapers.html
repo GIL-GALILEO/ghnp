@@ -28,6 +28,7 @@
             <th class="headerSortDown left_no_border">Region</th>
             <th>County</th>
             <th>City</th>
+            <th>Type</th>
             <th>Newspaper</th>
             <th>Browse Issues</th>
             <th>No. of Issues</th>
@@ -45,10 +46,11 @@
                     <td class="first left_no_border">{{ title.places.first.region.name }}</td>
                     <td>{{ title.places.first.county }}</td>
                     <td>{{ title.places.first.city }}</td>
+                    <td>{% for type in title.types.all %}{{ type.name }}<br />{% endfor %}</td>
     {#                <td>{% for place in title.places.all %}<p>{{ place.city }}</p>{% endfor %}</td>#}
                     <td><a href="{% url 'chronam_title' lccn %}"><strong>{{title.display_name}}</strong></a><br />{{title.place_of_publication}}, {{title.start_year}}-{{title.end_year}}</td>
                     <td><a href="{% url 'chronam_issues' lccn %}" shape="rect"><img src="{% static 'images/calendar_icon.gif' %}" alt="calendar"/></a></td>
-                    <td>{{title.issues.count}}</td>
+                    <td>{{ title.issues.count }}</td>
                     <td><a href="{% url 'chronam_issue_pages' lccn title.first 1 %}">{{title.first|date:'Y-m-d'}}</a></td>
                     <td><a href="{% url 'chronam_issue_pages' lccn title.last 1 %}">{{title.last|date:'Y-m-d'}}</a></td>
                     <td class="last">{% if title.has_essays %}<a href="{% url 'chronam_title' lccn %}">Yes</a>{% endif %}</td>
