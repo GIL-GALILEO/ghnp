@@ -5,6 +5,7 @@
 </p>
 
 <p>Image provided by {{issue.batch.awardee.name}}</p>
+{% if title.funding_source %}<p>Funding for the digitization of this title was provided by {{ title.funding_source.name }}{% endif %}
 <p>Persistent link: <a href="{{url}}">http://{{host}}{{url}}</a></p>
 
 {% endblock %}

@@ -129,6 +129,13 @@
           </ul>
 	</div>
       </div>
+
+    {% if title.funding_source %}
+    <div class="alert alert-info">
+      Funding for the digitization of this title was provided by {{ title.funding_source.name }}
+    </div>
+    {% endif %}
+
       {% if page.jp2_filename %}
       
       <div id="viewer_container_container">
