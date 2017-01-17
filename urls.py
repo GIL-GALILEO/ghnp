@@ -485,6 +485,16 @@ urlpatterns += [
     url(r'^calendar/(?P<year>\d{4})/$',
         views.chronam_calendar_issues,
         name="chronam_calendar"),
+
+    # example: /regions/
+    url(r'^regions/$',
+        views.regions,
+        name="regions"),
+
+    # example: /regions/west /middle /south /atlanta
+    url(r'^regions/(?P<region>[^/;]+)/$',
+        views.regions,
+        name="regions"),
 ]
 
 # linked-data rdf/atom/json views

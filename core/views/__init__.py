@@ -25,3 +25,5 @@ from reports import reports, batches, batches_atom, batches_json, batches_csv, \
     batch_summary, institution_titles, terms, ocr, ocr_json, ocr_atom, \
     title_json, issue_pages_json, page_json, languages, language_batches, \
     language_titles, language_pages
+
+from regions import regions
