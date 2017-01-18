@@ -41,7 +41,15 @@
 
             <div class="georgia-regional-map">
                 <h3>Click on a Region to Browse Available Titles</h3>
-                <img src="{% static 'images/ga_counties.png' %}" alt="Georgia County Map">
+                <img src="{% static 'images/ga_counties.png' %}" border="0" width="681" height="760" usemap="#ga_regions_map" alt="Georgia County Map" />
+                    <map name="ga_regions_map" id="ga_regions_map">
+                        <area id="northga" alt="northga" title="North Georgia" href="{% url 'regions' 'north'  %}" shape="poly" coords="297,56,320,66,337,85,359,83,411,164,384,164,372,180,360,195,360,214,350,218,327,210,309,223,326,255,300,269,274,256,256,283,228,267,245,223,233,216,254,193,246,179,248,163,213,152,207,174,190,167,189,150,176,153,166,172,103,177,87,209,46,214,1,38,322,1" style="outline:none;" target="_self"    data-maphilight='northga' />
+                        <area id="atlanta" alt="atlanta" title="Metro Atlanta" href="{% url 'regions' 'atlanta'  %}" shape="poly" coords="129,181,132,222,145,218,152,228,123,264,131,275,175,261,182,293,224,302,243,274,226,263,243,225,226,219,251,193,239,180,244,161,216,154,208,174,189,171,189,150,173,162,171,175" style="outline:none;" target="_self"    data-maphilight='atlanta' />
+                        <area id="eastga" alt="eastga" title="East Georgia" href="{% url 'regions' 'east'  %}" shape="poly" coords="414,167,450,189,468,213,494,227,509,257,531,280,567,302,540,326,535,372,514,381,512,392,496,405,489,437,480,441,463,436,464,419,432,410,421,390,388,380,379,358,369,338,371,319,363,325,359,312,331,308,349,283,332,260,307,224,326,212,362,218,366,209,370,183,389,167" style="outline:none;" target="_self"    data-maphilight='eastga' />
+                        <area id="southga" alt="southga" title="South Georgia" href="{% url 'regions' 'south'  %}" shape="poly" coords="569,302,538,326,529,369,514,391,497,403,488,441,463,435,464,416,432,409,428,448,367,522,347,486,312,487,315,507,266,509,271,522,217,533,143,540,114,530,110,555,126,604,122,655,161,744,525,727,534,762,555,757,547,692,562,680,617,689,620,627,642,577,653,518,679,463,645,450,641,422,624,390,595,372" style="outline:none;" target="_self"    data-maphilight='southga' />
+                        <area id="westga" alt="westga" title="West Georgia" href="{% url 'regions' 'west'  %}" shape="poly" coords="47,216,88,389,122,465,131,483,118,505,115,528,146,543,271,528,253,487,269,460,275,438,246,432,234,409,220,407,226,379,225,357,204,353,206,320,224,315,220,302,191,297,175,265,154,273,121,272,121,265,150,230,133,224,124,180,104,180,97,210" style="outline:none;" target="_self"    data-maphilight='westga' />
+                        <area id="centralga" alt="centralga" title="Central Georgia" href="{% url 'regions' 'central'  %}" shape="poly" coords="224,303,242,274,256,290,274,258,294,271,326,260,346,277,331,303,353,316,362,333,381,386,423,398,428,414,421,444,370,517,354,484,315,482,308,487,309,504,268,507,257,485,282,462,282,433,254,428,238,402,226,398,233,366,228,348,215,349,212,325,232,316" style="outline:none;" target="_self"    data-maphilight='centralga' />
+                    </map>
             </div>
         </div>
         <div class="span3 right-sidebar">
