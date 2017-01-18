@@ -1,3 +1,55 @@
-<p>
-    Regions: {{ region }}
-</p>
+{% extends "site_base.html" %}
+{% load static from staticfiles %}
+
+{% block page_head %}
+    {{ page_title }}<br />
+    <span></span>
+{% endblock %}
+
+{% block main_content %}
+
+    <div class="regional-search">
+        Search within this region:
+        <input type="search" />
+    </div>
+
+    <div class="counties-list">
+
+        <p>Counties Included:</p>
+        <ul>
+            {% for c in counties %}
+                <li>{{ c }}</li>
+            {% endfor %}
+        </ul>
+
+    </div>
+
+    <div class="titles-by-county-list">
+
+        <p>Titles by County:</p>
+        <ul>
+            {% for ct in county_titles %}
+                <li>
+                    {{ ct.county }}
+                    <ul>
+                        {% if ct.titles %}
+                            {% for title in ct.titles %}
+                                <li>
+                                    <a href="{% url 'chronam_title' title.lccn %}">
+                                        {{title.display_name}}
+                                    </a>
+                                </li>
+                            {% endfor %}
+                        {% else %}
+                            <li>None</li>
+                        {% endif %}
+                    </ul>
+                </li>
+            {% endfor %}
+        </ul>
+
+    </div>
+
+
+
+{% endblock %}

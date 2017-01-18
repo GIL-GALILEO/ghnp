@@ -1293,7 +1293,7 @@ class TopicPages(models.Model):
 # todo move to non-core file?
 
 class Region(models.Model):
-    # slug = models.CharField(max_length=100, primary_key=True)
+    slug = models.CharField(max_length=50)
     name = models.CharField(max_length=100)
 
 class Type(models.Model):

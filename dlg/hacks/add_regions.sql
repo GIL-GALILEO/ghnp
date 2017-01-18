@@ -1,6 +1,6 @@
-INSERT INTO chronam.core_region SET name = 'North Georgia';
-INSERT INTO chronam.core_region SET name = 'West Georgia';
-INSERT INTO chronam.core_region SET name = 'South Georgia';
-INSERT INTO chronam.core_region SET name = 'Middle Georgia';
-INSERT INTO chronam.core_region SET name = 'East Georgia';
-INSERT INTO chronam.core_region SET name = 'Metro Atlanta';
+INSERT INTO chronam.core_region (name, slug) VALUES ('North Georgia', 'north');
+INSERT INTO chronam.core_region (name, slug) VALUES ('West Georgia', 'west');
+INSERT INTO chronam.core_region (name, slug) VALUES ('South Georgia', 'south');
+INSERT INTO chronam.core_region (name, slug) VALUES ('Middle Georgia', 'middle');
+INSERT INTO chronam.core_region (name, slug) VALUES ('East Georgia', 'east');
+INSERT INTO chronam.core_region (name, slug) VALUES ('Metro Atlanta', 'atlanta');
