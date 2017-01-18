@@ -11,21 +11,24 @@ def regions(request, region=None):
         places = Place.objects.filter(state='Georgia', region=region)
     else:
         page_title = 'Browse Newspapers by Region'
-        places = Place.objects.all(state='Georgia')
-
+        places = Place.objects.filter(state='Georgia')
 
     counties = []
-    for place in places.values('county'):
+    cities = []
+    for place in places.values('county','city'):
         if not place['county'] in counties:
             counties.append(place['county'])
-
+        if not place['city'] in cities:
+            cities.append(place['city'])
 
     county_titles = []
-    for c in counties:
-        titles = dict()
-        titles['county'] = c
-        titles['titles'] = Title.objects.filter(places__county__contains=c)
-        county_titles.append(titles)
+    for county in counties:
+        if county:
+            titles = dict()
+            titles['county'] = county
+            titles['titles'] = Title.objects.filter(places__county__contains=county)
+            county_titles.append(titles)
 
-    return render_to_response('regions.html', dictionary=locals(),
+    return render_to_response('regions.html',
+                              dictionary=locals(),
                               context_instance=RequestContext(request))

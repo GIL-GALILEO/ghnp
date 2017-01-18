@@ -2,25 +2,26 @@
 {% load static from staticfiles %}
 
 {% block page_head %}
-    {{ page_title }}<br />
+    <h2>{{ page_title }}</h2>
     <span></span>
 {% endblock %}
 
 {% block main_content %}
 
-    <div class="regional-search">
+    <div class="regional-search well well-small">
         Search within this region:
         <input type="search" />
     </div>
 
-    <div class="counties-list">
+    <div class="counties-list well well-small">
 
-        <p>Counties Included:</p>
-        <ul>
-            {% for c in counties %}
-                <li>{{ c }}</li>
-            {% endfor %}
-        </ul>
+        <p>Counties Included: {{ counties|join:", " }}</p>
+
+    </div>
+
+    <div class="cities-list well well-small">
+
+        <p>Cities Included: {{ cities|join:", " }}</p>
 
     </div>
 
