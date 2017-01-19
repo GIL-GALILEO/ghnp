@@ -14,21 +14,29 @@ def regions(request, region=None):
         places = Place.objects.filter(state='Georgia')
 
     counties = []
-    cities = []
-    for place in places.values('county','city'):
-        if not place['county'] in counties:
-            counties.append(place['county'])
-        if not place['city'] in cities:
-            cities.append(place['city'])
-
     county_titles = []
+    cities = []
+    cities_with_titles = []
+    all_titles = []
+
+    for place in places:
+        if not place.county in counties:
+            counties.append(place.county)
+        if not place.city in cities:
+            cities.append(place.city)
+
     for county in counties:
         if county:
-            titles = dict()
-            titles['county'] = county
-            titles['titles'] = Title.objects.filter(places__county__contains=county)
-            if titles['titles']:
-                county_titles.append(titles)
+            t = dict()
+            t['county'] = county
+            titles = Title.objects.filter(places__county__contains=county)
+            t['titles'] = titles
+            if t['titles']:
+                county_titles.append(t)
+                for title in titles:
+                    all_titles.append(title)
+
+    cities_with_titles = Place.objects.filter(titles__in=all_titles).values('city')
 
     return render_to_response('regions.html',
                               dictionary=locals(),

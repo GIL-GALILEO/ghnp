@@ -9,8 +9,20 @@
 {% block main_content %}
 
     <div class="regional-search well well-small">
-        Search within this region:
-        <input type="search" />
+        <form class="form-inline form-search" action="{% url 'chronam_search_pages_results' %}" method="get">
+            <input type="hidden" name="rows" id="rows" alt="rows" value="20" />
+            <input type="hidden" name="searchType" alt="searchType" value="basic" />
+            <input type="hidden" name="region" id="region" alt="region" value="{{ region.slug }}" />
+            <input class="search-query" type="text" name="proxtext" placeholder="Search within {{ region.name }}">
+            <select class="">
+                <option value="">All {{ region.name }} cities with Titles</option>
+                {% for city in cities_with_titles %}
+                    <option value="{{ city.city|lower }}">{{ city.city }}</option>
+                {% endfor %}
+            </select>
+            <button type="submit" class="btn btn-primary"><i class="icon-search icon-white"></i></button>
+            <a href="/search/advanced/" class="btn btn-link pull-right">Advanced Search</a>
+        </form>
     </div>
 
     <div class="counties-list well well-small">
@@ -25,6 +37,21 @@
 
     </div>
 
+    <div class="all-titles well well-small">
+        {% if all_titles %}
+            <p>All Titles in Region:</p>
+            <ul>
+            {% for title in all_titles %}
+                <li>
+                    <a href="{% url 'chronam_title' title.lccn %}">
+                        {{ title.display_name }}
+                    </a>
+                </li>
+            {% endfor %}
+            </ul>
+        {% endif %}
+    </div>
+
     <div class="titles-by-county-list">
 
         <p>Titles by County:</p>
@@ -33,12 +60,12 @@
             {% for ct in county_titles %}
                 {% if ct.titles %}
                 <li>
-                    {{ ct.county }}
+                    {{ ct.county }} ({{ ct.titles|length }})
                     <ul>
                         {% for title in ct.titles %}
                             <li>
                                 <a href="{% url 'chronam_title' title.lccn %}">
-                                    {{title.display_name}}
+                                    {{ title.display_name }}
                                 </a>
                             </li>
                         {% endfor %}
@@ -52,7 +79,6 @@
         {% endif %}
 
     </div>
-
 
 
 {% endblock %}
