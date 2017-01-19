@@ -28,26 +28,28 @@
     <div class="titles-by-county-list">
 
         <p>Titles by County:</p>
+        {% if county_titles %}
         <ul>
             {% for ct in county_titles %}
+                {% if ct.titles %}
                 <li>
                     {{ ct.county }}
                     <ul>
-                        {% if ct.titles %}
-                            {% for title in ct.titles %}
-                                <li>
-                                    <a href="{% url 'chronam_title' title.lccn %}">
-                                        {{title.display_name}}
-                                    </a>
-                                </li>
-                            {% endfor %}
-                        {% else %}
-                            <li>None</li>
-                        {% endif %}
+                        {% for title in ct.titles %}
+                            <li>
+                                <a href="{% url 'chronam_title' title.lccn %}">
+                                    {{title.display_name}}
+                                </a>
+                            </li>
+                        {% endfor %}
                     </ul>
+                {% endif %}
                 </li>
             {% endfor %}
         </ul>
+        {% else %}
+            None Yet!
+        {% endif %}
 
     </div>
 

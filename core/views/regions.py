@@ -27,7 +27,8 @@ def regions(request, region=None):
             titles = dict()
             titles['county'] = county
             titles['titles'] = Title.objects.filter(places__county__contains=county)
-            county_titles.append(titles)
+            if titles['titles']:
+                county_titles.append(titles)
 
     return render_to_response('regions.html',
                               dictionary=locals(),
