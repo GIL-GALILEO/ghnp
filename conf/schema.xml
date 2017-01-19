@@ -119,6 +119,8 @@
           required="false" multiValued="true" />
       <field name="county" type="string" indexed="true" stored="true"
           required="false" multiValued="true" />
+      <field name="region" type="string" indexed="true" stored="true"
+          required="false" multiValued="true" />
       <field name="city" type="string" indexed="true" stored="true"
           required="false" multiValued="true" />
       <field name="place" type="string" indexed="true" stored="true"

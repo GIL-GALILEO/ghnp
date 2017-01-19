@@ -382,6 +382,8 @@ def title_search(d):
         q.append('+county:"%s"' % d['county'])
     if d.get('city'):
         q.append('+city:"%s"' % d['city'])
+    if d.get('region'):
+        q.append('+region:"%s"' % d['region'])
     for term in d.get('terms', '').replace('"', '').split():
         q.append('+(title:"%s" OR essay:"%s" OR note:"%s" OR edition:"%s" OR place_of_publication:"%s" OR url:"%s" OR publisher:"%s")' % (term, term, term, term, term, term, term))
     if d.get('frequency'):
@@ -397,7 +399,7 @@ def title_search(d):
         year1 = '1690'
     year2 = d.get('year2', None)
     if not year2:
-        year2 = '2009'
+        year2 = '2017'
     # don't add the start_year restriction if it's the lowest allowed year
     if year1 != '1690':
         q.append('+end_year:[%s TO 9999]' % year1)

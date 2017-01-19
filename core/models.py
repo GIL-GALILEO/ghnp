@@ -300,6 +300,7 @@ class Title(models.Model):
             'note': [n.text for n in self.notes.all()],
             'city': [p.city for p in self.places.all()],
             'county': [p.county for p in self.places.all()],
+            'region': [p.region.slug for p in self.places.all()],
             'country': self.country.name,
             'state': [p.state for p in self.places.all()],
             'place': [p.name for p in self.places.all()],

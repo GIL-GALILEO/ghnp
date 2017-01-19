@@ -27,10 +27,10 @@
                         <input type="hidden" name="rows" id="rows" alt="rows" value="20" />
                         <input type="hidden" name="searchType" alt="searchType" value="basic" />
                         <input class="search-query span3" type="text" name="proxtext" placeholder="Search within Newspaper contents">
-                        <select class="">
+                        <select name="region" id="region" class="">
                             <option value="">All Regions</option>
                             {% for region in regions %}
-                                <option value="{{ region.id }}">{{ region.name }}</option>
+                                <option value="{{ region.slug }}">{{ region.name }}</option>
                             {% endfor %}
                         </select>
                         <button type="submit" class="btn btn-primary"><i class="icon-search icon-white"></i></button>
