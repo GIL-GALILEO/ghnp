@@ -14,7 +14,7 @@
             <input type="hidden" name="searchType" alt="searchType" value="basic" />
             <input type="hidden" name="region" id="region" alt="region" value="{{ region.slug }}" />
             <input class="search-query" type="text" name="proxtext" placeholder="Search within {{ region.name }}">
-            <select class="">
+            <select class="" name="city" id="city">
                 <option value="">All {{ region.name }} cities with Titles</option>
                 {% for city in cities_with_titles %}
                     <option value="{{ city.city|lower }}">{{ city.city }}</option>
