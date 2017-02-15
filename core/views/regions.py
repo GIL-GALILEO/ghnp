@@ -5,15 +5,24 @@ from chronam.core.models import Region, Place, Title
 
 def regions(request, region=None):
 
-    if region:
-        region = get_object_or_404(Region, slug=region)
-        page_title = '%s Newspapers' % region.name
-        places = Place.objects.filter(state='Georgia', region=region)
-        region_image = 'images/' + region.homepage_image
-        region_text = region.homepage_copy
-    else:
-        page_title = 'Browse Newspapers by Region'
-        places = Place.objects.filter(state='Georgia')
+    page_title = 'Browse Newspapers by Region'
+    places = Place.objects.filter(state='Georgia')
+
+    region_image = 'images/state_counties.png'
+
+    return render_to_response('regions.html',
+                              dictionary=locals(),
+                              context_instance=RequestContext(request))
+
+
+def region_page(request, region):
+
+    region = get_object_or_404(Region, slug=region)
+
+    page_title = '%s Newspapers' % region.name
+    places = Place.objects.filter(state='Georgia', region=region)
+    region_image = 'images/' + region.homepage_image
+    region_text = region.homepage_copy
 
     counties = []
     county_titles = []
@@ -40,6 +49,6 @@ def regions(request, region=None):
 
     cities_with_titles = Place.objects.filter(titles__in=all_titles).values('city')
 
-    return render_to_response('regions.html',
+    return render_to_response('region.html',
                               dictionary=locals(),
                               context_instance=RequestContext(request))

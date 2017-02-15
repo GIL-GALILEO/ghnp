@@ -493,8 +493,8 @@ urlpatterns += [
 
     # example: /regions/west /middle /south /atlanta
     url(r'^regions/(?P<region>[^/;]+)/$',
-        views.regions,
-        name="regions"),
+        views.region_page,
+        name="region_page"),
 ]
 
 # linked-data rdf/atom/json views

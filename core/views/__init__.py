@@ -26,4 +26,4 @@ from reports import reports, batches, batches_atom, batches_json, batches_csv, \
     title_json, issue_pages_json, page_json, languages, language_batches, \
     language_titles, language_pages
 
-from regions import regions
+from regions import regions, region_page
