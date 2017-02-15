@@ -67,6 +67,7 @@ def search_pages_results(request, view_type='gallery'):
 
     host = request.get_host()
     format = request.GET.get('format', None)
+    total_items = paginator.count
     if format == 'atom':
         feed_url = 'http://' + host + request.get_full_path()
         updated = rfc3339(datetime.datetime.now())
@@ -78,7 +79,7 @@ def search_pages_results(request, view_type='gallery'):
         results = {
             'startIndex': start,
             'endIndex': end,
-            'totalItems': paginator.count,
+            'totalItems': total_items,
             'itemsPerPage': rows,
             'items': [p.solr_doc for p in page.object_list],
         }
@@ -113,7 +114,8 @@ def search_pages_results(request, view_type='gallery'):
         template = "search_pages_results.html"
     page_list = []
     for count in range(len(page.object_list)):
-        page_list.append((count + start, page.object_list[count]))
+        page_list.append((start + count, page.object_list[count]))
+    finish = start + (len(page_list) - 1)
     return render_to_response(template, dictionary=locals(),
                               context_instance=RequestContext(request))
 

@@ -5,6 +5,7 @@
 {% block content %}
 
 <div class="content">
+  <p>{% if total_items > 0 %}<span class="badge badge-info">{{ total_items }}</span> Pages Found. Displaying {{ start }} - {{ finish }}{% else %}No Results Found{% endif %}</p>
   <div class="row">
     <div class="span6">
       <div class="pagination pagination-small">
@@ -43,6 +44,10 @@
 	       data-id="{{object.url}}"
 	       data-words="{{object.words|join:' '}}">
 	</a>
+    <span class="result-thumb-info muted">
+       {% with object.issue.title as title %}{{title.display_name}} ({{title.place_of_publication}}), {{object.issue|label}}, {{object|label}}{% endwith %}
+    </span>
+
     </li>
     {% endfor %}
   </ul>
