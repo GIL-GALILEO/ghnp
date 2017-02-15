@@ -5,7 +5,7 @@ from chronam.core.models import Region, Place, Title
 
 def regions(request, region=None):
 
-    page_title = 'Browse Newspapers by Region'
+    page_title = 'Browse by Region'
     places = Place.objects.filter(state='Georgia')
 
     region_image = 'images/state_counties.png'
@@ -19,7 +19,7 @@ def region_page(request, region):
 
     region = get_object_or_404(Region, slug=region)
 
-    page_title = '%s Newspapers' % region.name
+    page_title = region.name
     places = Place.objects.filter(state='Georgia', region=region)
     region_image = 'images/' + region.homepage_image
     region_text = region.homepage_copy
