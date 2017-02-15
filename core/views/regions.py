@@ -9,6 +9,8 @@ def regions(request, region=None):
         region = get_object_or_404(Region, slug=region)
         page_title = '%s Newspapers' % region.name
         places = Place.objects.filter(state='Georgia', region=region)
+        region_image = 'images/' + region.homepage_image
+        region_text = region.homepage_copy
     else:
         page_title = 'Browse Newspapers by Region'
         places = Place.objects.filter(state='Georgia')

@@ -8,77 +8,116 @@
 
 {% block main_content %}
 
-    <div class="regional-search well well-small">
-        <form class="form-inline form-search" action="{% url 'chronam_search_pages_results' %}" method="get">
-            <input type="hidden" name="rows" id="rows" alt="rows" value="20" />
-            <input type="hidden" name="searchType" alt="searchType" value="basic" />
-            <input type="hidden" name="region" id="region" alt="region" value="{{ region.slug }}" />
-            <input class="search-query" type="text" name="proxtext" placeholder="Search within {{ region.name }}">
-            <select class="" name="city" id="city">
-                <option value="">All {{ region.name }} cities with Titles</option>
-                {% for city in cities_with_titles %}
-                    <option value="{{ city.city|lower }}">{{ city.city }}</option>
-                {% endfor %}
-            </select>
-            <button type="submit" class="btn btn-primary"><i class="icon-search icon-white"></i></button>
-            <a href="/search/advanced/" class="btn btn-link pull-right">Advanced Search</a>
-        </form>
-    </div>
+    <div class="row">
 
-    <div class="counties-list well well-small">
+        <div class="span8">
 
-        <p>Counties Included: {{ counties|join:", " }}</p>
-
-    </div>
-
-    <div class="cities-list well well-small">
-
-        <p>Cities Included: {{ cities|join:", " }}</p>
-
-    </div>
-
-    <div class="all-titles well well-small">
-        {% if all_titles %}
-            <p>All Titles in Region:</p>
-            <ul>
-            {% for title in all_titles %}
-                <li>
-                    <a href="{% url 'chronam_title' title.lccn %}">
-                        {{ title.display_name }}
-                    </a>
-                </li>
-            {% endfor %}
-            </ul>
-        {% endif %}
-    </div>
-
-    <div class="titles-by-county-list">
-
-        <p>Titles by County:</p>
-        {% if county_titles %}
-        <ul>
-            {% for ct in county_titles %}
-                {% if ct.titles %}
-                <li>
-                    {{ ct.county }} ({{ ct.titles|length }})
-                    <ul>
-                        {% for title in ct.titles %}
-                            <li>
-                                <a href="{% url 'chronam_title' title.lccn %}">
-                                    {{ title.display_name }}
-                                </a>
-                            </li>
+            <div class="regional-search">
+                <form class="form-inline form-search" action="{% url 'chronam_search_pages_results' %}" method="get">
+                    <input type="hidden" name="rows" id="rows" alt="rows" value="20" />
+                    <input type="hidden" name="searchType" alt="searchType" value="basic" />
+                    <input type="hidden" name="region" id="region" alt="region" value="{{ region.slug }}" />
+                    <input class="search-field input-xlarge" type="text" name="proxtext" placeholder="Search within {{ region.name }}">
+                    <select class="region-limit input-xlarge" name="city" id="city">
+                        <option value="">All {{ region.name }} cities with Titles</option>
+                        {% for city in cities_with_titles %}
+                            <option value="{{ city.city|lower }}">{{ city.city }}</option>
                         {% endfor %}
-                    </ul>
+                    </select>
+                    <button type="submit" class="btn btn-primary">Search <i class="icon-search icon-white"></i></button>
+                </form>
+            </div>
+
+            <div id="titles-by-county">
+
+                <h3>Titles by County</h3>
+
+                <div id="titles-by-county-container" class="row-fluid">
+                {% if county_titles %}
+                    {% for ct in county_titles %}
+                    {% if ct.titles %}
+                        <div class="panel span3">
+                            <div class="panel-heading">
+                                {{ ct.county }}
+                                <span class="county-title-count badge pull-right">
+                                    {{ ct.titles|length }}
+                                </span>
+                            </div>
+                            {% if ct.titles %}
+                                {% for title in ct.titles %}
+                                     <div class="county-titles-list-item">
+                                        <a href="{% url 'chronam_title' title.lccn %}" class="county-titles-list-item-link">
+                                            {{ title.display_name }}
+                                        </a>
+                                    </div>
+                                {% endfor %}
+                            {% endif %}
+                        </div>
+                    {% endif %}
+                    {% endfor %}
+
+                {% else %}
+                    None Yet!
                 {% endif %}
-                </li>
-            {% endfor %}
-        </ul>
-        {% else %}
-            None Yet!
-        {% endif %}
+                </div>
+
+
+            </div>
+
+            <div class="region-about-text">
+
+                <h3>About</h3>
+
+                {{ region_text|linebreaks }}
+
+            </div>
+
+
+
+        </div>
+
+
+        <div class="span4">
+
+            <div class="region-map">
+                <img src="{% static region_image %}" border="0" height="500px" />
+            </div>
+
+
+            <div class="counties-list well well-small">
+
+                <p>Counties Included: {{ counties|join:", " }}</p>
+
+            </div>
+
+            <div class="cities-list well well-small">
+
+                <p>Cities Included: {{ cities|join:", " }}</p>
+
+            </div>
+
+        </div>
 
     </div>
+
+
+
+{#    <div class="all-titles well well-small">#}
+{#        {% if all_titles %}#}
+{#            <p>All Titles in Region:</p>#}
+{#            <ul>#}
+{#            {% for title in all_titles %}#}
+{#                <li>#}
+{#                    <a href="{% url 'chronam_title' title.lccn %}">#}
+{#                        {{ title.display_name }}#}
+{#                    </a>#}
+{#                </li>#}
+{#            {% endfor %}#}
+{#            </ul>#}
+{#        {% endif %}#}
+{#    </div>#}
+
+
 
 
 {% endblock %}

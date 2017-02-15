@@ -1294,12 +1294,14 @@ class TopicPages(models.Model):
 # todo move to non-core file?
 
 class Region(models.Model):
-    slug = models.CharField(max_length=50)
-    name = models.CharField(max_length=100)
+    slug = models.CharField(max_length=50, null=True)
+    name = models.CharField(max_length=100, null=True)
+    homepage_copy = models.TextField(null=True)
+    homepage_image = models.CharField(max_length=100, null=True)
 
 class Type(models.Model):
-    name = models.CharField(max_length=250)
+    name = models.CharField(max_length=250, null=True)
 
 class FundingSource(models.Model):
-    slug = models.CharField(max_length=50)
-    name = models.CharField(max_length=250)
+    slug = models.CharField(max_length=50, null=True)
+    name = models.CharField(max_length=250, null=True)
