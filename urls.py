@@ -487,9 +487,9 @@ urlpatterns += [
         name="chronam_calendar"),
 
     # example: /regions/
-    url(r'^regions/$',
-        views.regions,
-        name="regions"),
+    # url(r'^regions/$',
+    #     views.regions,
+    #     name="regions"),
 
     # example: /regions/west /middle /south /atlanta
     url(r'^regions/(?P<region>[^/;]+)/$',
