@@ -2,25 +2,7 @@ from django.conf import settings
 from django.shortcuts import render_to_response, get_object_or_404
 from django.template import RequestContext
 from django.core import urlresolvers
-from chronam.core.models import Region, Place, Title
-
-def regions(request, region=None):
-
-    page_title = 'Browse by Region'
-    places = Place.objects.filter(state='Georgia')
-
-    region_image = 'images/state_counties.png'
-
-    crumbs = list(settings.BASE_CRUMBS)
-    crumbs.append({
-        'label': 'Browse by Location',
-        'href': urlresolvers.reverse('regions')
-    })
-
-    return render_to_response('regions.html',
-                              dictionary=locals(),
-                              context_instance=RequestContext(request))
-
+from chronam.core.models import Region, Place, Title, Type
 
 def region_page(request, region):
 
@@ -34,7 +16,7 @@ def region_page(request, region):
     crumbs = list(settings.BASE_CRUMBS)
     crumbs.append({
         'label': 'Browse by Location',
-        'href': urlresolvers.reverse('regions')
+        'href': 'Regions'
     })
     crumbs.append({
         'label': region.name,
@@ -65,6 +47,8 @@ def region_page(request, region):
                     all_titles.append(title)
 
     cities_with_titles = Place.objects.filter(titles__in=all_titles).values('city')
+
+    types = Type.objects.all
 
     return render_to_response('region.html',
                               dictionary=locals(),

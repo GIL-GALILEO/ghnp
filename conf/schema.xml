@@ -115,6 +115,8 @@
           required="false" multiValued="true" />
       <field name="subject_facet" type="string" indexed="true" stored="true"
           required="false" multiValued="true" />
+      <field name="type" type="string" indexed="true" stored="true"
+          required="false" multiValued="true" />
       <field name="state" type="string" indexed="true" stored="true"
           required="false" multiValued="true" />
       <field name="county" type="string" indexed="true" stored="true"

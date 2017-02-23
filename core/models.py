@@ -301,6 +301,7 @@ class Title(models.Model):
             'city': [p.city for p in self.places.all()],
             'county': [p.county for p in self.places.all()],
             'region': [p.region.slug for p in self.places.all()],
+            'newspaper_type': [p.type.slug for p in self.types.all()],
             'country': self.country.name,
             'state': [p.state for p in self.places.all()],
             'place': [p.name for p in self.places.all()],
@@ -1300,6 +1301,7 @@ class Region(models.Model):
     homepage_image = models.CharField(max_length=100, null=True)
 
 class Type(models.Model):
+    slug = models.CharField(max_length=50, null=True)
     name = models.CharField(max_length=250, null=True)
 
 class FundingSource(models.Model):

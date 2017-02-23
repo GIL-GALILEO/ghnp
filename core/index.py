@@ -382,6 +382,8 @@ def title_search(d):
         q.append('+county:"%s"' % d['county'])
     if d.get('city'):
         q.append('+city:"%s"' % d['city'])
+    if d.get('newspaper_type'):
+        q.append('+newspaper_type:"%s"' % d['newspaper_type'])
     if d.get('region'):
         q.append('+region:"%s"' % d['region'])
     for term in d.get('terms', '').replace('"', '').split():
