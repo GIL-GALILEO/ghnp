@@ -27,3 +27,5 @@ from reports import reports, batches, batches_atom, batches_json, batches_csv, \
     language_titles, language_pages
 
 from regions import region_page
+
+from api import newspaper_types, funding_sources

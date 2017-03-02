@@ -495,6 +495,17 @@ urlpatterns += [
     url(r'^regions/(?P<region>[^/;]+)/$',
         views.region_page,
         name="region_page"),
+
+    # show stored newspaper types
+    url(r'^api/newspaper-types',
+        views.newspaper_types,
+        name="api_newspaper_types"),
+
+    # show stored funding sources
+    url(r'^api/funding-sources',
+        views.funding_sources,
+        name="api_funding_sources"),
+
 ]
 
 # linked-data rdf/atom/json views
