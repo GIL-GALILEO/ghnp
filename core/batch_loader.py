@@ -28,7 +28,7 @@ except ImportError:
     j2k = None
 
 from chronam.core import models
-from chronam.core.models import Batch, Issue, Title, Awardee, Page, OCR
+from chronam.core.models import Batch, Issue, Title, Awardee, Page, OCR, FundingSource, NewspaperType
 from chronam.core.models import LoadBatchEvent
 from chronam.core.ocr_extractor import ocr_extractor
 
@@ -58,7 +58,7 @@ class BatchLoader(object):
     object serves as a context for a particular batch loading job.
     """
 
-    def __init__(self, process_ocr=True, process_coordinates=True):
+    def __init__(self, process_ocr=True, process_coordinates=True, additional_metadata=None):
         """Create a BatchLoader.
 
         The process_ocr parameter is used (mainly in testing) when we don't
@@ -68,6 +68,21 @@ class BatchLoader(object):
         if self.PROCESS_OCR:
             self.solr = SolrConnection(settings.SOLR)
         self.PROCESS_COORDINATES = process_coordinates
+
+        if additional_metadata:
+            try:
+                with open(additional_metadata, 'rb') as f:
+                    data = json.load(f)
+                self.FUNDING_SOURCE_SLUG = data.get('funding_source')
+                self.NEWSPAPER_TYPE_SLUGS = data.get('newspaper_type')
+            except IOError, e:
+                _logger.exception(e)
+            except json.JSONDecodeError, e:
+                _logger.exception(e)
+        else:
+            self.FUNDING_SOURCE_SLUG = None
+            self.NEWSPAPER_TYPE_SLUGS = None
+
 
     def _find_batch_file(self, batch):
         """
@@ -261,6 +276,14 @@ class BatchLoader(object):
             logging.info("attempting to load marc record from %s", url)
             management.call_command('load_titles', url)
             title = Title.objects.get(lccn=lccn)
+
+        # update title with funding source and newspaper types if not already set and values are available
+        if not title.funding_source and not title.newspaper_types:
+            if self.FUNDING_SOURCE_SLUG and self.NEWSPAPER_TYPE_SLUGS:
+                title.funding_source = FundingSource.objects.get(slug= self.FUNDING_SOURCE_SLUG)
+                title.newspaper_types = NewspaperType.objects.filter(slug__in= self.NEWSPAPER_TYPE_SLUGS)
+                title.save()
+
         issue.title = title
 
         issue.batch = self.current_batch

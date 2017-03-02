@@ -2,10 +2,7 @@ import os
 import logging
 
 from optparse import make_option
-
-from django.core.management.base import BaseCommand
-from django.core.management.base import CommandError
-
+from django.core.management.base import BaseCommand, CommandError
 from chronam.core.batch_loader import BatchLoader, BatchLoaderException
 from chronam.core.management.commands import configure_logging
     
@@ -16,6 +13,7 @@ LOGGER = logging.getLogger(__name__)
 
 
 class Command(BaseCommand):
+
     option_list = BaseCommand.option_list + (
         make_option('--skip-process-ocr', 
                     action='store_false', 
@@ -25,7 +23,15 @@ class Command(BaseCommand):
                     action='store_false', 
                     dest='process_coordinates', default=True,
                     help='Do not out word coordinates'),
+        make_option('--additional-metadata',
+                    action='store',
+                    default=None,
+                    type='string',
+                    dest='metadata_filename',
+                    help='Read additional metadata from FILE',
+                    metavar='FILE'),
     )
+
     help = "Load a batch"
     args = '<batch name>'
 
@@ -34,7 +40,8 @@ class Command(BaseCommand):
             raise CommandError('Usage is load_batch %s' % self.args)
 
         loader = BatchLoader(process_ocr=options['process_ocr'],
-                             process_coordinates=options['process_coordinates'])
+                             process_coordinates=options['process_coordinates'],
+                             additional_metadata=options['metadata_filename'])
         try:
             batch = loader.load_batch(batch_name)
         except BatchLoaderException, e:
