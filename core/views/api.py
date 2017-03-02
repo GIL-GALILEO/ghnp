@@ -1,10 +1,10 @@
 import json
 from django.shortcuts import HttpResponse
-from chronam.core.models import FundingSource, Type
+from chronam.core.models import FundingSource, NewspaperType
 
 def newspaper_types(request):
     data = []
-    for t in Type.objects.all():
+    for t in NewspaperType.objects.all():
         type_data = dict(id = t.id, slug = t.slug, name = t.name)
         data.append(type_data)
     return HttpResponse(json.dumps(data), content_type='application/json')

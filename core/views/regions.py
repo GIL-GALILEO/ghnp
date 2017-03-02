@@ -2,7 +2,7 @@ from django.conf import settings
 from django.shortcuts import render_to_response, get_object_or_404
 from django.template import RequestContext
 from django.core import urlresolvers
-from chronam.core.models import Region, Place, Title, Type
+from chronam.core.models import Region, Place, Title, NewspaperType
 
 def region_page(request, region):
 
@@ -48,7 +48,7 @@ def region_page(request, region):
 
     cities_with_titles = Place.objects.filter(titles__in=all_titles).values('city')
 
-    types = Type.objects.all
+    types = NewspaperType.objects.all
 
     return render_to_response('region.html',
                               dictionary=locals(),

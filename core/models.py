@@ -216,7 +216,7 @@ class Title(models.Model):
     has_issues = models.BooleanField(default=False, db_index=True)
     uri = models.URLField(null=True, max_length=500, help_text="856$u")
     sitemap_indexed = models.DateTimeField(auto_now_add=False, null=True)
-    types = models.ManyToManyField('Type')
+    newspaper_types = models.ManyToManyField('NewspaperType')
     funding_source = models.ForeignKey('FundingSource', null=True)
 
     @property
@@ -301,7 +301,7 @@ class Title(models.Model):
             'city': [p.city for p in self.places.all()],
             'county': [p.county for p in self.places.all()],
             'region': [p.region.slug for p in self.places.all()],
-            'newspaper_type': [p.type.slug for p in self.types.all()],
+            'newspaper_type': [p.slug for p in self.newspaper_types.all()],
             'country': self.country.name,
             'state': [p.state for p in self.places.all()],
             'place': [p.name for p in self.places.all()],
@@ -1300,7 +1300,7 @@ class Region(models.Model):
     homepage_copy = models.TextField(null=True)
     homepage_image = models.CharField(max_length=100, null=True)
 
-class Type(models.Model):
+class NewspaperType(models.Model):
     slug = models.CharField(max_length=50, null=True)
     name = models.CharField(max_length=250, null=True)
 

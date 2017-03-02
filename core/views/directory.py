@@ -51,8 +51,8 @@ def newspapers(request, city=None, region=None, type=None, format='html'):
 
     if type:
         try:
-            type_obj = models.Type.objects.get(name=type)
-        except models.Type.DoesNotExist:
+            type_obj = models.NewspaperType.objects.get(name=type)
+        except models.NewspaperType.DoesNotExist:
             raise Http404
     else:
         type_obj=None
