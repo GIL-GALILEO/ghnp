@@ -3,8 +3,16 @@
     <head profile="http://dublincore.org/documents/2008/08/04/dc-html/">
     {% block head_content %}
         <meta charset="utf-8">
-        <title>{% if page_title %}{{page_title}} « {% endif %}{% if site_title %}{{site_title}} « {% endif %}Georgia Historic Newspapers</title>
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>
+            {% if page_title %}
+                {{page_title}} «
+            {% endif %}
+            {% if site_title %}
+                {{site_title}} «
+            {% endif %}
+            Georgia Historic Newspapers
+        </title>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
 {#        <link href="{% static 'bootstrap/css/bootstrap.min.css' %}" rel="stylesheet" media="screen">#}
 {#        <link href="{% static 'bootstrap/css/bootstrap-responsive.css' %}" rel="stylesheet">#}
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
@@ -16,79 +24,69 @@
         <![endif]-->
     {% endblock head_content %}
     </head>
+
     <body>
     {% block body_content %}
         <div class="container">
+
+            {# Header Baner       #}
             <div class="row">
-                <div class="span2">DLG Logo</div>
-                <div class="span8">
+                <div class="col-md-2">DLG Logo</div>
+                <div class="col-md-8">
                     <h1>Georgia Historic Newspapers</h1>
                 </div>
-                <div class="span2">GALILEO Logo</div>
+                <div class="col-md-2">GALILEO Logo</div>
             </div>
-            <div class="navbar">
-                <div class="navbar-inner">
-                    <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                    </a>
 
-                    <div class="nav-collapse collapse">
-                        <ul class="nav">
+            <nav class="navbar navbar-default">
+                <div class="container-fluid">
+                    <div class="navbar-header">
+                        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                            <span class="sr-only">Toggle navigation</span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                        </button>
+                    </div>
+
+                    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                        <ul class="nav navbar-nav">
+{#                          <li class="active"><a href="#">Link <span class="sr-only">(current)</span></a></li>#}
                             <li><a href="/">Home</a></li>
                             <li><a href="{% url 'chronam_search_advanced' %}">Search</a></li>
                             <li><a href="{% url 'chronam_newspapers' %}">Browse by Title</a></li>
                             <li><a href="{% url 'chronam_calendar' %}">Browse by Date</a></li>
+
                             <li class="dropdown">
-                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">Regions <b class="caret"></b></a>
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Regions <span class="caret"></span></a>
                                 <ul class="dropdown-menu">
-                                    <li>
-                                        <a tabindex="-1" href="/regions/north/">North Georgia</a>
-                                    </li>
-
-                                    <li>
-                                        <a tabindex="-1" href="/regions/west/">West Georgia</a>
-                                    </li>
-
-                                    <li>
-                                        <a tabindex="-1" href="/regions/south/">South Georgia</a>
-                                    </li>
-
-                                    <li>
-                                        <a tabindex="-1" href="/regions/middle/">Middle Georgia</a>
-                                    </li>
-
-                                    <li>
-                                        <a tabindex="-1" href="/regions/east/">East Georgia</a>
-                                    </li>
-
-                                    <li>
-                                        <a tabindex="-1" href="/regions/atlanta/">Metro Atlanta</a>
-                                    </li>
+                                    <li><a tabindex="-1" href="/regions/north/">North Georgia</a></li>
+                                    <li><a tabindex="-1" href="/regions/west/">West Georgia</a></li>
+                                    <li><a tabindex="-1" href="/regions/south/">South Georgia</a></li>
+                                    <li><a tabindex="-1" href="/regions/middle/">Middle Georgia</a></li>
+                                    <li><a tabindex="-1" href="/regions/east/">East Georgia</a></li>
+                                    <li><a tabindex="-1" href="/regions/atlanta/">Metro Atlanta</a></li>
                                 </ul>
                             </li>
+
                             <li><a href="">Help</a></li>
                             <li><a href="">Participate</a></li>
                             <li><a href="">About</a></li>
                         </ul>
+
                     </div>
                 </div>
-            </div>
-        </div>
-
-
-        <div id="main-container" class="container">
+            </nav>
 
             {% if crumbs and crumbs|length > 1 %}
             <div class="breadcrumb-area">
-                <ul class="breadcrumb">
+                <ol class="breadcrumb">
                     {% for crumb in crumbs %}
                     <li {% if crumb.active %}class="active"{% endif %}>
-                        <a href="{{crumb.href}}">{{crumb.label}}</a>{% if forloop.last %}{% else %} <span class="divider">/</span>{% endif %}
+                        <a href="{{crumb.href}}">{{crumb.label}}</a>
                     </li>
                     {% endfor %}
-                </ul>
+                </ol>
             </div>
             {% endif %}
 
@@ -96,28 +94,31 @@
             {% block content %}
             {% endblock content %}
 
+            <footer class="muted">
+                <p>The Georgia Historic Newspapers database is a project of the Digital Library of Georgia as part of
+                    Georgia HomePlace. The project is supported with federal LSTA funds administered by the
+                    <a href="https://www.imls.gov/">Institute of Museum and Library Services</a> through the
+                    <a href="http://georgialibraries.org/">Georgia Public Library Service</a>, a unit of the Board of
+                    Regents of the <a href="http://www.usg.edu/">University System of Georgia</a>.</p>
+            </footer>
+
         </div>
 
-        <footer class="muted">
-            <p>The Georgia Historic Newspapers database is a project of the Digital Library of Georgia as part of
-                Georgia HomePlace. The project is supported with federal LSTA funds administered by the
-                <a href="https://www.imls.gov/">Institute of Museum and Library Services</a> through the
-                <a href="http://georgialibraries.org/">Georgia Public Library Service</a>, a unit of the Board of
-                Regents of the <a href="http://www.usg.edu/">University System of Georgia</a>.</p>
-        </footer>
-
     {% endblock body_content %}
+
     {% block javascript %}
         <script src="{% static 'js/jquery.min.js' %}"></script>
         <script src="{% static 'bootstrap/js/bootstrap.min.js' %}"></script>
-        {% endblock javascript %}
-        <script type="text/javascript">
-        (function($) {
-            function initPage() {
-                $('ul.nav > li > a[href="' + document.location.pathname + '"]').parent().addClass('active');
-            }
-            $(initPage);
-        })(jQuery)
-        </script>
+    {% endblock javascript %}
+
+    <script type="text/javascript">
+    (function($) {
+        function initPage() {
+            $('ul.nav > li > a[href="' + document.location.pathname + '"]').parent().addClass('active');
+        }
+        $(initPage);
+    })(jQuery)
+    </script>
+
     </body>
 </html>
