@@ -45,6 +45,7 @@
 <!--
   fields
 -->
+      <field name="_version_" type="tlong" indexed="true" stored="true" multiValued="false" />
       <field name="id" type="string" indexed="true" stored="true"
           required="true" multiValued="false" />
       <field name="type" type="string" indexed="true" stored="true"
