@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <schema name="example" version="1.5">
   <fieldType name="boolean" class="solr.BoolField" sortMissingLast="true" omitNorms="true"/>
-  <fieldType name="tint" class="solr.TrieIntField" precisionStep="0" positionIncrementGap="0" sortMissingLast="true" omitNorms="true"/>
-  <fieldType name="tfloat" class="solr.TrieFloatField" precisionStep="0" positionIncrementGap="0" sortMissingLast="true" omitNorms="true"/>
+  <fieldType name="tint" class="solr.TrieIntField" precisionStep="0" sortMissingLast="true" omitNorms="true"/>
+  <fieldType name="tfloat" class="solr.TrieFloatField" precisionStep="0" sortMissingLast="true" omitNorms="true"/>
   <fieldType name="string" class="solr.StrField" sortMissingLast="true" omitNorms="true"/>
   <fieldType name="text_lower" class="solr.TextField" sortMissingLast="true" omitNorms="true">
     <analyzer>
@@ -10,7 +10,7 @@
         <filter class="solr.LowerCaseFilterFactory"/>
       </analyzer>
   </fieldType>
-  <fieldType name="date" class="solr.TrieDateField" precisionStep="0" positionIncrementGap="0" sortMissingLast="true" omitNorms="true"/>
+  <fieldType name="date" class="solr.TrieDateField" precisionStep="0" sortMissingLast="true" omitNorms="true"/>
   <fieldType name="text" class="solr.TextField">
     <analyzer>
       <tokenizer class="solr.WhitespaceTokenizerFactory"/>
