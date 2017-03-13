@@ -97,6 +97,8 @@
           required="true" multiValued="false" />
       <field name="type" type="string" indexed="true" stored="true"
           required="true" multiValued="false" />
+      <field name="newspaper_type" type="string" indexed="true" stored="true"
+          required="false" multiValued="true" />
       <field name="lccn" type="string" indexed="true" stored="true"
           required="true" multiValued="false" />
       <field name="language" type="string" indexed="true" stored="true"
@@ -114,8 +116,6 @@
       <field name="subject" type="text" indexed="true" stored="true"
           required="false" multiValued="true" />
       <field name="subject_facet" type="string" indexed="true" stored="true"
-          required="false" multiValued="true" />
-      <field name="type" type="string" indexed="true" stored="true"
           required="false" multiValued="true" />
       <field name="state" type="string" indexed="true" stored="true"
           required="false" multiValued="true" />
