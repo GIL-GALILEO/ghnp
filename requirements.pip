@@ -14,6 +14,6 @@ requests==2.9.1
 django-celery==3.1.17
 django-kombu==0.9.4
 worldcat==0.3.6
-psychopg2==2.7.1
+psycopg2>=2.7,<2.8
 
 
