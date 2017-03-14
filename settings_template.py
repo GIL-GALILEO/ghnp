@@ -27,10 +27,10 @@ ROOT_URLCONF = 'chronam.urls'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'chronam',
-        'USER': 'chronam',
-        'PASSWORD': 'pick_one',
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': 'ghnp',
+        'USER': 'vagrant',
+        'PASSWORD': 'vagrant',
         }
     }
 
@@ -108,9 +108,9 @@ import multiprocessing
 TOO_BUSY_LOAD_AVERAGE = 64 
 
 SOLR = "http://localhost:8983/solr"
-SOLR_LANGUAGES = ("eng", "fre", "spa", "ger", "ita",)
+SOLR_LANGUAGES = ("eng")
 
-STORAGE = '/opt/chronam/data/'
+STORAGE = '/var/www/ghnp/code/data/'
 BATCH_STORAGE = os.path.join(STORAGE, "batches")
 BIB_STORAGE = os.path.join(STORAGE, "bib")
 OCR_DUMP_STORAGE = os.path.join(STORAGE, "ocr")
