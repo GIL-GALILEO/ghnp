@@ -18,17 +18,14 @@ Vagrant.configure("2") do |config|
     apt-get update
     apt-get upgrade
     apt-get -y -q install python-software-properties software-properties-common gcc htop
-    # apt-get -y -q install python-dev python-virtualenv libxml2-dev libxslt-dev libjpeg-dev git-core graphicsmagick python-lxml zlib1g-dev
+    apt-get -y -q install python-dev python-virtualenv libxml2-dev libxslt-dev libjpeg-dev git-core graphicsmagick python-lxml zlib1g-dev python-imaging
     add-apt-repository ppa:webupd8team/java
     apt-get update
-
-    # download current app code
-    # git clone https://github.com/mksndz/dlg-chronam.git /var/www/ghnp/code
 
   SHELL
 
   config.vm.provision :shell, path: 'provision/solr.sh'
-  # config.vm.provision :shell, path: 'provision/postgres.sh'
-  # config.vm.provision :shell, path: 'provision/chronam.sh'
+  config.vm.provision :shell, path: 'provision/postgres.sh'
+  config.vm.provision :shell, path: 'provision/chronam.sh'
 
 end
