@@ -21,3 +21,15 @@ python /opt/chronam/core/manage.py collectstatic --noinput
 
 # ubuntu user should own django tmp dir
 sudo chown -R ubuntu:ubuntu /var/tmp/django-cache/
+
+# load ChronAm database data
+python core/manage.py loaddata chronam_sync --skip-essays
+
+# load DLG specific data
+python core/manage.py loaddata regions
+python core/manage.py loaddata newspaper_types
+# python core/manage.py loaddata funding_sources
+
+# refine data
+python core/manage.py refine_places
+
