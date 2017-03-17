@@ -20,10 +20,10 @@ python /opt/chronam/core/manage.py migrate
 python /opt/chronam/core/manage.py collectstatic --noinput
 
 # ubuntu user should own django tmp dir
-sudo chown -R ubuntu:ubuntu /var/tmp/django-cache/
+sudo chown -R ubuntu:ubuntu /var/tmp/
 
 # load ChronAm database data
-python /opt/chronam/core/manage.py loaddata chronam_sync --skip-essays
+python /opt/chronam/core/manage.py chronam_sync --skip-essays
 
 # load DLG specific data
 python /opt/chronam/core/manage.py loaddata regions
