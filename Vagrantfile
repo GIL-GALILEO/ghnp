@@ -15,12 +15,11 @@ Vagrant.configure("2") do |config|
     sudo date > /etc/vagrant_provisioned_at
 
     # basic
+    add-apt-repository ppa:webupd8team/java
     apt-get update
     apt-get upgrade
     apt-get -y -q install python-software-properties software-properties-common gcc htop
-    apt-get -y -q install python-dev python-virtualenv libxml2-dev libxslt-dev libjpeg-dev git-core graphicsmagick python-lxml zlib1g-dev python-imaging
-    add-apt-repository ppa:webupd8team/java
-    apt-get update
+    apt-get -y -q install python-dev python-virtualenv libxml2-dev libxslt-dev libjpeg-dev git-core graphicsmagick python-lxml zlib1g-dev python-imaging libgraphicsmagick1-dev
 
   SHELL
 
