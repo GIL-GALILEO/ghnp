@@ -1,1 +1,0 @@
-INSERT INTO chronam.core_fundingsource (slug, name) VALUES ('mk', 'The Michael Kanning Endowment for History');
