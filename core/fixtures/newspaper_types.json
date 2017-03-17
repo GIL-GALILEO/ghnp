@@ -1,0 +1,34 @@
+[
+  {
+    "fields": {
+      "slug": "religious",
+      "name": "Religious"
+    },
+    "model": "core.newspapertype",
+    "pk": 1
+  },
+  {
+    "fields": {
+      "slug": "community",
+      "name": "Community"
+    },
+    "model": "core.newspapertype",
+    "pk": 2
+  },
+  {
+    "fields": {
+      "slug": "school",
+      "name": "School"
+    },
+    "model": "core.newspapertype",
+    "pk": 3
+  },
+  {
+    "fields": {
+      "slug": "african_american",
+      "name": "African American"
+    },
+    "model": "core.newspapertype",
+    "pk": 4
+  }
+]
