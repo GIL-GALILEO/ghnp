@@ -100,6 +100,8 @@ CREATE DATABASE $APP_DB_NAME WITH OWNER=$APP_DB_USER
                                   TEMPLATE=template0;
 EOF
 
+sudo systemctl enable postgresql
+
 # Tag the provision time:
 date > "$PROVISIONED_ON"
 
