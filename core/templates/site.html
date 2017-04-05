@@ -141,11 +141,14 @@
     <main>
         <section>
             <div class="container">
+
                 <ol class="breadcrumb breadcrumb-arrow">
                     {% for crumb in crumbs %}
-                    <li>
-                        <a href="{{crumb.href}}">{{crumb.label}}</a>{% if forloop.last %}{% else %} <span class="divider">/</span>{% endif %}
-                    </li>
+                    {% if forloop.last %}
+                    <li class="active"><span>{{crumb.label}}</span></li>
+                    {% else %}
+                    <li><a href="{{ crumb.href }}">{{ crumb.label }}</a></li>
+                    {% endif %}
                     {% endfor %}
                 </ol>
 
