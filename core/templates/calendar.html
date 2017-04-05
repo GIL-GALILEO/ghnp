@@ -1,8 +1,4 @@
-{% extends "calendar_base.html" %}
-
-{% block lc_metadata %}
-{% include "includes/lc_metadata.html" %}
-{% endblock %}
+{% extends "site_base.html" %}
 
 {% block javascript %}
 {{ block.super }}
@@ -10,25 +6,44 @@
 jQuery(function($){
     $("#id_year").change(function(){
         window.location = '{% url 'chronam_calendar' %}' + this.value;
-        });
+    });
 });
 </script>
 {% endblock %}
 
-{% block extra_nav %}
-    <div class="col-md-4">
-        <form>
-            <label class="bold" for="year_select">Issues for:</label>&nbsp; {{select_year_form.year}}
-        </form>
+{% block content %}
+
+<div class="row">
+    <div class="col-md-3">
+        <div class="form-group">
+            <label for="exampleSelect1">Select a Year</label>
+            <select class="form-control" id="exampleSelect1">
+                {% for date in dates %}
+                    <option value="{{ date.year }}">{{ date.year }}</option>
+                {% endfor %}
+            </select>
+        </div>
+        <p>
+            Instructions or help here.
+        </p>
     </div>
-
-
-{% endblock %}
-
-{% block newspaper_content %}
-
-<div id="col2_right" class='row'>
-    {{year_view|safe}}
+    <div class="col-md-9">
+        <div class="row">
+            {{ year_view|safe }}
+        </div>
+    </div>
 </div>
 
-{% endblock %}
+{% endblock content %}
+
+
+
+<div class="col-md-4">
+    <form>
+        <label class="bold" for="year_select">Select a Year</label>&nbsp; {{select_year_form.year}}
+    </form>
+</div>
+
+<div id="col2_right" class='row'>
+    {{ year_view|safe }}
+</div>

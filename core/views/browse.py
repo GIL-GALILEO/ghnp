@@ -620,25 +620,23 @@ def chronam_topic(request, topic_id):
                               context_instance=RequestContext(request))
 
 # ripoff of NebNews calendar
-# todo urls
-# todo templates: see https://github.com/CDRH/nebnews/blob/master/nebraska/templates/calendar.html
 def chronam_calendar_issues(request, year=None):
-    issues = models.Issue.objects.all().order_by('date_issued')
-    if issues.count() > 0:
+    crumbs = list(settings.BASE_CRUMBS)
+    crumbs.extend([
+        {'label':'Browse','href': '#'},
+        {'label':'By Date'}
+    ])
+    all_issues = models.Issue.objects.all().order_by('date_issued')
+    if all_issues.count() > 0:
         if year is None:
             _year = issues[0].date_issued.year
         else:
             _year = int(year)
     else:
         _year = 1900  # no issues available
-    year_view = HTMLCalendar(firstweekday=6, issues=issues, all_issues=True).formatyear(_year)
-    dates = issues.dates('date_issued', 'year')
-
-    class SelectYearForm(django_forms.Form):
-        year = fields.ChoiceField(choices=((d.year, d.year) for d in dates),
-                                  initial=_year)
-    select_year_form = SelectYearForm()
-    page_title = "All Newspapers by Date"
+    year_view = HTMLCalendar(firstweekday=6, issues=all_issues, all_issues=True).formatyear(_year)
+    dates = all_issues.dates('date_issued', 'year')
+    page_title = "Newspapers by Date"
     page_name = "calendar"
     return render_to_response('calendar.html', dictionary=locals(),
                               context_instance=RequestContext(request))
