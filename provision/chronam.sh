@@ -28,6 +28,7 @@ python /opt/chronam/core/manage.py chronam_sync --skip-essays
 # load DLG specific data
 python /opt/chronam/core/manage.py loaddata regions
 python /opt/chronam/core/manage.py loaddata newspaper_types
+python /opt/chronam/core/manage.py loaddata awardee
 # python /opt/chronam/core/manage.py loaddata funding_sources
 
 # refine data
