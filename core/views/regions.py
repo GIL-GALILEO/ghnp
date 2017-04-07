@@ -14,14 +14,10 @@ def region_page(request, region):
     region_text = region.homepage_copy
 
     crumbs = list(settings.BASE_CRUMBS)
-    crumbs.append({
-        'label': 'Browse by Location',
-        'href': 'Regions'
-    })
-    crumbs.append({
+    crumbs.extend([{
         'label': region.name,
         'href': urlresolvers.reverse('region_page', kwargs={'region': region.slug} )
-    })
+    }])
 
     counties = []
     county_titles = []
