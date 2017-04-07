@@ -748,10 +748,10 @@ class Page(models.Model):
         for ocr_text in ocr_texts:
             # make sure Solr is configured to handle the language and if it's
             # not just treat it as English
-            lang = ocr_text['language__code']
-            if lang not in settings.SOLR_LANGUAGES:
-                lang = "eng"
-            doc['ocr_%s' % lang] = ocr_text['text']
+            # lang = ocr_text['language__code']
+            # if lang not in settings.SOLR_LANGUAGES:
+            #     lang = "eng"
+            doc['ocr'] = ocr_text['text']
         return doc
 
     def previous(self):
