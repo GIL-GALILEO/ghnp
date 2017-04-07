@@ -19,7 +19,7 @@ Vagrant.configure("2") do |config|
     apt-get update
     apt-get upgrade
     apt-get -y -q install python-software-properties software-properties-common gcc htop
-    apt-get -y -q install python-dev python-virtualenv libxml2-dev libxslt-dev libjpeg-dev git-core graphicsmagick python-lxml zlib1g-dev python-imaging libgraphicsmagick1-dev
+    apt-get -y -q install python-dev python-virtualenv libxml2-dev libxslt-dev libjpeg-dev git-core graphicsmagick python-lxml zlib1g-dev libgraphicsmagick1-dev
 
   SHELL
 
