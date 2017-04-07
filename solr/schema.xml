@@ -115,6 +115,8 @@
           required="false" multiValued="false" />
       <field name="ocr" type="text" indexed="true" stored="true"
           required="false" multiValued="true" />
+      <field name="ocr_eng" type="text" indexed="true" stored="true"
+          required="false" multiValued="true" />
       <field name="batch" type="string" indexed="true" stored="true"
           required="false" multiValued="false" />
       <field name="edition_label" type="text" indexed="true" stored="true"
