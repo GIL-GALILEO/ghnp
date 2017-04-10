@@ -10,6 +10,10 @@ Vagrant.configure("2") do |config|
 
   config.vm.synced_folder '.', '/opt/chronam', nfs: true
 
+  config.vm.provider :virtualbox do |v, override|
+    v.memory = 2048
+  end
+
   config.vm.provision "shell", inline: <<-SHELL
 
     sudo date > /etc/vagrant_provisioned_at
