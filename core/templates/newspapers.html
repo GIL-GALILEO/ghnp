@@ -34,7 +34,6 @@
             <th>No. of Issues</th>
             <th>Earliest Issue</th>
             <th>Latest Issue</th>
-            <th>Essay</th>
         </tr>
         </thead>
         <tbody>
@@ -53,7 +52,6 @@
                     <td>{{ title.issues.count }}</td>
                     <td><a href="{% url 'chronam_issue_pages' lccn title.first 1 %}">{{title.first|date:'Y-m-d'}}</a></td>
                     <td><a href="{% url 'chronam_issue_pages' lccn title.last 1 %}">{{title.last|date:'Y-m-d'}}</a></td>
-                    <td class="last">{% if title.has_essays %}<a href="{% url 'chronam_title' lccn %}">Yes</a>{% endif %}</td>
                 </tr>
                 {% endwith %}
             {% endfor %}

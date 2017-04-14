@@ -253,9 +253,8 @@
         {% if first_essay %}
         <div class="about_issue_more row">
             <div class="span6">
-            <h4>{{first_essay.title}}</h4>
-            <p>{{first_essay.html|safe}}</p>
-            <p><em>Provided by: <a href="{% url 'chronam_awardee' first_essay.creator.org_code %}">{{ first_essay.creator }}</a></em></p>
+            <h4>About this Title</h4>
+            <p>{{title.essay_text|safe}}</p>
             </div>
         </div><!-- end class:more -->
         {% endif %}
