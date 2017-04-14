@@ -218,6 +218,7 @@ class Title(models.Model):
     sitemap_indexed = models.DateTimeField(auto_now_add=False, null=True)
     newspaper_types = models.ManyToManyField('NewspaperType')
     funding_source = models.ForeignKey('FundingSource', null=True)
+    essay_text = models.TextField(null=True)
 
     @property
     @permalink
@@ -248,12 +249,15 @@ class Title(models.Model):
             return None
 
     def has_essays(self):
-        return self.essays.count() > 0
+        try:
+            return len(self.essay_text) > 0
+        except NameError:
+            return False
 
     @property
     def first_essay(self):
         try:
-            return self.essays.all()[0]
+            return self.essay_text
         except IndexError:
             return None
 
@@ -307,7 +311,7 @@ class Title(models.Model):
             'place': [p.name for p in self.places.all()],
             'holding_type': self.holding_types,
             'url': [u.value for u in self.urls.all()],
-            'essay': [e.html for e in self.essays.all()],
+            'essay': self.essay_text,
         }
 
         return doc
@@ -926,26 +930,26 @@ class IssueNote(models.Model):
         ordering = ('text',)
 
 
-class Essay(models.Model):
-    title = models.TextField()
-    created = models.DateTimeField()
-    modified = models.DateTimeField()
-    creator = models.ForeignKey('Awardee', related_name='essays')
-    essay_editor_url = models.TextField()
-    html = models.TextField()
-    loaded = models.DateTimeField(auto_now_add=True)
-    titles = models.ManyToManyField('Title', related_name='essays')
-
-    def first_title(self):
-        return self.titles.all()[0]
-
-    @property
-    @permalink
-    def url(self):
-        return ('chronam_essay', (), {'essay_id': self.id})
-
-    class Meta:
-        ordering = ['title']
+# class Essay(models.Model):
+#     title = models.TextField()
+#     created = models.DateTimeField()
+#     modified = models.DateTimeField()
+#     creator = models.ForeignKey('Awardee', related_name='essays')
+#     essay_editor_url = models.TextField()
+#     html = models.TextField()
+#     loaded = models.DateTimeField(auto_now_add=True)
+#     titles = models.ManyToManyField('Title', related_name='essays')
+#
+#     def first_title(self):
+#         return self.titles.all()[0]
+#
+#     @property
+#     @permalink
+#     def url(self):
+#         return ('chronam_essay', (), {'essay_id': self.id})
+#
+#     class Meta:
+#         ordering = ['title']
 
 
 class Holding(models.Model):
