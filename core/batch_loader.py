@@ -75,6 +75,7 @@ class BatchLoader(object):
                     data = json.load(f)
                 self.FUNDING_SOURCE_SLUG = data.get('funding_source')
                 self.NEWSPAPER_TYPE_SLUGS = data.get('newspaper_type')
+                self.ESSAY_TEXT = data.get('essay_text')
             except IOError, e:
                 _logger.exception(e)
             except json.JSONDecodeError, e:
@@ -82,6 +83,7 @@ class BatchLoader(object):
         else:
             self.FUNDING_SOURCE_SLUG = None
             self.NEWSPAPER_TYPE_SLUGS = None
+            self.ESSAY_TEXT = None
 
 
     def _find_batch_file(self, batch):
@@ -278,11 +280,14 @@ class BatchLoader(object):
             title = Title.objects.get(lccn=lccn)
 
         # update title with funding source and newspaper types if not already set and values are available
-        if not title.funding_source and not title.newspaper_types:
-            if self.FUNDING_SOURCE_SLUG and self.NEWSPAPER_TYPE_SLUGS:
-                title.funding_source = FundingSource.objects.get(slug= self.FUNDING_SOURCE_SLUG)
-                title.newspaper_types = NewspaperType.objects.filter(slug__in= self.NEWSPAPER_TYPE_SLUGS)
-                title.save()
+        if self.FUNDING_SOURCE_SLUG and not title.funding_source:
+            title.funding_source = FundingSource.objects.get(slug= self.FUNDING_SOURCE_SLUG)
+        if self.NEWSPAPER_TYPE_SLUGS and not title.newspaper_types:
+            title.newspaper_types = NewspaperType.objects.filter(slug__in= self.NEWSPAPER_TYPE_SLUGS)
+        if self.ESSAY_TEXT: # always reset essay text if it is provided in add'l metadata file
+            title.essay_text = self.ESSAY_TEXT
+
+        title.save()
 
         issue.title = title
 
