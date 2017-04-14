@@ -18,6 +18,8 @@ sudo cp /opt/chronam/solr/schema.xml solr-6.4.1/server/solr/configsets/ghnp/conf
 sudo cp /opt/chronam/solr/solrconfig.xml solr-6.4.1/server/solr/configsets/ghnp/conf/solrconfig.xml
 sudo cp solr-6.4.1/server/solr/configsets/basic_configs/conf/lang/stopwords_en.txt solr-6.4.1/server/solr/configsets/ghnp/conf/lang/stopwords_en.txt
 
+# TODO: create a solr user
+
 # start solr, creating collection
 sudo bash solr-6.4.1/bin/solr start -c -force
 sudo bash solr-6.4.1/bin/solr create -c ghnp -d ghnp -force
