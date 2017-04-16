@@ -491,6 +491,11 @@ urlpatterns += [
     #     views.regions,
     #     name="regions"),
 
+    # example: /cities/
+    url(r'^cities/$',
+        views.cities_page,
+        name="browse_by_city"),
+
     # example: /regions/west /middle /south /atlanta
     url(r'^regions/(?P<region>[^/;]+)/$',
         views.region_page,
