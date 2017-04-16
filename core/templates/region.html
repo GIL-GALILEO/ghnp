@@ -2,111 +2,122 @@
 {% load static from staticfiles %}
 
 {% block page_head %}
-    <h2>{{ page_title }}</h2>
+    <h1>{{ page_title }}</h1>
 {% endblock %}
 
 {% block main_content %}
-
-        <div class="search">
-            <div class="container">
-                <div class="row">
-                    <div class="col-md-11">
-                        <form action="{% url 'chronam_search_pages_results' %}" class="form-inline" method="get">
-                            <input type="hidden" name="rows" id="rows" alt="rows" value="20" />
-                            <input type="hidden" name="searchType" alt="searchType" value="basic" />
-                            <div class="form-group">
-                                <div class="input-group input-group-lg">
-                                    <input class="form-control col-md-4" type="text" name="proxtext" placeholder="Search for...">
+    <div class="row">
+        <div class="col-md-8">
+            <div class="row">
+                <div class="col-md-12 region" id="region-search">
+                    <div class="panel panel-default">
+                        <div class="panel-body">
+                            <form action="{% url 'chronam_search_pages_results' %}" class="form-horizontal" method="get">
+                                <div class="input-group" id="adv-search">
+                                    <input type="text" class="form-control" placeholder="Search within {{ region.name }}" />
                                     <div class="input-group-btn">
-                                        <button type="submit" class="btn btn-default"><i class="fa fa-search" aria-hidden="true"></i></button>
-                                    </div>
-                                </div>
-                                <div class="input-group input-group-lg">
-                                    <select class="form-control" name="city" id="city" title="City filter">
-                                        <option value="">All {{ region.name }} cities with Titles</option>
-                                        {% for city in cities_with_titles %}
-                                            <option value="{{ city.city|lower }}">{{ city.city }}</option>
-                                        {% endfor %}
-                                    </select>
-                                </div>
-                                <div class="input-group input-group-lg">
-                                    <select name="type" id="type" class="form-control col-md-3" title="Type filter">
-                                        <option value="">All {{ region.name }} newspaper types</option>
-                                        {% for type in types %}
-                                            <option value="{{ type.slug }}">{{ type.name }}</option>
-                                        {% endfor %}
-                                    </select>
-                                </div>
-                            </div>
-                        </form>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="about">
-            <div class="container">
-                <div class="row">
-                    <div class="col-md-7">
-                        <div class="row">
-                            <h3>Titles by County</h3>
-                            {% if county_titles %}
-                                {% for ct in county_titles %}
-                                {% if ct.titles %}
-                                    <div class="col-md-4">
-                                        <div class="panel panel-default">
-                                            <div class="panel-heading">
-                                                {{ ct.county }}
-                                                <span class="county-title-count badge pull-right">
-                                                    {{ ct.titles|length }}
-                                                </span>
-                                            </div>
-                                            <div class="panel-body">
-                                            {% if ct.titles %}
-                                                {% for title in ct.titles %}
-                                                     <div class="county-titles-list-item">
-                                                        <a href="{% url 'chronam_title' title.lccn %}" class="county-titles-list-item-link">
-                                                            {{ title.display_name }}
-                                                        </a>
+                                        <div class="btn-group" role="group">
+                                            <div class="dropdown dropdown-lg">
+                                                <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+                                                    <span class="caret"></span>
+                                                </button>
+                                                <div class="dropdown-menu dropdown-menu-right" role="menu">
+                                                    <div class="form-group">
+                                                        <label for="city">Filter by City</label>
+                                                        <select class="form-control" name="city" id="city" title="City filter">
+                                                        <option value="">All {{ region.name }} cities with Titles</option>
+                                                        {% for city in cities_with_titles %}
+                                                            <option value="{{ city.city|lower }}">{{ city.city }}</option>
+                                                        {% endfor %}
+                                                        </select>
                                                     </div>
-                                                {% endfor %}
-                                            {% endif %}
+                                                    <div class="form-group">
+                                                        <label for="type">Newspaper Type</label>
+                                                        <select name="type" id="type" class="form-control col-md-3" title="Type filter">
+                                                        <option value="">All {{ region.name }} newspaper types</option>
+                                                        {% for type in types %}
+                                                            <option value="{{ type.slug }}">{{ type.name }}</option>
+                                                        {% endfor %}
+                                                        </select>
+                                                    </div>
+                                                    <button type="submit" class="btn btn-primary" style="border-radius: 4px;"><i class="fa fa-search" aria-hidden="true"></i> Submit Filtered Search</button>
+                                                </div>
+                                            </div>
+                                            <div class="input-group-btn">
+                                                <button type="submit" class="btn btn-primary"><i class="fa fa-search" aria-hidden="true"></i></button>
                                             </div>
                                         </div>
                                     </div>
-
-                                {% endif %}
-                                {% endfor %}
-
-                            {% else %}
-                                None Yet!
-                            {% endif %}
-                        </div>
-                        <div class="row">
-                           <h3>About</h3>
-                            {{ region_text|linebreaks }}
-                        </div>
-                    </div>
-                    <div class="col-md-5">
-                        <div class="region-map " >
-                            <img style="width: 400px; padding: 15px;" src="{% static region_image %}" border="0" />
-                        </div>
-
-
-                        <div class="counties-list well well-small">
-
-                            <p>Counties Included: {{ counties|join:", " }}</p>
-
-                        </div>
-
-                        <div class="cities-list well well-small">
-
-                            <p>Cities Included: {{ cities|join:", " }}</p>
-
+                                </div>
+                            </form>
                         </div>
                     </div>
                 </div>
             </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <h3>Titles By County</h3>
+                    {% if county_titles %}
+                        {% for ct in county_titles %}
+                        {% if ct.titles %}
+                        <div class="col-md-4">
+                            <div class="panel panel-default">
+                                <div class="panel-heading">
+                                    {{ ct.county }}
+                                    <span class="county-title-count badge pull-right">
+                                        {{ ct.titles|length }}
+                                    </span>
+                                </div>
+                                <div class="panel-body">
+                                {% if ct.titles %}
+                                    {% for title in ct.titles %}
+                                         <div class="county-titles-list-item">
+                                            <a href="{% url 'chronam_title' title.lccn %}">
+                                                {{ title.display_name }}
+                                            </a>
+                                        </div>
+                                    {% endfor %}
+                                {% endif %}
+                                </div>
+                            </div>
+                        </div>
+                        {% endif %}
+                        {% endfor %}
+                    {% else %}
+                        None Yet!
+                    {% endif %}
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <h3>About {{ region.name }}</h3>
+                    <p>{{ region_text|linebreaks }}</p>
+                </div>
+            </div>
         </div>
+        <div class="col-md-4">
+            <img src="{% static region_image %}" alt="{{ region.name }} region map" class="img-responsive img-region">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h3 class="panel-title">
+                        Counties Included
+                    </h3>
+                </div>
+                <div class="panel-body">
+                    {{ counties|join:", " }}
+                </div>
+            </div>
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h3 class="panel-title">
+                        Cities Included
+                    </h3>
+                </div>
+                <div class="panel-body">
+                    {{ cities|join:", " }}
+                </div>
+            </div>
+        </div>
+    </div>
 
 {% endblock %}
