@@ -7,6 +7,34 @@
 
 {% block main_content %}
 
-    <p>Test</p>
+    <div class="location">
+        <div class="row">
+        {% for letter, city_titles in cities_with_titles_by_letter.items %}
+            <div class="col-md-3">
+                <h2>{{ letter }}</h2>
+            </div>
+            {% for data in city_titles %}
+            <div class="col-md-3">
+                <div class="panel panel-default">
+                    <div class="panel-heading dlg-blue">
+                        {{ data.city }}
+                        <span class="badge pull-right">
+                            {{ data.titles|length }}
+                        </span>
+                    </div>
+                    <ul class="list-group">
+                    {% for title in data.titles %}
+                        <li class="list-group-item">
+                            <a href="{% url 'chronam_title' title.lccn %}">{{ title.name }}</a>
+                        </li>
+                    {% endfor %}
+                    </ul>
+                </div>
+            </div>
+            {% endfor %}
+        {% endfor %}
+        </div>
+        <hr>
+    </div>
 
 {% endblock %}
