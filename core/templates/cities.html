@@ -8,8 +8,8 @@
 {% block main_content %}
 
     <div class="location">
-        <div class="row">
         {% for letter, city_titles in cities_with_titles_by_letter.items %}
+        <div class="row">
             <div class="col-md-3">
                 <h2>{{ letter }}</h2>
             </div>
@@ -32,8 +32,8 @@
                 </div>
             </div>
             {% endfor %}
-        {% endfor %}
         </div>
+        {% endfor %}
         <hr>
     </div>
 
