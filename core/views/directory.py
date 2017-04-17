@@ -20,23 +20,6 @@ from chronam.core.utils.url import unpack_url_path
 
 @cache_page(settings.DEFAULT_TTL_SECONDS)
 def newspapers(request, city=None, region=None, type=None, format='html'):
-    # if state and state != "all_states":
-    #     state = unpack_url_path(state)
-    #     if state is None:
-    #         raise Http404
-    #     else:
-    #         state = state.title()
-    # else:
-    #     state = request.GET.get('state', None)
-
-    # if region and region != "all_regions":
-    #     region = unpack_url_path(region)
-    #     if region is None:
-    #         raise Http404
-    #     else:
-    #         region = region.title()
-    # else:
-    #     region = request.GET.get('region',None)
 
     if region:
         try:
@@ -57,16 +40,9 @@ def newspapers(request, city=None, region=None, type=None, format='html'):
     else:
         type_obj=None
 
-
     if city:
         city = city.title()
 
-    # language = request.GET.get('language', None)
-    # if language:
-    #     language_display = models.Language.objects.get(code__contains=language).name
-    # ethnicity = request.GET.get('ethnicity', None)
-
-    # if not state and not language and not ethnicity:
     if region:
         page_title = 'Results: Digitized Newspapers for %s' % region_obj.name
     elif city:
@@ -81,33 +57,8 @@ def newspapers(request, city=None, region=None, type=None, format='html'):
     titles = titles.annotate(first=Min('issues__date_issued'))
     titles = titles.annotate(last=Max('issues__date_issued'))
 
-    # if state:
-    #     titles = titles.filter(places__state__iexact=state)
-    #
-    # if language:
-    #     titles = titles.filter(languages__code__contains=language)
-    #
-    # if ethnicity:
-    #     try:
-    #         e = models.Ethnicity.objects.get(name=ethnicity)
-    #         ethnicity_filter = Q(subjects__heading__icontains=ethnicity)
-    #         for s in e.synonyms.all():
-    #             ethnicity_filter |= Q(subjects__heading__icontains=s.synonym)
-    #         titles = titles.filter(ethnicity_filter)
-    #     except models.Ethnicity.DoesNotExist:
-    #         pass
-
-
     _newspapers = {}
-    # _newspapers_by_state = {}
-    # for title in titles:
-    #     if state:
-    #         _newspapers_by_state.setdefault(state, set()).add(title)
-    #     else:
-    #         for place in title.places.all():
-    #             if place.state:
-    #                 _newspapers_by_state.setdefault(place.state, set()).add(title)
-    #
+
     # newspapers_by_state = [(s, sorted(t, key=lambda title: title.name_normal)) for s, t in sorted(_newspapers_by_state.iteritems())]
     if region_obj:
         region_places = models.Place.objects.filter(region=region_obj)
@@ -144,6 +95,9 @@ def newspapers(request, city=None, region=None, type=None, format='html'):
     newspapers = sorted(_newspapers.iteritems())
 
     crumbs = list(settings.BASE_CRUMBS)
+    crumbs.extend([{
+        'label': 'Titles',
+    }])
 
     if format == "html":
         return render_to_response("newspapers.html",

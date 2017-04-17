@@ -71,7 +71,15 @@
 {% block javascript %}{{ block.super }}
 <script type="text/javascript" src="{% static 'js/jquery.tablesorter.min.js' %}"></script>
 <script type="text/javascript">
+    function initPage() {
+        $('.active').removeClass('active');
+        $('.browse-menu-item').addClass('active');
+    }
+    $(initPage);
+
     // Customization for tablesorter. Works in conjunction with jquery.tablsorter.min.js
+
+    // TODO: review this code vis-a-vis changes made to table (added columns)
 
     // add parser through the tablesorter addParser method 
     $.tablesorter.addParser({ 
@@ -83,8 +91,8 @@
         }, 
         format: function(s) { 
             // format your data for normalization
-            s = $.trim(s)     //Make sure there are no leading spaces
-            re = /(^The\s+)|(^A\s+)|(^An\s+)/gi;
+            s = $.trim(s); //Make sure there are no leading spaces
+            var re = /(^The\s+)|(^A\s+)|(^An\s+)/gi;
             if (s.match(re) != null) {
                 s = s.replace(re,'');
              }
@@ -95,14 +103,13 @@
 
     $(document).ready(function() { 
         $("#newspapers").tablesorter({ 
-            headers: { 
-                1: {sorter: 'titles'},
-                4: {sorter: false}
+            headers: {
+                4: {sorter: 'titles'}
             }, 
             widgets: ['zebra'],
-            // for all newspapers, sort on state. If state, then sort on title.
-            sortList: [{% if not state %}[0,0]{% else %}[1,0]{% endif %}]
-        }); 
+            // sort by title
+            sortList: [[4,0]]
+        });
     });
 
 </script>
