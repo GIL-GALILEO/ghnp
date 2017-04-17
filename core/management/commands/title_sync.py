@@ -24,13 +24,19 @@ _logger = logging.getLogger(__name__)
 
 class Command(BaseCommand):
 
+    skip_essays = make_option('--skip-essays',
+                              action='store_true',
+                              dest='skip_essays',
+                              default=False,
+                              help='Skip essay loading.')
+
     pull_title_updates = make_option('--pull-title-updates',
                                      action='store_true',
                                      dest='pull_title_updates',
                                      default=False,
                                      help='Pull down a new set of titles.')
 
-    option_list = BaseCommand.option_list + (pull_title_updates)
+    option_list = BaseCommand.option_list + (skip_essays, pull_title_updates)
 
     help = 'Runs title pull and title load for a complete title refresh.'
     args = ''
