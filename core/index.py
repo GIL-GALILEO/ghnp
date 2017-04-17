@@ -91,7 +91,7 @@ class SolrPaginator(Paginator):
         self.overall_index = (self._cur_page - 1) * self.per_page + self._cur_index
 
         self._ocr_list = ['ocr',]
-        self._ocr_list.extend(['ocr_%s' % l for l in settings.SOLR_LANGUAGES])
+        # self._ocr_list.extend(['ocr_%s' % l for l in settings.SOLR_LANGUAGES])
 
     def _get_count(self):
         "Returns the total number of objects, across all pages."
@@ -467,54 +467,25 @@ def page_search(d):
         # results page.
         gap = max(1, int(math.ceil((date2 - date1) / 10)))
 
-    ocrs = ['ocr_%s' % l for l in settings.SOLR_LANGUAGES]
+    # ocrs = ['ocr_%s' % l for l in settings.SOLR_LANGUAGES]
 
-    lang = d.get('language', None)
-    ocr_lang = 'ocr_' + lang if lang else 'ocr'
+    ocr_lang = 'ocr'
     if d.get('ortext', None):
         q.append('+((' + query_join(solr_escape(d['ortext']).split(' '), "ocr"))
-        if lang:
-            q.append(' AND ' + query_join(solr_escape(d['ortext']).split(' '), ocr_lang))
-            q.append(') OR ' + query_join(solr_escape(d['ortext']).split(' '), ocr_lang))
-        else:
-            q.append(')')
-            for ocr  in ocrs:
-                q.append('OR ' + query_join(solr_escape(d['ortext']).split(' '), ocr))
-        q.append(')')
+        q.append('))')
     if d.get('andtext', None):
         q.append('+((' + query_join(solr_escape(d['andtext']).split(' '), "ocr", and_clause=True))
-        if lang:
-            q.append('AND ' + query_join(solr_escape(d['andtext']).split(' '), ocr_lang, and_clause=True))
-            q.append(') OR ' + query_join(solr_escape(d['andtext']).split(' '), ocr_lang, and_clause=True))
-        else:
-            q.append(')')
-            for ocr in ocrs:
-                q.append('OR ' + query_join(solr_escape(d['andtext']).split(' '), ocr, and_clause=True))
-        q.append(')')
+        q.append('))')
     if d.get('phrasetext', None):
         phrase = solr_escape(d['phrasetext'])
         q.append('+((' + 'ocr' + ':"%s"^10000' % (phrase))
-        if lang:
-            q.append('AND ocr_' + lang + ':"%s"' % (phrase))
-            q.append(') OR ocr_' + lang + ':"%s"' % (phrase))
-        else:
-            q.append(')')
-            for ocr in ocrs:
-                q.append('OR ' + ocr + ':"%s"' % (phrase))
-        q.append(')')
+        q.append('))')
 
     if d.get('proxtext', None):
         distance = d.get('proxdistance', PROX_DISTANCE_DEFAULT)
         prox = solr_escape(d['proxtext'])
         q.append('+((' + 'ocr' + ':("%s"~%s)^10000' % (prox, distance))
-        if lang:
-            q.append('AND ocr_' + lang + ':"%s"~%s' % (prox, distance))
-            q.append(') OR ocr_' + lang + ':"%s"~%s' % (prox, distance))
-        else:
-            q.append(')')
-            for ocr in ocrs:
-                q.append('OR ' + ocr + ':"%s"~%s' % (prox, distance))
-        q.append(')')
+        q.append('))')
     if d.get('sequence', None):
         q.append('+sequence:"%s"' % d['sequence'])
     if d.get('issue_date', None):
@@ -643,7 +614,7 @@ def word_matches_for_page(page_id, words):
         page_id = str(page_id)
 
     ocr_list = ['ocr',]
-    ocr_list.extend(['ocr_%s' % l for l in settings.SOLR_LANGUAGES])
+    # ocr_list.extend(['ocr_%s' % l for l in settings.SOLR_LANGUAGES])
     ocrs = ' OR '.join([query_join(words, o) for o in ocr_list])
     q = 'id:%s AND (%s)' % (page_id, ocrs)
     params = {"hl.snippets": 100, "hl.requireFieldMatch": 'true', "hl.maxAnalyzedChars": '102400'}
