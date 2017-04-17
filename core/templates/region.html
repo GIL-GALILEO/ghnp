@@ -119,5 +119,15 @@
             </div>
         </div>
     </div>
-
 {% endblock %}
+{% block javascript %}{{ block.super }}
+<script type="text/javascript">
+(function($) {
+    function initPage() {
+        $('.active').removeClass('active');
+        $('.region-menu-item').addClass('active');
+    }
+    $(initPage);
+})(jQuery)
+</script>
+{% endblock javascript %}

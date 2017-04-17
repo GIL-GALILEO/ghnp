@@ -4,6 +4,11 @@
 {{ block.super }}
 <script type="text/javascript">
 jQuery(function($){
+    function initPage() {
+        $('.active').removeClass('active');
+        $('.browse-menu-item').addClass('active');
+    }
+    $(initPage);
     $("#id_year").change(function(){
         window.location = '{% url 'chronam_calendar' %}' + this.value;
     });
