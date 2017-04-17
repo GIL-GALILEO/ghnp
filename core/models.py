@@ -250,7 +250,10 @@ class Title(models.Model):
 
     def has_essays(self):
         try:
-            return len(self.essay_text) > 0
+            if self.essay_text:
+                return len(self.essay_text) > 0
+            else:
+                return False
         except NameError:
             return False
 
