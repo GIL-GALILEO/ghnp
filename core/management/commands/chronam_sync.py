@@ -40,7 +40,6 @@ class Command(BaseCommand):
     def handle(self, **options):
         if not (models.Title.objects.all().count() == 0 and
                 models.Holding.objects.all().count() == 0 and
-                models.Essay.objects.all().count() == 0 and
                 models.Batch.objects.all().count() == 0 and
                 models.Issue.objects.all().count() == 0 and
                 models.Page.objects.all().count() == 0 and
