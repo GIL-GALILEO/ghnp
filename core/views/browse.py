@@ -296,7 +296,7 @@ def titles(request, start=None, page_number=1):
 @cache_page(settings.DEFAULT_TTL_SECONDS)
 def title(request, lccn):
     title = get_object_or_404(models.Title, lccn=lccn)
-    page_title = "About %s" % label(title)
+    page_title = "%s" % label(title)
     page_name = "title"
     # we call these here, because the query the db, they are not
     # cached by django's ORM, and we have some conditional logic
@@ -328,7 +328,16 @@ def title(request, lccn):
     if first_issue:
         issue_date = first_issue.date_issued
 
-    crumbs = create_crumbs(title)
+    crumbs = list(settings.BASE_CRUMBS)
+    crumbs.extend([{
+        'label': 'Titles',
+        'href': urlresolvers.reverse('chronam_newspapers')
+    },
+    {
+        'label': title.name
+    }
+    ])
+
     response = render_to_response('title.html', dictionary=locals(),
                                   context_instance=RequestContext(request))
     return response

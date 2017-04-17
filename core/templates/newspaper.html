@@ -29,19 +29,16 @@
 {% endblock %}
                       
 {% block page_head %}
-<h1>
-{{ page_title }}<br />
-<span>{{title.place_of_publication}} ({{title.start_year}}-{{title.end_year}})</span>
-</h1>
+<h1>{{ page_title }}</h1>
 {% endblock %}
 
 {% block subcontent %}
 
-{% block page_nav %} 
-<div id="page_nav">
-{% if title.has_issues %}<a id="page_nav_issues" href="{% url 'chronam_issues' title.lccn %}">Browse Issues</a> | {% endif %}
-<a id="page_nav_title" href="{% url 'chronam_title' title.lccn %}">About</a> | <a id="page_nav_marc" href="{% url 'chronam_title_marc' title.lccn %}">MARC Record</a></div>
-{% endblock %}
+{#{% block page_nav %} #}
+{#<div id="page_nav">#}
+{#{% if title.has_issues %}<a id="page_nav_issues" href="{% url 'chronam_issues' title.lccn %}">Browse Issues</a> | {% endif %}#}
+{#<a id="page_nav_title" href="{% url 'chronam_title' title.lccn %}">About</a> | <a id="page_nav_marc" href="{% url 'chronam_title_marc' title.lccn %}">MARC Record</a></div>#}
+{#{% endblock %}#}
 
 <div id="std_box"> 
     {% block extra_nav %}
