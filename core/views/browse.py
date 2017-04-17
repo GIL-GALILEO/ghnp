@@ -623,13 +623,12 @@ def chronam_topic(request, topic_id):
 def chronam_calendar_issues(request, year=None):
     crumbs = list(settings.BASE_CRUMBS)
     crumbs.extend([
-        {'label':'Browse','href': '#'},
-        {'label':'By Date'}
+        {'label':'Calendar'}
     ])
     all_issues = models.Issue.objects.all().order_by('date_issued')
     if all_issues.count() > 0:
         if year is None:
-            _year = issues[0].date_issued.year
+            _year = all_issues[0].date_issued.year
         else:
             _year = int(year)
     else:
