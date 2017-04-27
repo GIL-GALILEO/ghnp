@@ -89,19 +89,19 @@ urlpatterns += [
         name="chronam_ocr"),
 
     # recommended topics
-    url(r'^recommended-topics/$', 
-        views.recommended_topics, 
-        name="recommended_topics"),
-
-    # topic page
-    url(r'^recommended-topics/(?P<topic_id>\d+)/$', 
-        views.chronam_topic, 
-        name="chronam_topic"),
+    # url(r'^recommended-topics/$',
+    #     views.recommended_topics,
+    #     name="recommended_topics"),
+    #
+    # # topic page
+    # url(r'^recommended-topics/(?P<topic_id>\d+)/$',
+    #     views.chronam_topic,
+    #     name="chronam_topic"),
 
     # API docs
-    url(r'^about/api/$',
-        views.about_api,
-        name="chronam_about_api"),
+    # url(r'^about/api/$',
+    #     views.about_api,
+    #     name="chronam_about_api"),
 
     # example: /lccn/sn85066387
     url(r'^lccn/(?P<lccn>\w+)/$', 
@@ -154,14 +154,14 @@ urlpatterns += [
     #     name="chronam_title_holdings"),
 
     # example: /essays/
-    url(r'^essays/$', 
-        views.essays, 
-        name='chronam_essays'),
-
-    # example: /essays/1/
-    url(r'^essays/(?P<essay_id>\d+)/$', 
-        views.essay, 
-        name='chronam_essay'),
+    # url(r'^essays/$',
+    #     views.essays,
+    #     name='chronam_essays'),
+    #
+    # # example: /essays/1/
+    # url(r'^essays/(?P<essay_id>\d+)/$',
+    #     views.essay,
+    #     name='chronam_essay'),
 
     # TOD0: remove this some suitable time after 08/2010 since it
     # permanently redirects to new essay id based URL
@@ -566,132 +566,132 @@ urlpatterns += [
         name="chronam_page_rdf"),
 
     # awardee
-    url(r'^awardees/(?P<institution_code>\w+).rdf$', 
-        views.awardee_rdf, 
-        name='chronam_awardee_dot_rdf'),
-
-    url(r'^awardees/(?P<institution_code>\w+)$', 
-        views.awardee_rdf, 
-        name='chronam_awardee_rdf'),
+    # url(r'^awardees/(?P<institution_code>\w+).rdf$',
+    #     views.awardee_rdf,
+    #     name='chronam_awardee_dot_rdf'),
+    #
+    # url(r'^awardees/(?P<institution_code>\w+)$',
+    #     views.awardee_rdf,
+    #     name='chronam_awardee_rdf'),
 
     # ndnp vocabulary
-    url(r'^terms/.*$', 
-        views.terms, 
-        name='chronam_terms'),
+    # url(r'^terms/.*$',
+    #     views.terms,
+    #     name='chronam_terms'),
 
     # flickr report
-    url(r'^flickr/$', 
-        views.pages_on_flickr, 
-        name='chronam_pages_on_flickr'),
-
-    # batch summary
-    url(r'^batches/summary/$', 
-        views.batch_summary, 
-        name='chronam_batch_summary'),
-
-    url(r'^batches/summary.(?P<format>txt)$', 
-        views.batch_summary, 
-        name='chronam_batch_summary_txt'),
+    # url(r'^flickr/$',
+    #     views.pages_on_flickr,
+    #     name='chronam_pages_on_flickr'),
+    #
+    # # batch summary
+    # url(r'^batches/summary/$',
+    #     views.batch_summary,
+    #     name='chronam_batch_summary'),
+    #
+    # url(r'^batches/summary.(?P<format>txt)$',
+    #     views.batch_summary,
+    #     name='chronam_batch_summary_txt'),
 
     # batch view
-    url(r'^batches/$', 
-        views.batches, 
-        name='chronam_batches'),
-
-    url(r'^batches/;page=(?P<page_number>\d+)$', 
-        views.batches, 
-        name='chronam_batches_page'),
-
-    url(r'^batches/feed/$', 
-        views.batches_atom, 
-        name='chronam_batches_atom'),
-
-    url(r'^batches/feed/(?P<page_number>\d+)/$', 
-        views.batches_atom,
-        name='chronam_batches_atom_page'), 
-
-    url(r'^batches\.json$', 
-        views.batches_json, 
-        name='chronam_batches_json'),
-
-    url(r'^batches\.csv$', 
-        views.batches_csv, 
-        name='chronam_batches_csv'),
-
-    url(r'^batches/(?P<page_number>\d+).json$', 
-        views.batches_json,
-        name='chronam_batches_json_page'),
-
-    url(r'^batches/(?P<batch_name>.+)/$', 
-        views.batch, 
-        name='chronam_batch'),
-
-    url(r'^batches/(?P<batch_name>.+).rdf$', 
-        views.batch_rdf, 
-        name='chronam_batch_dot_rdf'),
-
-    url(r'^batches/(?P<batch_name>.+)\.json$', 
-        views.batch_json, 
-        name='chronam_batch_dot_json'),
-
-    url(r'^batches/(?P<batch_name>.+)$', 
-        views.batch_rdf, 
-        name='chronam_batch_rdf'),
+    # url(r'^batches/$',
+    #     views.batches,
+    #     name='chronam_batches'),
+    #
+    # url(r'^batches/;page=(?P<page_number>\d+)$',
+    #     views.batches,
+    #     name='chronam_batches_page'),
+    #
+    # url(r'^batches/feed/$',
+    #     views.batches_atom,
+    #     name='chronam_batches_atom'),
+    #
+    # url(r'^batches/feed/(?P<page_number>\d+)/$',
+    #     views.batches_atom,
+    #     name='chronam_batches_atom_page'),
+    #
+    # url(r'^batches\.json$',
+    #     views.batches_json,
+    #     name='chronam_batches_json'),
+    #
+    # url(r'^batches\.csv$',
+    #     views.batches_csv,
+    #     name='chronam_batches_csv'),
+    #
+    # url(r'^batches/(?P<page_number>\d+).json$',
+    #     views.batches_json,
+    #     name='chronam_batches_json_page'),
+    #
+    # url(r'^batches/(?P<batch_name>.+)/$',
+    #     views.batch,
+    #     name='chronam_batch'),
+    #
+    # url(r'^batches/(?P<batch_name>.+).rdf$',
+    #     views.batch_rdf,
+    #     name='chronam_batch_dot_rdf'),
+    #
+    # url(r'^batches/(?P<batch_name>.+)\.json$',
+    #     views.batch_json,
+    #     name='chronam_batch_dot_json'),
+    #
+    # url(r'^batches/(?P<batch_name>.+)$',
+    #     views.batch_rdf,
+    #     name='chronam_batch_rdf'),
 
     # reels 
-    url(r'^reels/$', 
-        views.reels, 
-        name='chronam_reels'),
-
-    url(r'^reels/;page=(?P<page_number>\d+)$', 
-        views.reels, 
-        name='chronam_reels_page'),
-
-    url(r'^reel/(?P<reel_number>\w+)/$', 
-        views.reel, 
-        name='chronam_reel'),
- 
-    # languages 
-    url(r'^languages/$', 
-        views.languages, 
-        name='chronam_languages'),
-
-    url(r'^languages/(?P<language>.+)/batches/$', 
-        views.language_batches,
-        name='chronam_language_batches'),
-
-    url(r'^languages/(?P<language>.+)/batches/;page=(?P<page_number>\d+)$', 
-        views.language_batches,
-        name='chronam_language_batches_page_number'),
-
-    url(r'^languages/(?P<language>.+)/titles/$', 
-        views.language_titles,
-        name='chronam_language_titles'),
-
-    url(r'^languages/(?P<language>.+)/titles/;page=(?P<page_number>\d+)$', 
-        views.language_titles,
-        name='chronam_language_titles_page_number'),
-
-    url(r'^languages/(?P<language>.+)/(?P<batch>.+)/(?P<title>.+)/$', 
-        views.language_pages,
-        name='chronam_language_title_pages'),
-
-    url(r'^languages/(?P<language>.+)/(?P<batch>.+)/(?P<title>.+)/;page=(?P<page_number>\d+)$', 
-        views.language_pages,
-        name='chronam_language_title_pages_page_number'),
-
-    url(r'^languages/(?P<language>.+)/(?P<batch>.+)/$', 
-        views.language_pages,
-        name='chronam_language_batch_pages'),
-
-    url(r'^languages/(?P<language>.+)/(?P<batch>.+)/;page=(?P<page_number>\d+)$', 
-        views.language_pages,
-        name='chronam_language_batch_pages_page_number'),
+    # url(r'^reels/$',
+    #     views.reels,
+    #     name='chronam_reels'),
+    #
+    # url(r'^reels/;page=(?P<page_number>\d+)$',
+    #     views.reels,
+    #     name='chronam_reels_page'),
+    #
+    # url(r'^reel/(?P<reel_number>\w+)/$',
+    #     views.reel,
+    #     name='chronam_reel'),
+    #
+    # # languages
+    # url(r'^languages/$',
+    #     views.languages,
+    #     name='chronam_languages'),
+    #
+    # url(r'^languages/(?P<language>.+)/batches/$',
+    #     views.language_batches,
+    #     name='chronam_language_batches'),
+    #
+    # url(r'^languages/(?P<language>.+)/batches/;page=(?P<page_number>\d+)$',
+    #     views.language_batches,
+    #     name='chronam_language_batches_page_number'),
+    #
+    # url(r'^languages/(?P<language>.+)/titles/$',
+    #     views.language_titles,
+    #     name='chronam_language_titles'),
+    #
+    # url(r'^languages/(?P<language>.+)/titles/;page=(?P<page_number>\d+)$',
+    #     views.language_titles,
+    #     name='chronam_language_titles_page_number'),
+    #
+    # url(r'^languages/(?P<language>.+)/(?P<batch>.+)/(?P<title>.+)/$',
+    #     views.language_pages,
+    #     name='chronam_language_title_pages'),
+    #
+    # url(r'^languages/(?P<language>.+)/(?P<batch>.+)/(?P<title>.+)/;page=(?P<page_number>\d+)$',
+    #     views.language_pages,
+    #     name='chronam_language_title_pages_page_number'),
+    #
+    # url(r'^languages/(?P<language>.+)/(?P<batch>.+)/$',
+    #     views.language_pages,
+    #     name='chronam_language_batch_pages'),
+    #
+    # url(r'^languages/(?P<language>.+)/(?P<batch>.+)/;page=(?P<page_number>\d+)$',
+    #     views.language_pages,
+    #     name='chronam_language_batch_pages_page_number'),
 
     # reports 
-    url(r'^reports/$', 
-        views.reports, 
-        name='chronam_reports'),
+    # url(r'^reports/$',
+    #     views.reports,
+    #     name='chronam_reports'),
 
     # ocr data
     url(r'^ocr/feed/$', 
@@ -706,10 +706,6 @@ urlpatterns += [
 _ROOT = os.path.abspath(os.path.dirname(__file__))
 _MEDIA_ROOT = os.path.join(_ROOT, 'media')
 
-# these are static files that will normally be served up by apache
-# in production deployments before django ever sees the request
-# but are useful when running in development environments
-
 urlpatterns += [
     url(r'^data/(?P<path>.*)$', 
         serve, 
@@ -721,6 +717,10 @@ urlpatterns += [
         {'document_root': _MEDIA_ROOT + '/sitemaps'},
         name="chronam_sitemaps"),
 ]
+
+# these are static files that will normally be served up by apache
+# in production deployments before django ever sees the request
+# but are useful when running in development environments
 
 if settings.DEBUG:
     urlpatterns += staticfiles_urlpatterns()
