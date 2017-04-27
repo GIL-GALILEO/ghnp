@@ -41,12 +41,10 @@
             {% for title in titles %}
                 {% with title.lccn as lccn %}
                 <tr>
-    {#                <td class="first left_no_border"><a {% ifchanged state %}name="{{state}}" {% endifchanged %}href="{% url 'chronam_newspapers_state' state|pack_url %}">{{state}}</a></td>#}
                     <td class="first left_no_border">{{ title.places.first.region.name }}</td>
-                    <td>{{ title.places.first.county }}</td>
-                    <td>{{ title.places.first.city }}</td>
+                    <td>{% for place in title.places.all %}{{ place.county }}<br />{% endfor %}</td>
+                    <td>{% for place in title.places.all %}{{ place.city }}<br />{% endfor %}</td>
                     <td>{% for type in title.types.all %}<span class="label">{{ type.name }}</span>{% endfor %}</td>
-    {#                <td>{% for place in title.places.all %}<p>{{ place.city }}</p>{% endfor %}</td>#}
                     <td><a href="{% url 'chronam_title' lccn %}"><strong>{{title.display_name}}</strong></a><br />{{title.place_of_publication}}, {{title.start_year}}-{{title.end_year}}</td>
                     <td><a href="{% url 'chronam_issues' lccn %}" shape="rect"><img src="{% static 'images/calendar_icon.gif' %}" alt="calendar"/></a></td>
                     <td>{{ title.issues.count }}</td>
