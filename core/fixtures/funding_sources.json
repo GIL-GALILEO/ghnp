@@ -1,3 +1,66 @@
 [
-
+  {
+    "fields": {
+      "slug": "houston_pls",
+      "name": "Houston County Public Library System"
+    },
+    "model": "core.fundingsource",
+    "pk": 1
+  },
+  {
+    "fields": {
+      "slug": "taylor_fdn",
+      "name": "R.J. Taylor, Jr. Foundation"
+    },
+    "model": "core.fundingsource",
+    "pk": 2
+  },
+  {
+    "fields": {
+      "slug": "rcd_sav",
+      "name": "Roman Catholic Diocese of Savannah"
+    },
+    "model": "core.fundingsource",
+    "pk": 3
+  },
+  {
+    "fields": {
+      "slug": "hargrett",
+      "name": "Hargrett Rare Book and Manuscript Library"
+    },
+    "model": "core.fundingsource",
+    "pk": 4
+  },
+  {
+    "fields": {
+      "slug": "tchgs_flint",
+      "name": "Taylor County Historical-Genealogical Society and the Flint Energies Foundation"
+    },
+    "model": "core.fundingsource",
+    "pk": 5
+  },
+  {
+    "fields": {
+      "slug": "rsullivan",
+      "name": "Randy Sullivan"
+    },
+    "model": "core.fundingsource",
+    "pk": 6
+  },
+  {
+    "fields": {
+      "slug": "cfa_wbjhm_srochi",
+      "name": "Cuba Family Archives, William Breman Jewish Heritage Museum and the Srochi family of Atlanta"
+    },
+    "model": "core.fundingsource",
+    "pk": 7
+  },
+  {
+    "fields": {
+      "slug": "mercer",
+      "name": "Mercer University Libraries"
+    },
+    "model": "core.fundingsource",
+    "pk": 8
+  }
 ]
