@@ -98,20 +98,40 @@
                                 <a href="{% url 'chronam_newspapers' %}">Browse by Title</a>
                                 <a href="{% url 'chronam_calendar' %}">Browse by Date</a>
                                 <a href="{% url 'browse_by_city' %}">Browse by City</a>
-{#                                <a href="#">Browse by County</a>#}
+{#                                <a href="#">Browse by Type</a>#}
                             </li>
                         </ul>
                     </li>
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
                     <li>
-                        <a href="#">Help</a>
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                            About <span class="caret"></span>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li>
+                                <a href="{% url 'about' %}">The Site</a>
+                                <a href="{% url 'about_contactus' %}">Contact Us</a>
+                                <a href="{% url 'about_resources' %}">Additional Resources</a>
+                                <a href="{% url 'about_copyright' %}">Copyright & Reuse</a>
+                                <a href="{% url 'about_partners' %}">Partners</a>
+                            </li>
+                        </ul>
                     </li>
                     <li>
-                        <a href="#">Participate</a>
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                            Help <span class="caret"></span>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li>
+                                <a href="{% url 'help_browsing' %}">Browsing</a>
+                                <a href="{% url 'help_searching' %}">Searching</a>
+                                <a href="{% url 'help_faq' %}">FAQ</a>
+                            </li>
+                        </ul>
                     </li>
                     <li>
-                        <a href="#">About</a>
+                        <a href="{% url 'participate' %}">Participate</a>
                     </li>
                 </ul>
             </div>
@@ -149,7 +169,7 @@
                     <div class="panel panel-default center-block">
                         <div class="panel-body">
                             <h4>Are you interested in including a title in the archive?</h4>
-                            <button type="button" class="btn btn-default">Get Involved</button>
+                            <a href="{% url 'participate' %}" class="btn btn-default">Get Involved</a>
                         </div>
                     </div>
                 </div>

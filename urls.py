@@ -75,13 +75,45 @@ urlpatterns = [
 
 urlpatterns += [
 
+    # about
     url(r'^about/$',
         views.about,
-        name="chronam_about"),
+        name="about"),
 
-    url(r'^help/$',
-        views.help,
-        name="chronam_help"),
+    url(r'^about/contact$',
+        views.about_contactus,
+        name="about_contactus"),
+
+    url(r'^about/partners',
+        views.about_partners,
+        name="about_partners"),
+
+    url(r'^about/copyright$',
+        views.about_copyright,
+        name="about_copyright"),
+
+    url(r'^about/resources$',
+        views.about_resources,
+        name="about_resources"),
+
+    # help
+    url(r'^help/browsing$',
+        views.help_browsing,
+        name="help_browsing"),
+
+    url(r'^help/searching$',
+        views.help_searching,
+        name="help_searching"),
+
+    url(r'^help/faq$',
+        views.help_faq,
+        name="help_faq"),
+
+    # participate
+    url(r'^participate',
+        views.participate,
+        name="participate"),
+
 
     # explainOCR.html
     url(r'^ocr/$', 
