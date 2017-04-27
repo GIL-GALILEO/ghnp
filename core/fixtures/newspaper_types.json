@@ -30,5 +30,13 @@
     },
     "model": "core.newspapertype",
     "pk": 4
+  },
+  {
+    "fields": {
+      "slug": "record",
+      "name": "Paper of Record"
+    },
+    "model": "core.newspapertype",
+    "pk": 5
   }
 ]
