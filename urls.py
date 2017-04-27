@@ -149,9 +149,9 @@ urlpatterns += [
         name="chronam_title_marcxml"),
 
     # example: /lccn/sn85066387/holdings
-    url(r'^lccn/(?P<lccn>\w+)/holdings/$', 
-        views.title_holdings,
-        name="chronam_title_holdings"),
+    # url(r'^lccn/(?P<lccn>\w+)/holdings/$',
+    #     views.title_holdings,
+    #     name="chronam_title_holdings"),
 
     # example: /essays/
     url(r'^essays/$', 
