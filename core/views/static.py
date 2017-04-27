@@ -73,7 +73,8 @@ def help_faq(request):
     page_title = "Frequently Asked Questions"
     crumbs = list(settings.BASE_CRUMBS)
     crumbs.extend([
-        {'label':'Help',
+        {'label':'Help'},
+        {'label':'FAQ',
          'active': True},
     ])
     return render_to_response('faq.html', dictionary=locals(),
@@ -84,7 +85,8 @@ def help_browsing(request):
     page_title = "Help with Browsing"
     crumbs = list(settings.BASE_CRUMBS)
     crumbs.extend([
-        {'label':'Help',
+        {'label':'Help'},
+        {'label':'Browsing',
          'active': True},
     ])
     return render_to_response('browsing.html', dictionary=locals(),
@@ -95,7 +97,8 @@ def help_searching(request):
     page_title = "Help with Searching"
     crumbs = list(settings.BASE_CRUMBS)
     crumbs.extend([
-        {'label':'Help',
+        {'label':'Help'},
+        {'label':'Searching',
          'active': True},
     ])
     return render_to_response('searching.html', dictionary=locals(),
