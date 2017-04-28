@@ -14,7 +14,7 @@
                         <div class="panel-body">
                             <form action="{% url 'chronam_search_pages_results' %}" class="form-horizontal" method="get">
                                 <div class="input-group" id="adv-search">
-                                    <input type="text" class="form-control" placeholder="Search within {{ region.name }}" />
+                                    <input name="proxtext" type="text" class="form-control" placeholder="Search within {{ region.name }}" />
                                     <div class="input-group-btn">
                                         <div class="btn-group" role="group">
                                             <div class="dropdown dropdown-lg">
