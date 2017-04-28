@@ -6,4 +6,107 @@
 
     <h2>{{ page_title }}</h2>
 
+    <h3>
+        I am having trouble searching. Where can I get help?
+    </h3>
+    <p>
+        We have <a href="{% url 'help_searching' %}">searching</a> and <a href="{% url 'help_browsing' %}">browsing</a>
+        assistance available.
+    </p>
+
+    <h3>
+        How can get technical assistance?
+    </h3>
+    <p>
+        You can submit a help form through GALILEO by using the <a href="https://www.galileo.usg.edu/contact/">Contact
+        Us form.</a>
+    </p>
+
+    <h3>
+        Can I still access the older newspaper archive websites?
+    </h3>
+    <p>
+        The older newspaper archive websites will continue to be available until the titles are added to the Georgia
+        Historic Newspapers site. At that point the urls will redirect to this new site. To view the currently available
+        newspaper archive websites, please visit the Digital Library of Georgia’s
+        <a href="http://dlg.galileo.usg.edu/MediaTypes/Newspapers.html">list of newspaper archives</a>.
+    </p>
+
+    <h3>
+        How do I cite newspaper pages accessed on this website?
+    </h3>
+    <p>
+        Please use the following form for citation:<br />
+        “[article title]”, [newspaper title], [issue date], p.[page number], [url]. Presented online by the Digital
+        Library of Georgia.<br />
+        For example: “Melon Growers to Elect Marketing Committee, Houston Home Journal, March 9, 1939, p. 1,
+        http://georgiahistoricnewspapers.galileo.usg.edu/lccn/sn89053614/1939-03-09/ed-1/seq-1/. Presented online by the
+        Digital Library of Georgia.
+    </p>
+
+    <h3>
+        Do I need to download anything to view the newspaper pages?
+    </h3>
+    <p>
+        No, the Georgia Historic Newspapers website is presented on the Web using images that can be viewed in any
+        Javascript enabled web browser. No plug-ins are required to view newspaper page images.
+    </p>
+
+    <h3>
+        Why are some newspaper titles/dates not included?
+    </h3>
+    <p>
+        The Digital Library of Georgia selects newspaper titles for inclusion based on historical significance, user
+        demand, availability, copyright restrictions, geographical representation, and available funding. If you are
+        interested in suggesting a title for inclusion, you can visit our <a href="{%  url 'participate' %}">
+        participation page</a>.
+    </p>
+
+    <h3>
+        How can I save/print newspaper pages for personal use?
+    </h3>
+    <p>
+        To save a portion of a newspaper page, zoom in and adjust the portion newspaper page that you would like to
+        save. Click the clip image/scissor button in the upper right corner above the image to open a new page with your
+        zoomed-in selection for saving and printing. The clipped image will have a persistent url at the bottom that you
+        can access the article in the future. You can also print that article for personal use.
+    </p>
+
+    <h3>
+        How do I save a set of search results for future use?
+    </h3>
+    <p>
+        The URL for a set of search results is persistent and if you save it, the URL will direct you to those search
+        results again in the future.
+    </p>
+
+    <h3>
+        How do I bookmark a page for future use?
+    </h3>
+    <p>
+        You can use the bookmark button on your browser to save a page for future access.
+    </p>
+
+    <h3>
+        How can I keep up to date on newspapers added to the archive?
+    </h3>
+    <p>
+        You receive notifications about Digital Library of Georgia’s latest releases by following us on
+        <a href="https://www.facebook.com/DigitalLibraryofGeorgia">Facebook</a> and
+        <a href="https://twitter.com/diglibga">Twitter</a>. You can also visit
+        <a href="http://blog.dlg.galileo.usg.edu/">our blog</a> for release announcements.
+    </p>
+
+    <h3>
+        When I click the text button above the image, why does the resulting text on the screen have mistakes?
+    </h3>
+    <p>
+        Full text searching is made possible through Optical Character Recognition (OCR) technology. This is an
+        automated process that converts words in an image into machine-readable text. The technology isn’t 100 percent
+        accurate and may contain mistakes due to a number of factors, including deterioration of the original newspaper
+        page. Hand-correcting the text for hundreds of thousands of newspaper pages would be cost prohibitive, so the
+        OCR text is left uncorrected. This will hopefully have minimal effect on your searches, as keywords are often
+        repeated in an article and may only be misspelled once.
+    </p>
+
 {% endblock content %}
