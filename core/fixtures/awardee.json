@@ -1,6 +1,6 @@
 [
   {
-    "pk": "dlg",
+    "pk": "gua",
     "model": "core.awardee", 
     "fields": {
       "name": "Digital Library of Georgia",
