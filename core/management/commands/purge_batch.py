@@ -40,9 +40,10 @@ class Command(BaseCommand):
                 log.info("optimizing solr")
                 solr = SolrConnection(settings.SOLR)
                 solr.optimize()
-                log.info("optimizing MySQL OCR table")
-                cursor = connection.cursor()
-                cursor.execute("OPTIMIZE TABLE core_ocr")
+                # removed since we use Postgres
+                # log.info("optimizing MySQL OCR table")
+                # cursor = connection.cursor()
+                # cursor.execute("OPTIMIZE TABLE core_ocr")
                 log.info("finished optimizing")
         except BatchLoaderException, e:
             log.exception(e)
