@@ -39,9 +39,9 @@ class Command(BaseCommand):
         for line in batch_list:
             batch_name = line.strip()
             _logger.info("batch_name: %s" % batch_name)
-            parts = batch_name.split("_")
-            if len(parts)==4 and parts[0]=="batch":
-                loader.load_batch(batch_name, strict=False)
-            else:
-                _logger.warning("invalid batch name '%s'" % batch_name)
+            loader.load_batch(batch_name, strict=False)
+            # if len(parts)==4 and parts[0]=="batch":
+            #     loader.load_batch(batch_name, strict=False)
+            # else:
+            #     _logger.warning("invalid batch name '%s'" % batch_name)
 
