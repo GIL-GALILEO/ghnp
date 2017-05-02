@@ -100,7 +100,6 @@ class BatchLoader(object):
             # TODO: might we want 'batch.xml' first? Leaving last for now to
             # minimize impact.
             url = urlparse.urljoin(batch.storage_url, alias)
-            logging.info("looking for batch file at %s", url)
             try:
                 u = urllib2.urlopen(url)
                 validated_batch_file = alias
