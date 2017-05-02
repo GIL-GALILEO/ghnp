@@ -22,7 +22,7 @@ class Command(BaseCommand):
                     help='Do not generate ocr, and index'),
         make_option('--skip-process-coordinates', 
                     action='store_false', 
-                    dest='process_ocr', default=True,
+                    dest='process_coordinates', default=True,
                     help='Do not write out word coordinates'),
     )
     help = "Load batches by name from a batch list file"
