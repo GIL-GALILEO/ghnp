@@ -96,7 +96,7 @@ class BatchLoader(object):
         available in a canonical location?
         """
         # look for batch_1.xml, BATCH_1.xml, etc
-        for alias in ["batch_1.xml", "BATCH_1.xml", "batchfile_1.xml", "batch_2.xml", "BATCH_2.xml", "batch.xml"]:
+        for alias in ["batch_1.xml", "BATCH_1.xml", "batchfile_1.xml", "batch_2.xml", "BATCH_2.xml", "batch.xml", "BATCH.xml"]:
             # TODO: might we want 'batch.xml' first? Leaving last for now to
             # minimize impact.
             url = urlparse.urljoin(batch.storage_url, alias)
