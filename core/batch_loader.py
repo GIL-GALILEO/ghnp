@@ -283,12 +283,12 @@ class BatchLoader(object):
             management.call_command('load_titles', url)
             title = Title.objects.get(lccn=lccn)
 
-        # update title with funding source and newspaper types if not already set and values are available
-        if self.FUNDING_SOURCE_SLUG and not title.funding_source:
+        # update title with funding source and newspaper types
+        if self.FUNDING_SOURCE_SLUG:
             title.funding_source = FundingSource.objects.get(slug= self.FUNDING_SOURCE_SLUG)
-        if self.NEWSPAPER_TYPE_SLUGS and not title.newspaper_types:
+        if self.NEWSPAPER_TYPE_SLUGS:
             title.newspaper_types = NewspaperType.objects.filter(slug__in= self.NEWSPAPER_TYPE_SLUGS)
-        if self.ESSAY_TEXT: # always reset essay text if it is provided in add'l metadata file
+        if self.ESSAY_TEXT:
             title.essay_text = self.ESSAY_TEXT
 
         title.save()
