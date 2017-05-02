@@ -77,7 +77,7 @@ class BatchLoader(object):
                     data = json.load(f)
                 funding_source = data.get('funding_source')
                 newspaper_types = data.get('newspaper_types')
-                essay_text = data.get('essay_text')
+                essay_text = data.get('essay')
                 if funding_source and funding_source.strip():
                     self.FUNDING_SOURCE_SLUG = funding_source
                 if newspaper_types:
