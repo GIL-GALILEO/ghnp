@@ -78,11 +78,11 @@ class BatchLoader(object):
                 funding_source = data.get('funding_source')
                 newspaper_types = data.get('newspaper_types')
                 essay_text = data.get('essay_text')
-                if funding_source.strip():
+                if funding_source and funding_source.strip():
                     self.FUNDING_SOURCE_SLUG = funding_source
                 if newspaper_types:
                     self.NEWSPAPER_TYPE_SLUGS = newspaper_types
-                if essay_text.strip():
+                if essay_text and essay_text.strip():
                     self.ESSAY_TEXT = essay_text
             except IOError, e:
                 _logger.exception(e)
