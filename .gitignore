@@ -2,12 +2,7 @@
 ENV
 settings.py
 *.log
-data/batches
-data/dlg_batches
-data/test_batches
-data/nonlccn
-data/ocr
-data/word_coordinates
+data/*
 .static-media/
 .vagrant/
 .idea/
