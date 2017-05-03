@@ -8331,6 +8331,9 @@ h1 {
     background: #93450E; }
   .calendar_month tbody tr td .btn-group {
     border-radius: none; }
+    .calendar_month tbody tr td .btn-group a.btn-xs, .calendar_month tbody tr td .btn-group .btn-group-xs > a.btn {
+      color: #fff;
+      padding: 0; }
   .calendar_month tbody tr td button {
     padding: 0;
     background: none;
@@ -8425,6 +8428,16 @@ h1 {
     .footer ul.social-icons li {
       display: inline;
       margin-right: 5px; }
+
+.advanced-search label {
+  display: block;
+  margin-bottom: 20px; }
+
+.advanced-search select, .advanced-search input {
+  width: 100%; }
+
+.search-pagination .badge {
+  margin: 20px 0; }
 
 /* Extra small devices (phones, less than 768px) */
 /* No media query since this is the default in Bootstrap */
