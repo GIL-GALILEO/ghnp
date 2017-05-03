@@ -8203,7 +8203,7 @@ h1 {
   left: 0;
   opacity: .1;
   z-index: -1;
-  background: url(/images/bg-georgia-map.png);
+  background: url(../images/bg-georgia-map.png);
   background-repeat: no-repeat; }
 
 .panel, .panel-default {
