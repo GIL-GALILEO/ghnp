@@ -9,8 +9,8 @@ jQuery(function($){
         $('.browse-menu-item').addClass('active');
     }
     $(initPage);
-    $("#id_year").change(function(){
-        window.location = '{% url 'chronam_calendar' %}' + this.value;
+    $("#display_year").change(function(){
+        window.location.href = '{% url 'chronam_calendar' %}' + this.value;
     });
 });
 </script>
@@ -21,10 +21,10 @@ jQuery(function($){
 <div class="row">
     <div class="col-md-3">
         <div class="form-group">
-            <label for="exampleSelect1">Select a Year</label>
-            <select class="form-control" id="exampleSelect1">
+            <label for="display_year">Select a Year</label>
+            <select class="form-control" id="display_year">
                 {% for date in dates %}
-                    <option value="{{ date.year }}">{{ date.year }}</option>
+                    <option value="{{ date.year }}" {% if date|date:'Y' == year %}selected="selected"{% endif %}>{{ date.year }}</option>
                 {% endfor %}
             </select>
         </div>
@@ -40,15 +40,3 @@ jQuery(function($){
 </div>
 
 {% endblock content %}
-
-
-
-<div class="col-md-4">
-    <form>
-        <label class="bold" for="year_select">Select a Year</label>&nbsp; {{select_year_form.year}}
-    </form>
-</div>
-
-<div id="col2_right" class='row'>
-    {{ year_view|safe }}
-</div>
