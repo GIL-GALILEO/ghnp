@@ -40,6 +40,12 @@ def search_pages_paginator(request):
 @opensearch_clean
 def search_pages_results(request, view_type='gallery'):
     page_title = "Search Results"
+    crumbs = list(settings.BASE_CRUMBS)
+    crumbs.extend([
+        {'label':'Advanced Search',
+         'href':  urlresolvers.reverse('chronam_search_advanced') },
+        {'label':'Results'},
+    ])
     paginator = search_pages_paginator(request)
     q = paginator.query
     try:
@@ -63,7 +69,6 @@ def search_pages_results(request, view_type='gallery'):
         previous_url = '?' + query.urlencode()
 
     rows = q["rows"] if "rows" in q else 20
-    crumbs = list(settings.BASE_CRUMBS)
 
     host = request.get_host()
     format = request.GET.get('format', None)
