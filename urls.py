@@ -528,6 +528,11 @@ urlpatterns += [
         views.cities_page,
         name="browse_by_city"),
 
+    # example: /types/
+    url(r'^types/$',
+        views.chronam_type_browse,
+        name="chronam_type_browse"),
+
     # example: /regions/west /middle /south /atlanta
     url(r'^regions/(?P<region>[^/;]+)/$',
         views.region_page,

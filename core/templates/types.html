@@ -1,0 +1,58 @@
+{% extends "site_base.html" %}
+{% load static from staticfiles %}
+
+{% block page_head %}
+    <h1>{{ page_title }}</h1>
+{% endblock %}
+
+{% block main_content %}
+
+    <div class="row" id="newspaper-type-nav">
+        <div class="col-md-12">
+            <ul class="nav nav-pills">
+            {% for type, titles in titles_by_type.items %}
+                <li role="presentation" class="{{ type|lower|cut:" " }}"><a href="#{{ type|lower|cut:" " }}">{{ type }}</a></li>
+            {% endfor %}
+            </ul>
+        </div>
+    </div>
+
+    <div class="types">
+    {% for type, titles in titles_by_type.items %}
+        <div class="row">
+            <div class="col-md-3">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <a name="{{ type|lower|cut:" " }}"></a>{{ type }}
+                        <span class="badge pull-right">{{ titles|length }}</span>
+                    </div>
+                    <ul class="list-group">
+                        {% for t in titles %}
+                            <li class="list-group-item"><a href="{% url 'chronam_title' t.lccn %}">{{ t }}</a></li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            </div>
+        </div>
+    {% endfor %}
+    </div>
+
+{% endblock %}
+{% block javascript %}{{ block.super }}
+<script type="text/javascript">
+(function($) {
+    function initPage() {
+        $('.active').removeClass('active');
+        $('.browse-menu-item').addClass('active');
+        if(window.location.hash){
+            $('.nav-pills .' + window.location.hash.slice(1)).addClass('active');
+        }
+        $('.nav-pills li').click(function(){
+            $('.nav-pills li').removeClass('active');
+            $(this).addClass('active');
+        });
+    }
+    $(initPage);
+})(jQuery)
+</script>
+{% endblock javascript %}

@@ -648,3 +648,18 @@ def chronam_calendar_issues(request, year=None):
     page_name = "calendar"
     return render_to_response('calendar.html', dictionary=locals(),
                               context_instance=RequestContext(request))
+
+def chronam_type_browse(request):
+    crumbs = list(settings.BASE_CRUMBS)
+    crumbs.extend([
+        {'label':'Browse by Type'}
+    ])
+    page_title = "Browse by Type"
+    titles_by_type = {}
+    for nt in models.NewspaperType.objects.all():
+        type_titles = models.Title.objects.filter(newspaper_types__exact=nt)
+        if len(type_titles) > 0:
+            titles_by_type[nt.name] = type_titles
+
+    return render_to_response('types.html', dictionary=locals(),
+                              context_instance=RequestContext(request))
