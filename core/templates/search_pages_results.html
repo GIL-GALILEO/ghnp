@@ -48,7 +48,7 @@
                     <p>{{object.issue.place_of_publication}} {{object.issue|label}}, {{object|label}}</p>
                 </div>
                 <a href="{{ object.highlight_url }}" title="{% with object.issue.title as title %}{{title.display_name}} ({{title.place_of_publication}}), {{object.issue|label}}, {{object|label}}{% endwith %}">
-                    <img src="{{ object.thumb_url }}" alt="" style="max-height: 300px;"
+                    <img src="{{ object.thumb_url }}" alt="Result thumbnail"
                          class="highlight_words img-responsive"
                          data-script_name="{{script_name}}"
                          data-id="{{object.url}}"
