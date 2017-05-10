@@ -4316,7 +4316,6 @@ a.badge:hover, a.badge:focus {
         font-size: 63px; } }
 
 .thumbnail {
-  min-height: 430px;
   display: block;
   padding: 4px;
   margin-bottom: 20px;
@@ -8442,6 +8441,10 @@ h1 {
 
 #newspaper-type-nav {
   margin-bottom: 20px;
+}
+
+.result-thumbnail-container {
+    height: 520px;
 }
 
 /* Extra small devices (phones, less than 768px) */
