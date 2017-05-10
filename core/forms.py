@@ -104,32 +104,25 @@ def _titles_states():
 
 
 def _fulltext_range():
-    fulltext_range = cache.get('fulltext_range')
-    if not fulltext_range:
-        # get the maximum and minimum years that we have content for
-        issue_dates = models.Issue.objects.all().aggregate(min_date=Min('date_issued'),
-                                                           max_date=Max('date_issued'))
+    # todo cached value was never changed...
+    # fulltext_range = cache.get('fulltext_range')
+    # if not fulltext_range:
+    # get the maximum and minimum years that we have content for
+    issue_dates = models.Issue.objects.all().aggregate(min_date=Min('date_issued'),
+                                                       max_date=Max('date_issued'))
 
-        # when there is no content these may not be set
-        if issue_dates['min_date']:
-            min_year = issue_dates['min_date'].year
-        else:
-            min_year = MIN_YEAR
-        if issue_dates['max_date']:
-            max_year = issue_dates['max_date'].year
-        else:
-            max_year = MAX_YEAR
+    # when there is no content these may not be set
+    if issue_dates['min_date']:
+        min_year = issue_dates['min_date'].year
+    else:
+        min_year = MIN_YEAR
+    if issue_dates['max_date']:
+        max_year = issue_dates['max_date'].year
+    else:
+        max_year = MAX_YEAR
 
-        # removing these bits for https://rdc.lctl.gov/trac/chronam/ticket/1025
-        # See: https://rdc.lctl.gov/trac/ndnp/ticket/446
-        #min_year = max(min_year, MIN_YEAR)
-
-        # I don't understand why... just doing what's asked. See:
-        # https://rdc.lctl.gov/trac/ndnp/ticket/241
-        #max_year = min(max_year, MAX_YEAR)
-
-        fulltext_range = (min_year, max_year)
-        cache.set('fulltext_range', fulltext_range)
+    fulltext_range = (min_year, max_year)
+    # cache.set('fulltext_range', fulltext_range)
     return fulltext_range
 
 
@@ -168,8 +161,7 @@ class AdvSearchPagesForm(SearchPagesForm):
     date_month = fields.ChoiceField(choices=MONTH_CHOICES)
     date_day = fields.ChoiceField(choices=DAY_CHOICES)
     lccn = fields.MultipleChoiceField(choices=[])
-    state = fields.MultipleChoiceField(choices=[])
-
+    # state = fields.MultipleChoiceField(choices=[])
     city = fields.MultipleChoiceField(_cities_options())
     county = fields.MultipleChoiceField(_counties_options())
 
@@ -190,9 +182,9 @@ class AdvSearchPagesForm(SearchPagesForm):
 
         self.fields["city"].choices = self.cities
         self.fields["county"].choices = self.counties
-        self.fields["lccn"].widget.attrs = {'id': 'id_lccns', 'size': '8'}
+        self.fields["lccn"].widget.attrs = {'id': 'id_lccns'}
         self.fields["lccn"].choices = self.titles
-        self.fields["state"].widget.attrs = {'id': 'id_states', 'size': '8'}
+        self.fields["state"].widget.attrs = {'id': 'id_states'}
         self.fields["date1"].widget.attrs = {"id": "id_date_from", "max_length": 10}
         self.fields["date1"].initial = ""
         self.fields["date2"].widget.attrs = {"id": "id_date_to", "max_length": 10}

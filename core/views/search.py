@@ -221,6 +221,7 @@ def search_advanced(request):
     adv_search_form = forms.AdvSearchPagesForm()
     template = "search_advanced.html"
     crumbs = list(settings.BASE_CRUMBS)
+    crumbs.extend([{'label': 'Advanced Search'}])
     page_title = 'Advanced Search'
     return render_to_response(template, dictionary=locals(),
                               context_instance=RequestContext(request))
