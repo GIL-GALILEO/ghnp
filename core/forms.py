@@ -37,6 +37,26 @@ PROX_CHOICES = (
     ("100", "100"),
 )
 
+def _regions_options():
+    form_regions = cache.get("form_regions")
+    if not form_regions:
+        form_regions = [("", "All Regions")]
+        for region in models.Region.objects.all():
+            form_regions.append((region.slug, region.name))
+        form_regions = sorted(form_regions)
+        cache.set("form_regions", form_regions)
+    return form_regions
+
+def _types_options():
+    form_types = cache.get("form_types")
+    if not form_types:
+        form_types = [("", "All Regions")]
+        for type in models.NewspaperType.objects.all():
+            form_types.append((type.slug, type.name))
+        form_types = sorted(form_types)
+        cache.set("form_types", form_types)
+    return form_types
+
 def _counties_options():
     # form_counties = cache.get("form_counties")
     # if not form_counties:
@@ -157,6 +177,8 @@ class SearchPagesForm(forms.Form):
         self.titles = _titles_options()
         self.cities = _cities_options()
         self.counties = _counties_options()
+        self.types = _types_options()
+        self.regions = _regions_options()
 
         fulltextStartYear, fulltextEndYear = _fulltext_range()
 
@@ -179,6 +201,8 @@ class AdvSearchPagesForm(SearchPagesForm):
     # state = fields.MultipleChoiceField(choices=[])
     city = fields.MultipleChoiceField(_cities_options())
     county = fields.MultipleChoiceField(_counties_options())
+    type = fields.MultipleChoiceField(_types_options())
+    region = fields.MultipleChoiceField(_regions_options())
 
     date1 = fields.CharField()
     date2 = fields.CharField()
@@ -197,6 +221,8 @@ class AdvSearchPagesForm(SearchPagesForm):
 
         self.fields["city"].choices = self.cities
         self.fields["county"].choices = self.counties
+        self.fields["type"].choices = self.types
+        self.fields["region"].choices = self.regions
         self.fields["lccn"].widget.attrs = {'id': 'id_lccns'}
         self.fields["lccn"].choices = self.titles
         # self.fields["state"].widget.attrs = {'id': 'id_states'}
