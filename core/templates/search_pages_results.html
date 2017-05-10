@@ -9,6 +9,7 @@
 {% block main_content %}
 
 <div class="content">
+    {% if total_items > 0 %}
     <div class="row search-pagination">
         <div class="col-md-6">
             <nav aria-label="Page navigation">
@@ -36,7 +37,7 @@
             </nav>
         </div>
         <div class="col-md-6 text-right">
-            {% if total_items > 0 %}<span class="badge badge-info">{{ total_items }}</span> Pages Found. Displaying {{ start }} - {{ finish }}{% else %}No Results Found{% endif %}
+            <span class="badge badge-info">{{ total_items }}</span> Pages Found. Displaying {{ start }} - {{ finish }}
         </div>
     </div>
     <div class="row">
@@ -85,6 +86,11 @@
             </nav>
         </div>
     </div>
+    {% else %}
+        <div class="alert alert-warning">
+            No Results Found! <a href="{% url 'chronam_search_advanced' %}">Try another search.</a>
+        </div>
+    {% endif %}
 </div>
 
 {% endblock %}
