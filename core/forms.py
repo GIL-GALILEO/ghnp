@@ -102,6 +102,19 @@ def _titles_states():
         titles, states = titles_states
     return (titles, states)
 
+def _titles_options():
+    # titles = cache.get("titles")
+    titles = None
+    if not titles:
+        titles = [("", "All newspapers"), ]
+        for title in models.Title.objects.filter(has_issues=True).select_related():
+            short_name = title.name.split(":")[0]  # remove subtitle
+            title_name = "%s (%s)" % (short_name,
+                                      title.place_of_publication)
+            titles.append((title.lccn, title_name))
+        cache.set("titles", titles)
+    return titles
+
 
 def _fulltext_range():
     # todo cached value was never changed...
@@ -127,7 +140,7 @@ def _fulltext_range():
 
 
 class SearchPagesForm(forms.Form):
-    state = fields.ChoiceField(choices=[])
+    # state = fields.ChoiceField(choices=[])
     date1 = fields.ChoiceField(choices=[])
     date2 = fields.ChoiceField(choices=[])
     proxtext = fields.CharField()
@@ -137,9 +150,10 @@ class SearchPagesForm(forms.Form):
     def __init__(self, *args, **kwargs):
         super(SearchPagesForm, self).__init__(*args, **kwargs)
 
-        self.titles, self.states = _titles_states()
+        # self.titles, self.states = _titles_states()
 
         # added by MK
+        self.titles = _titles_options()
         self.cities = _cities_options()
         self.counties = _counties_options()
 
@@ -149,7 +163,7 @@ class SearchPagesForm(forms.Form):
         self.fulltextStartYear = fulltextStartYear
         self.fulltextEndYear = fulltextEndYear
 
-        self.fields["state"].choices = self.states
+        # self.fields["state"].choices = self.states
         self.fields["date1"].choices = self.years
         self.fields["date1"].initial = fulltextStartYear
         self.fields["date2"].choices = self.years
@@ -184,7 +198,7 @@ class AdvSearchPagesForm(SearchPagesForm):
         self.fields["county"].choices = self.counties
         self.fields["lccn"].widget.attrs = {'id': 'id_lccns'}
         self.fields["lccn"].choices = self.titles
-        self.fields["state"].widget.attrs = {'id': 'id_states'}
+        # self.fields["state"].widget.attrs = {'id': 'id_states'}
         self.fields["date1"].widget.attrs = {"id": "id_date_from", "max_length": 10}
         self.fields["date1"].initial = ""
         self.fields["date2"].widget.attrs = {"id": "id_date_to", "max_length": 10}
@@ -197,7 +211,7 @@ class AdvSearchPagesForm(SearchPagesForm):
 
 
 class SearchTitlesForm(forms.Form):
-    state = fields.ChoiceField(choices=[], initial="")
+    # state = fields.ChoiceField(choices=[], initial="")
     county = fields.ChoiceField(choices=[], initial="")
     city = fields.ChoiceField(choices=[], initial="")
     year1 = fields.ChoiceField(choices=[], label="from")
