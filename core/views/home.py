@@ -17,11 +17,10 @@ def home(request, date=None):
     # today = datetime.date.today()
     # context["date"] = date = today.replace(year=today.year-100)
     # context["pages"] = _frontpages(request, date)
-    regions = models.Region.objects.all()
+    # regions = models.Region.objects.all()
     # note the date is handled on the client side in javascript
     return render(request, 'home.html', {
-        "crumbs": crumbs,
-        "regions": regions
+        "crumbs": crumbs
     })
 
 def _frontpages(request, date):
