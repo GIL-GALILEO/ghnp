@@ -201,7 +201,7 @@ class AdvSearchPagesForm(SearchPagesForm):
     # state = fields.MultipleChoiceField(choices=[])
     city = fields.MultipleChoiceField(_cities_options())
     county = fields.MultipleChoiceField(_counties_options())
-    type = fields.MultipleChoiceField(_types_options())
+    newspaper_type = fields.MultipleChoiceField(_types_options())
     region = fields.MultipleChoiceField(_regions_options())
 
     date1 = fields.CharField()
@@ -221,7 +221,7 @@ class AdvSearchPagesForm(SearchPagesForm):
 
         self.fields["city"].choices = self.cities
         self.fields["county"].choices = self.counties
-        self.fields["type"].choices = self.types
+        self.fields["newspaper_type"].choices = self.types
         self.fields["region"].choices = self.regions
         self.fields["lccn"].widget.attrs = {'id': 'id_lccns'}
         self.fields["lccn"].choices = self.titles

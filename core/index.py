@@ -430,12 +430,14 @@ def page_search(d):
 
     if d.get('lccn', None):
         q.append(query_join(d.getlist('lccn'), 'lccn'))
-
     if d.get('city', None):
         q.append(query_join(d.getlist('city'), 'city'))
-        
     if d.get('county', None):
         q.append(query_join(d.getlist('county'), 'county'))
+    if d.get('newspaper_type', None):
+        q.append(query_join(d.getlist('newspaper_type'), 'newspaper_type'))
+    if d.get('region', None):
+        q.append(query_join(d.getlist('region'), 'region'))
 
     date_filter_type = d.get('dateFilterType', None)
     date_boundaries = _fulltext_range()

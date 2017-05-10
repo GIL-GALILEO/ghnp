@@ -28,7 +28,7 @@
                     </div>
                     <div class="row">
                         <div class="col-md-6">
-                            <label for="id_types">Select Types: {{ adv_search_form.type }} </label>
+                            <label for="id_types">Select Types: {{ adv_search_form.newspaper_type }} </label>
                         </div>
                         <div class="col-md-6">
                             <label for="id_regions">Select Regions: {{ adv_search_form.region }} </label>
@@ -87,7 +87,7 @@
             </div>
             <div class="col-md-12">
                 <fieldset>
-                  <input type="hidden" name="rows" id="rows" value="20" />
+{#                  <input type="hidden" name="rows" id="rows" value="20" />#}
                   <input type="hidden" name="searchType" value="advanced" />
                   <div class="form-actions">
                     <button id="adv_reset" type="reset" value="clear" class="btn">Clear</button>
@@ -111,7 +111,7 @@
     $('#id_lccns').chosen({allow_single_deselect: true});
     $('#id_city').chosen({allow_single_deselect: true});
     $('#id_county').chosen({allow_single_deselect: true});
-    $('#id_type').chosen({allow_single_deselect: true});
+    $('#id_newspaper_type').chosen({allow_single_deselect: true});
     $('#id_region').chosen({allow_single_deselect: true});
     $('#id_proxdistance').chosen({disable_search_threshold: 10});
 })(jQuery);

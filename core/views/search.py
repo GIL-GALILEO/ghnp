@@ -25,9 +25,9 @@ def search_pages_paginator(request):
         sequence = 0
     # set results per page value
     try:
-        rows = int(request.GET.get('rows', '10'))
+        rows = int(request.GET.get('rows', '12'))
     except ValueError, e:
-        rows = 10
+        rows = 12
     q = request.GET.copy()
     q['rows'] = rows
     q['sequence'] = sequence
@@ -68,7 +68,7 @@ def search_pages_results(request, view_type='gallery'):
         query['page'] = paginator._cur_page - 1
         previous_url = '?' + query.urlencode()
 
-    rows = q["rows"] if "rows" in q else 10
+    rows = q["rows"] if "rows" in q else 12
 
     host = request.get_host()
     format = request.GET.get('format', None)
