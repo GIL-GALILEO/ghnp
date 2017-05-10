@@ -25,7 +25,7 @@ def search_pages_paginator(request):
         sequence = 0
     # set results per page value
     try:
-        rows = int(request.GET.get('rows', '20'))
+        rows = int(request.GET.get('rows', '10'))
     except ValueError, e:
         rows = 20
     q = request.GET.copy()
