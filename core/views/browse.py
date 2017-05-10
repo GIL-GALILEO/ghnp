@@ -553,25 +553,22 @@ def page_print(request, lccn, date, edition, sequence,
 @cache_page(settings.DEFAULT_TTL_SECONDS)
 def issues_first_pages(request, lccn, page_number=1):
     title = get_object_or_404(models.Title, lccn=lccn)
+    crumbs = create_crumbs(title)
+    crumbs.extend([{'label': 'All Front Pages'}])
     issues = title.issues.all()
     if not issues.count() > 0:
         raise Http404("No issues for %s" % title.display_name)
-
     first_pages = []
     for issue in issues:
         first_pages.append(issue.first_page)
-
     paginator = Paginator(first_pages, 20)
     try:
         page = paginator.page(page_number)
     except InvalidPage:
         page = paginator.page(1)
     page_range_short = list(_page_range_short(paginator, page))
-
-    page_title = 'Browse Issues: %s' % label(title)
-    page_head_heading = "Browse Issues: %s" % title.display_name
-    page_head_subheading = label(title)
-    crumbs = create_crumbs(title)
+    page_title = 'All Front Pages: %s' % label(title)
+    total_items = len(first_pages)
     return render_to_response('issue_pages.html', dictionary=locals(),
                               context_instance=RequestContext(request))
 
