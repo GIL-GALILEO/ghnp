@@ -6,9 +6,6 @@
 
 {% block head_content %}
     {{ block.super }}
-    {% block lc_metadata %}{% endblock lc_metadata %}
-    <link title="NDNP Page Search" href="{% url 'chronam_search_pages_opensearch' %}" rel="search" type="application/opensearchdescription+xml" />
-    <link title="NDNP Title Search" href="{% url 'chronam_search_titles_opensearch' %}" rel="search" type="application/opensearchdescription+xml" />
     <meta http-equiv="Content-Language" content="en-us" />
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <link href="{% static 'jquery-ui.css' %}" rel="stylesheet" />
