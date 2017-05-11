@@ -60,7 +60,7 @@
 {% endblock %}
 
 {% block main_content %}
-    <div>
+    <div class="page-view">
         <div class="row">
             <div class="col-md-12">
                 <div class="btn-group" role="group" aria-label="Page Navigation">
@@ -87,21 +87,22 @@
 
     {% endif %}
 
-    <div class="row">
-    {% if page.jp2_filename %}
-        <div class="col-md-12">
-            <div id="viewer_container_container">
-	            <div id="dummy"></div>
-                <div id="viewer_container" class="openseadragon">
-                   <div id="item-ctrl" class="toolbar"></div>
+        <div class="row">
+        {% if page.jp2_filename %}
+            <div class="col-md-12">
+                <div id="viewer_container_container">
+                    <div id="dummy"></div>
+                    <div id="viewer_container" class="openseadragon">
+                       <div id="item-ctrl" class="toolbar"></div>
+                    </div>
                 </div>
             </div>
+        {% else %}
+            <div class="missing">
+                <h3>Missing Page: {{explanation}}</h3>
+            </div>
+        {% endif %}
         </div>
-    {% else %}
-        <div class="missing">
-            <h3>Missing Page: {{explanation}}</h3>
-        </div>
-    {% endif %}
     </div>
       
 {% endblock main_content %}
