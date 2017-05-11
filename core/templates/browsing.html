@@ -14,9 +14,9 @@
     <p>Contents:</p>
     <ul>
         <li><a href="#title">Browse by Title</a></li>
-        <li><a href="#county">Browse by County</a></li>
         <li><a href="#city">Browse by City</a></li>
         <li><a href="#date">Browse by Date</a></li>
+        <li><a href="#type">Browse by Type</a></li>
     </ul>
 
     <h3>
@@ -24,29 +24,15 @@
     </h3>
 
     <p>
-        Select the “Browse by Title” tab at the top of the homepage. This will direct you to a page with a list of all
-        of the titles available in the Georgia Historic Newspapers Archive. The list is sortable by title, county, city,
-        number of issues, and date by clicking the arrows at the top of each column. Selecting the title name will load
-        a page with information about the title. Clicking on the calendar icon will allow you to browse the title by
-        date.
+        Select “Browse by Title” from the “Browse” drop down tab at the top of the homepage. This will direct you to a page with a list of all of the titles available in the Georgia Historic Newspapers Archive. The list is sortable by title, county, city, region, type, number of issues, and date by clicking the arrows at the top of each column.
     </p>
 
     <p>
-        [INSERT TITLE BROWSE SCREEN CAPS HERE]
-    </p>
-
-    <h3>
-        <a name="county"></a>Browse by County
-    </h3>
-
-    <p>
-        Users can browse by county using the Georgia map on the home page. Click on the county you are interested in and
-        a list of titles available from that county will load. You will also have the option to search the titles
-        available from the county on that page.
+        <img src="{% static 'images/browsebytitle.png' %}" alt="" class="img-responsive">
     </p>
 
     <p>
-        [INSERT COUNTY BROWSE SCREEN CAPS HERE]
+        Select the “Browse by Date” from the “Browse” drop down tab at the top of the homepage. You will be directed to a calendar view with highlighted dates. A drop-down box to the left of the calendar will allow you to select the year you are interested in viewing. All of the issue dates available for that year will be highlighted as active links. Selecting the date will open a drop down box with the titles available for that year. Selecting a title will direct you to the issue from that date.
     </p>
 
     <h3>
@@ -54,31 +40,35 @@
     </h3>
 
     <p>
-        Select the “Browse by Location” tab at the top of the homepage. This will direct you to a list of newspaper
-        titles organized by city. Selecting one of the titles will take you to the title information page where you can
-        browse or search the title.
+        Select “Browse by City” from the “Browse” drop down tab at the top of the homepage. This will direct you to a list of newspaper titles organized alphabetically by city. Selecting one of the titles will take you to the title information page where you can browse the title.
     </p>
 
     <p>
-        [INSERT BROWSE BY LOCATION PAGE SCREEN CAPS HERE]
+        <img src="{% static 'images/browsebycity.png' %}" alt="" class="img-responsive">
     </p>
-
 
     <h3>
         <a name="date"></a>Browse by Date
     </h3>
 
     <p>
-        Select the “Browse by Date” tab at the top of the homepage. You will be directed to a calendar view with
-        highlighted dates. A drop-down box at the top of the page will allow you to select the year you are interested
-        in viewing. All of the issue dates available for that year will be highlighted as active links. Selecting the
-        date link will direct you to the issue available for that year. If there is more than one title available for a
-        date, selecting the link will load a drop-down box which will allow you to select the title you are interested
-        in for that date.
+        Select the “Browse by Date” from the “Browse” drop down tab at the top of the homepage. You will be directed to a calendar view with highlighted dates. A drop-down box to the left of the calendar will allow you to select the year you are interested in viewing. All of the issue dates available for that year will be highlighted as active links. Selecting the date will open a drop down box with the titles available for that year. Selecting a title will direct you to the issue from that date.
     </p>
 
     <p>
-        [INSERT BROWSE BY DATE PAGE SCREEN CAPS HERE]
+        <img src="{% static 'images/browsebydate.png' %}" alt="" class="img-responsive">
+    </p>
+
+    <h3>
+        <a name="type"></a>Browse by Type
+    </h3>
+
+    <p>
+        Users can browse by newspaper type by selecting “Browse by Type” from the “Browse” drop down tab at the top of the homepage. This will direct you to the Browse by Type page, where you will be able to view lists of newspapers organized by type, including African American papers, school papers, religious papers, community papers, and papers of record.
+    </p>
+
+    <p>
+        <img src="{% static 'images/browsebytype.png' %}" alt="" class="img-responsive">
     </p>
 
 {% endblock content %}
