@@ -14,6 +14,7 @@
                         <div class="panel-body">
                             <form action="{% url 'chronam_search_pages_results' %}" class="form-horizontal" method="get">
                                 <div class="input-group" id="adv-search">
+                                    <input type="hidden" name="region" value="{{ region.slug }}" />
                                     <input name="proxtext" type="text" class="form-control" placeholder="Search within {{ region.name }}" />
                                     <div class="input-group-btn">
                                         <div class="btn-group" role="group">
@@ -27,13 +28,13 @@
                                                         <select class="form-control" name="city" id="city" title="City filter">
                                                         <option value="">All {{ region.name }} cities with Titles</option>
                                                         {% for city in cities_with_titles %}
-                                                            <option value="{{ city.city|lower }}">{{ city.city }}</option>
+                                                            <option value="{{ city.city }}">{{ city.city }}</option>
                                                         {% endfor %}
                                                         </select>
                                                     </div>
                                                     <div class="form-group">
                                                         <label for="type">Newspaper Type</label>
-                                                        <select name="type" id="type" class="form-control col-md-3" title="Type filter">
+                                                        <select name="newspaper_type" id="type" class="form-control col-md-3" title="Type filter">
                                                         <option value="">All {{ region.name }} newspaper types</option>
                                                         {% for type in types %}
                                                             <option value="{{ type.slug }}">{{ type.name }}</option>
