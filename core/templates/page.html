@@ -64,16 +64,17 @@
         <div class="row">
             <div class="col-md-12">
                 <div class="btn-group" role="group" aria-label="Page Navigation">
-                  {% if page.previous %}<a href="{% url 'chronam_page' title.lccn issue.date_issued issue.edition page.previous.sequence %}" class="btn btn-default">Previous Pge</a>{% endif %}
-                  {% if page.next %}<a href="{% url 'chronam_page' title.lccn issue.date_issued issue.edition page.next.sequence %}" class="btn btn-default">Next Page</a>{% endif %}
+                    {% if page.previous %}<a href="{% url 'chronam_page' title.lccn issue.date_issued issue.edition page.previous.sequence %}" class="btn btn-default">Previous Pge</a>{% endif %}
+                    {% if page.next %}<a href="{% url 'chronam_page' title.lccn issue.date_issued issue.edition page.next.sequence %}" class="btn btn-default">Next Page</a>{% endif %}
                 </div>
                 <div class="btn-group" role="group" aria-label="Issue Navigation">
-                  {% if previous_issue_first_page %}<a href="{% url 'chronam_page' title.lccn previous_issue_first_page.issue.date_issued previous_issue_first_page.issue.edition previous_issue_first_page.sequence %}" class="btn btn-default">Previous Issue</a>{% endif %}
-                  {% if next_issue_first_page %}<a href="{% url 'chronam_page' title.lccn next_issue_first_page.issue.date_issued next_issue_first_page.issue.edition next_issue_first_page.sequence %}" class="btn btn-default">Next Issue</a>{% endif %}
+                    {% if previous_issue_first_page %}<a href="{% url 'chronam_page' title.lccn previous_issue_first_page.issue.date_issued previous_issue_first_page.issue.edition previous_issue_first_page.sequence %}" class="btn btn-default">Previous Issue</a>{% endif %}
+                    {% if next_issue_first_page %}<a href="{% url 'chronam_page' title.lccn next_issue_first_page.issue.date_issued next_issue_first_page.issue.edition next_issue_first_page.sequence %}" class="btn btn-default">Next Issue</a>{% endif %}
                 </div>
                 <div class="btn-group pull-right" role="group" aria-label="Page Options">
-                  <a href="{% url 'chronam_page_ocr' title.lccn issue.date_issued issue.edition page.sequence %}" class="btn btn-default">View Page Text</a>
-                  <a href="{% url 'chronam_page_pdf' title.lccn issue.date_issued issue.edition page.sequence %}" class="btn btn-default">View PDF</a>
+                    <a id="clip" href="#" target="print" class="btn btn-default">Clip Image</a>
+                    <a href="{% url 'chronam_page_ocr' title.lccn issue.date_issued issue.edition page.sequence %}" class="btn btn-default">View Page Text</a>
+                    <a href="{% url 'chronam_page_pdf' title.lccn issue.date_issued issue.edition page.sequence %}" class="btn btn-default">View PDF</a>
                 </div>
             </div>
         </div>
