@@ -8306,6 +8306,9 @@ h1 {
 
 .calendar_month {
   text-align: center; }
+  .calendar_month a {
+    color: #fff;
+  }
   .calendar_month table.table-bordered {
     border: none;
     border: 1px solid #E8E5D4;
@@ -8332,7 +8335,6 @@ h1 {
   .calendar_month tbody tr td .btn-group {
     border-radius: none; }
     .calendar_month tbody tr td .btn-group a.btn-xs, .calendar_month tbody tr td .btn-group .btn-group-xs > a.btn {
-      color: #fff;
       padding: 0; }
   .calendar_month tbody tr td button {
     padding: 0;
