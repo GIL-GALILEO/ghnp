@@ -20,23 +20,23 @@
                     <legend>Limit Search</legend>
                     <div class="row">
                         <div class="col-md-6">
-                            <label for="id_cities">Select Cities: {{ adv_search_form.city }} </label>
+                            <label for="id_cities">Cities: {{ adv_search_form.city }} </label>
                         </div>
                         <div class="col-md-6">
-                            <label for="id_counties">Select Counties: {{ adv_search_form.county }} </label>
+                            <label for="id_counties">Counties: {{ adv_search_form.county }} </label>
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-md-6">
-                            <label for="id_types">Select Types: {{ adv_search_form.newspaper_type }} </label>
+                            <label for="id_types">Types: {{ adv_search_form.newspaper_type }} </label>
                         </div>
                         <div class="col-md-6">
-                            <label for="id_regions">Select Regions: {{ adv_search_form.region }} </label>
+                            <label for="id_regions">Regions: {{ adv_search_form.region }} </label>
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-md-12">
-                            <label for="id_states">Select Newspapers: {{ adv_search_form.lccn }} </label>
+                            <label for="id_states">Newspapers: {{ adv_search_form.lccn }} </label>
                         </div>
                     </div>
 {#                    <div class="row">#}
@@ -52,12 +52,12 @@
                         <!-- date -->
                         <p class="help-block">Newspaper pages are available for newspapers published between <strong>{{adv_search_form.fulltextStartYear}}-{{adv_search_form.fulltextEndYear}}</strong></p>
                         <div class="row">
-                            <div class="col-md-4">
+                            <div class="col-md-6">
                                 <label for="id_date_from">from
                                     <input id="id_date_from" name="date1" class="form-control" type="text" data-date-format="mm/dd/yyyy" data-date="01-01-{{adv_search_form.fulltextStartYear}}" value="01/01/{{adv_search_form.fulltextStartYear}}">
                                 </label>
                             </div>
-                            <div class="col-md-4">
+                            <div class="col-md-6">
                                 <label for="id_date_to">to
                                     <input id="id_date_to" name="date2" class="form-control" type="text" data-date-format="mm/dd/yyyy" data-date="12-31-{{adv_search_form.fulltextEndYear}}" value="12/31/{{adv_search_form.fulltextEndYear}}">
                                 </label>
