@@ -212,7 +212,7 @@ class AdvSearchPagesForm(SearchPagesForm):
     phrasetext = fields.CharField()
     proxtext = fields.CharField()
     proxdistance = fields.ChoiceField(choices=PROX_CHOICES)
-    language = fields.ChoiceField()
+    # language = fields.ChoiceField()
 
     def __init__(self, *args, **kwargs):
         super(AdvSearchPagesForm, self).__init__(*args, **kwargs)
@@ -231,10 +231,13 @@ class AdvSearchPagesForm(SearchPagesForm):
         self.fields["date2"].widget.attrs = {"id": "id_date_to", "max_length": 10}
         self.fields["date2"].initial = ""
         self.fields["sequence"].widget.attrs = {"id": "id_char_sequence", "size": "3"}
-        self.fields["proxtext"].widget.attrs["id"] = "id_proxtext_adv"
-        lang_choices = [("", "All"), ]
-        lang_choices.extend((l, models.Language.objects.get(code=l).name) for l in settings.SOLR_LANGUAGES)
-        self.fields["language"].choices = lang_choices
+        self.fields["proxtext"].widget.attrs = {"id": "id_proxtext_adv", "class": "form-control"}
+        self.fields["ortext"].widget.attrs = {"class": "form-control"}
+        self.fields["andtext"].widget.attrs = {"class": "form-control"}
+        self.fields["phrasetext"].widget.attrs = {"class": "form-control"}
+        # lang_choices = [("", "All"), ]
+        # lang_choices.extend((l, models.Language.objects.get(code=l).name) for l in settings.SOLR_LANGUAGES)
+        # self.fields["language"].choices = lang_choices
 
 
 class SearchTitlesForm(forms.Form):

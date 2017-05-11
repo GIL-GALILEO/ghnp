@@ -54,12 +54,12 @@
                         <div class="row">
                             <div class="col-md-4">
                                 <label for="id_date_from">from
-                                    <input id="id_date_from" name="date1" class="span2" type="text" data-date-format="mm/dd/yyyy" data-date="01-01-{{adv_search_form.fulltextStartYear}}" value="01/01/{{adv_search_form.fulltextStartYear}}">
+                                    <input id="id_date_from" name="date1" class="form-control" type="text" data-date-format="mm/dd/yyyy" data-date="01-01-{{adv_search_form.fulltextStartYear}}" value="01/01/{{adv_search_form.fulltextStartYear}}">
                                 </label>
                             </div>
                             <div class="col-md-4">
                                 <label for="id_date_to">to
-                                    <input id="id_date_to" name="date2" class="span2" type="text" data-date-format="mm/dd/yyyy" data-date="12-31-{{adv_search_form.fulltextEndYear}}" value="12/31/{{adv_search_form.fulltextEndYear}}">
+                                    <input id="id_date_to" name="date2" class="form-control" type="text" data-date-format="mm/dd/yyyy" data-date="12-31-{{adv_search_form.fulltextEndYear}}" value="12/31/{{adv_search_form.fulltextEndYear}}">
                                 </label>
                             </div>
                         </div>
@@ -75,9 +75,7 @@
                             <label for="id_phrasetext">...with the <strong>phrase</strong>: {{ adv_search_form.phrasetext }}</label>
                         </div>
                         <div class="col-md-4">
-                            <label for="id_proxtext_adv">...with the words:<br>
-                                <input id="id_proxtext_adv" name="proxtext" type="text" />
-                            </label>
+                            <label for="id_proxtext_adv">...with the words:<br> {{ adv_search_form.proxtext }}</label>
                         </div>
                         <div class="col-md-2">
                             <label for="id_proxdistance">within<br> {{ adv_search_form.proxdistance }}<span>words of each other</span></label>
