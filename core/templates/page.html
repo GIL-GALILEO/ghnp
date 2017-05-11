@@ -2,20 +2,6 @@
 {% load static from staticfiles %}
 
 {% block head_content %}{{ block.super }}
-    {% with page as title_metadata %}
-    {% include "includes/lc_metadata.html" %}
-    {% endwith %}
-    <link rel="primaryTopic" href="{{ page.abstract_url }}" />
-    <link rel="resourcemap" type="application/rdf+xml" href="{% url 'chronam_page_dot_rdf' page.issue.title.lccn page.issue.date_issued page.issue.edition page.sequence %}" />
-    <link rel="alternate" type="application/json" href="{% url 'chronam_page_dot_json' page.issue.title.lccn page.issue.date_issued page.issue.edition page.sequence %}" />
-    <link rel="alternate" type="application/pdf" href="{% url 'chronam_page_pdf' title.lccn issue.date_issued issue.edition page.sequence %}" />
-    <link rel="alternate" type="application/xml" href="{% url 'chronam_page_ocr_xml' title.lccn issue.date_issued issue.edition page.sequence %}" />
-    <link rel="alternate" type="text/plain" href="{% url 'chronam_page_ocr_txt' title.lccn issue.date_issued issue.edition page.sequence %}" />
-    <link rel="canonical" href="http://{{host}}{% url 'chronam_page' title.lccn issue.date_issued issue.edition page.sequence %}" />
-    <link rel="up" href="{{ issue.url }}" />
-    <meta property="og:image" content="http://{{ host }}{% url 'chronam_page_thumbnail' title.lccn page.issue.date_issued page.issue.edition page.sequence %}" />
-    <meta property="og:title" content="{{ page_title }}" />
-
     <style type="text/css">
 #viewer_container_container {
     display: inline-block;
@@ -69,87 +55,56 @@
 
 {% endblock head_content %}
 
+{% block page_head %}
+    <h1>{{ page_title }}</h1>
+{% endblock %}
 
-{% block content %}
+{% block main_content %}
     <div>
-      <div class="row">
-	<div class="span9">
-	  <ul class="pagetools inline">
-	    <li>
-	      <a rel="previous"{% if page.previous %} href="{% url 'chronam_page' title.lccn issue.date_issued issue.edition page.previous.sequence %}"{% else %} class="disabled"{% endif %}>
-                  <i class="icon-chevron-left"></i>
-                  <span class="visible-desktop">prev</span>
-	      </a> 
-              Page
-	      <a rel="next"{% if page.next %} href="{% url 'chronam_page' title.lccn issue.date_issued issue.edition page.next.sequence %}"{% else %} class="disabled"{% endif %}>
-                  <span class="visible-desktop">next</span>
-                  <i class="icon-chevron-right"></i>
-	      </a>
-	    </li>
-	    <li>
-	      <a rel="previous"{% if previous_issue_first_page %} href="{% url 'chronam_page' title.lccn previous_issue_first_page.issue.date_issued previous_issue_first_page.issue.edition previous_issue_first_page.sequence %}"{% else %} class="disabled"{% endif %}>
-                  <i class="icon-chevron-left"></i>
-                  <span class="visible-desktop">prev</span>
-	      </a>
-	      Issue
-	      <a rel="next"{% if next_issue_first_page %} href="{% url 'chronam_page' title.lccn next_issue_first_page.issue.date_issued next_issue_first_page.issue.edition next_issue_first_page.sequence %}"{% else %} class="disabled"{% endif %}>
-                <span class="visible-desktop">next</span>
-                <i class="icon-chevron-right"></i>
-	      </a>
-	    </li>
-	    <li>
-	      <a href="{% url 'chronam_page_ocr' title.lccn issue.date_issued issue.edition page.sequence %}">
-                  <span class="visible-desktop">Text</span>
-                  <i class="icon-font"></i>
-	      </a>
-	    </li>
-	    <li>
-	      <a href="{% url 'chronam_page_pdf' title.lccn issue.date_issued issue.edition page.sequence %}">
-                  <span class="visible-desktop">PDF</span>
-                  <i class="icon-file"></i>
-	      </a>
-            </li>
-{#	    <li>#}
-{#	      <a href="{% url 'chronam_page_jp2' title.lccn issue.date_issued issue.edition page.sequence %}" download="{{ title.lccn }}-{{ issue.date_issued|date:"Ymd" }}.jp2">#}
-{#                  <span class="visible-desktop">JP2 ({{image_size}})</span>#}
-{#                  <i class="icon-picture"></i>#}
-{#	      </a>#}
-{#	    </li>#}
-	    <li>
-	      <a id="clip" href="#" target="print">
-                  <span class="visible-desktop">Clip Image</span>
-                  <i class="icon-camera"></i>
-	      </a>
-	    </li>
-          </ul>
-	</div>
-      </div>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="btn-group" role="group" aria-label="Page Navigation">
+                  {% if page.previous %}<a href="{% url 'chronam_page' title.lccn issue.date_issued issue.edition page.previous.sequence %}" class="btn btn-default">Previous Pge</a>{% endif %}
+                  {% if page.next %}<a href="{% url 'chronam_page' title.lccn issue.date_issued issue.edition page.next.sequence %}" class="btn btn-default">Next Page</a>{% endif %}
+                </div>
+                <div class="btn-group" role="group" aria-label="Issue Navigation">
+                  {% if previous_issue_first_page %}<a href="{% url 'chronam_page' title.lccn previous_issue_first_page.issue.date_issued previous_issue_first_page.issue.edition previous_issue_first_page.sequence %}" class="btn btn-default">Previous Issue</a>{% endif %}
+                  {% if next_issue_first_page %}<a href="{% url 'chronam_page' title.lccn next_issue_first_page.issue.date_issued next_issue_first_page.issue.edition next_issue_first_page.sequence %}" class="btn btn-default">Next Issue</a>{% endif %}
+                </div>
+                <div class="btn-group" role="group" aria-label="Page Options">
+                  <a href="{% url 'chronam_page_ocr' title.lccn issue.date_issued issue.edition page.sequence %}" class="btn btn-default">View Page Text</a>
+                  <a href="{% url 'chronam_page_pdf' title.lccn issue.date_issued issue.edition page.sequence %}" class="btn btn-default">View PDF</a>
+                </div>
+            </div>
+        </div>
 
     {% if title.funding_source %}
-    <div class="alert alert-info">
-      Funding for the digitization of this title was provided by {{ title.funding_source.name }}
-    </div>
+        <div class="row">
+            <div class="alert alert-info">
+                Funding for the digitization of this title was provided by {{ title.funding_source.name }}
+            </div>
+        </div>
+
     {% endif %}
 
-      {% if page.jp2_filename %}
-      
-      <div id="viewer_container_container">
-	<div id="dummy"></div>
-	<div id="viewer_container" class="openseadragon span12">
-	  <div id="item-ctrl" class="toolbar span3"></div>
-	</div>
-      </div>
-
-
-      {% else %}
-      <div class="missing">
-        <h3>Missing Page: {{explanation}}</h3>
-      </div>
-      {% endif %}
+    <div class="row">
+    {% if page.jp2_filename %}
+        <div class="col-md-12">
+            <div id="viewer_container_container">
+	            <div id="dummy"></div>
+                <div id="viewer_container" class="openseadragon">
+                   <div id="item-ctrl" class="toolbar"></div>
+                </div>
+            </div>
+        </div>
+    {% else %}
+        <div class="missing">
+            <h3>Missing Page: {{explanation}}</h3>
+        </div>
+    {% endif %}
     </div>
       
-{% endblock content %}
-
+{% endblock main_content %}
 
 {% block javascript %}
 {{ block.super }}
