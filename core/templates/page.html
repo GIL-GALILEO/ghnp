@@ -26,7 +26,7 @@
 .overlay
 {
     border: 1px solid red;
-    opacity: 0.4;      
+    opacity: 0.4;
     -moz-opacity: 0.4;
     -webkit-opacity: 0.4;
     background: red;
@@ -115,7 +115,7 @@
     <script src="{% static 'js/jquery.ba-bbq.min.js' %}"></script> 
 
     <div id="page_data"
-	 data-static_url="{% static '' %}images/",
+	 data-static_url="{% static '' %}images/"
 	 data-width="{{page.jp2_width}}"
 	 data-height="{{page.jp2_length}}"
 	 data-page_url="{% url 'chronam_page' title.lccn issue.date_issued issue.edition page.sequence %}"
