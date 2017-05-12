@@ -146,7 +146,7 @@ class SolrPaginator(Paginator):
         params = {"hl.snippets": 100, # TODO: make this unlimited
             "hl.requireFieldMatch": 'true', # limits highlighting slop
             "hl.maxAnalyzedChars": '102400', # increased from default 51200
-            "hl.method":'unified'
+            # "hl.method":'unified'
             }
         params.update(self.facet_params)
         sort_field, sort_order = _get_sort(self.query.get('sort'), in_pages=True)
