@@ -551,7 +551,7 @@ def page_print(request, lccn, date, edition, sequence,
 
 
 @cache_page(settings.DEFAULT_TTL_SECONDS)
-def issues_first_pages(request, lccn, page_number=1):
+def issues_first_pages(request, lccn, page_num=1):
     title = get_object_or_404(models.Title, lccn=lccn)
     crumbs = create_crumbs(title)
     crumbs.extend([{'label': 'All Front Pages'}])
@@ -561,14 +561,15 @@ def issues_first_pages(request, lccn, page_number=1):
     first_pages = []
     for issue in issues:
         first_pages.append(issue.first_page)
-    paginator = Paginator(first_pages, 20)
+    paginator = Paginator(first_pages, 12)
     try:
-        page = paginator.page(page_number)
+        page = paginator.page(page_num)
     except InvalidPage:
         page = paginator.page(1)
     page_range_short = list(_page_range_short(paginator, page))
     page_title = 'All Front Pages: %s' % label(title)
     total_items = len(first_pages)
+    # title_lccn = lccn
     return render_to_response('issue_pages.html', dictionary=locals(),
                               context_instance=RequestContext(request))
 

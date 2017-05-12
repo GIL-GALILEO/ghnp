@@ -156,7 +156,7 @@ urlpatterns += [
         name="chronam_issues_first_pages"),
 
     # example: /lccn/sn85066387/issues/first_pages/3
-    url(r'^lccn/(?P<lccn>\w+)/issues/first_pages/(?P<page_number>\d+)/$', 
+    url(r'^lccn/(?P<lccn>\w+)/issues/first_pages/(?P<page_num>\d+)/$',
         views.issues_first_pages, 
         name="chronam_issues_first_pages_page_number"),
 

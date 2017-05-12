@@ -24,7 +24,7 @@
                             <li class="active"><span>{{ page_number }}<span class="sr-only"> (current)</span></span></li>
                         {% else %}
                             <li>
-                                <a href="?{{ q }}&amp;page={{ page_number }}&amp;sort={{ sort }}">{{ page_number }}</a>
+                                <a href="{% url 'chronam_issues_first_pages_page_number' lccn page_number %}">{{ page_number }}</a>
                             </li>
                         {% endif %}
                     {% endif %}
@@ -75,7 +75,7 @@
                             <li class="active"><span>{{ page_number }}<span class="sr-only"> (current)</span></span></li>
                         {% else %}
                             <li>
-                                <a href="?{{ q }}&amp;page={{ page_number }}&amp;sort={{ sort }}">{{ page_number }}</a>
+                                <a href="{% url 'chronam_issues_first_pages_page_number' lccn page_number %}">{{ page_number }}</a>
                             </li>
                         {% endif %}
                     {% endif %}
