@@ -1,4 +1,5 @@
 import datetime
+import timeit
 import re
 import json
 from rfc3339 import rfc3339
@@ -48,6 +49,7 @@ def search_pages_results(request, view_type='gallery'):
     ])
     paginator = search_pages_paginator(request)
     q = paginator.query
+    start_time = timeit.default_timer()
     try:
         page = paginator.page(paginator._cur_page)
     except InvalidPage:
@@ -55,8 +57,11 @@ def search_pages_results(request, view_type='gallery'):
         # Set the page to the first page
         q['page'] = 1
         return HttpResponseRedirect('%s?%s' % (url, q.urlencode()))
+    end_time = timeit.default_timer()
     start = page.start_index()
     end = page.end_index()
+
+    query_time = end_time - start_time
 
     # figure out the next page number
     query = request.GET.copy()

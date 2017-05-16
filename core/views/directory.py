@@ -196,16 +196,16 @@ def search_titles_results(request):
     if format == 'csv':
         query = request.GET.copy()
         q, fields, sort_field, sort_order, facets = index.get_solr_request_params_from_query(query)
-        
+
         # return all titles in csv format. * May hurt performance. Assumption is that this
-        # request is not made often. 
+        # request is not made often.
         # TODO: revisit if assumption is incorrect
-        solr_response = index.execute_solr_query(q, fields, sort_field, 
+        solr_response = index.execute_solr_query(q, fields, sort_field,
                                                  sort_order, index.title_count(), 0)
         titles = index.get_titles_from_solr_documents(solr_response)
 
         csv_header_labels = ('lccn', 'title', 'place_of_publication', 'start_year',
-                             'end_year', 'publisher', 'edition', 'frequency', 'subject', 
+                             'end_year', 'publisher', 'edition', 'frequency', 'subject',
                              'state', 'city', 'country', 'language', 'oclc',
                              'holding_type',)
         response = HttpResponse(content_type='text/csv')
@@ -215,10 +215,10 @@ def search_titles_results(request):
         for title in titles:
             writer.writerow(map(lambda val: smart_str(val or '--'),
                                (title.lccn, title.name, title.place_of_publication,
-                                title.start_year, title.end_year, title.publisher, 
-                                title.edition, title.frequency, 
-                                map(str, title.subjects.all()), 
-                                set(map(lambda p: p.state, title.places.all())), 
+                                title.start_year, title.end_year, title.publisher,
+                                title.edition, title.frequency,
+                                map(str, title.subjects.all()),
+                                set(map(lambda p: p.state, title.places.all())),
                                 map(lambda p: p.city, title.places.all()),
                                 str(title.country), map(str, title.languages.all()),
                                 title.oclc, title.holding_types)))
