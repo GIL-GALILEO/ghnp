@@ -2,6 +2,7 @@ from django.conf import settings
 from django.shortcuts import render_to_response
 from django.template import RequestContext
 from chronam.core.models import Place, Title
+import collections
 
 def cities_page(request):
     page_title = 'Browse by City'
@@ -9,8 +10,8 @@ def cities_page(request):
     crumbs.extend([{
         'label': page_title,
     }])
-    cities_with_titles = Place.objects.filter(titles__in=Title.objects.all).filter(city__isnull=False).distinct().values_list('city', flat=True)
-    cities_with_titles_by_letter = {}
+    cities_with_titles = Place.objects.filter(titles__in=Title.objects.all).filter(city__isnull=False).distinct().order_by('city').values_list('city', flat=True)
+    cities_with_titles_by_letter = collections.OrderedDict()
     for c in cities_with_titles:
         city_titles = {
             'city': c,
