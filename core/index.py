@@ -1,7 +1,7 @@
 import re
 import math
 import logging
-import datetime
+import time
 from urllib import urlencode, unquote
 
 from solr import SolrConnection
@@ -162,12 +162,27 @@ class SolrPaginator(Paginator):
                                    start=start,
                                    **params)
         solr_facets = solr_response.facet_counts
-        # sort states by number of hits per state (desc)
-        facets = {'state': sorted(solr_facets.get('facet_fields')['state'].items(),
-                                  lambda x, y: x - y, lambda k: k[1], True),
-                  'year': solr_facets['facet_ranges']['year']['counts'],
-                  'county': sorted(solr_facets.get('facet_fields')['county'].items(),
-                                  lambda x, y: x - y, lambda k: k[1], True)}
+        facets = {
+            # 'state': sorted(
+            #     solr_facets.get('facet_fields')['state'].items(), lambda x, y: x - y, lambda k: k[1], True
+            # ),
+            'year': solr_facets['facet_ranges']['year']['counts'],
+            'lccn': sorted(
+                solr_facets.get('facet_fields')['lccn'].items(), lambda x, y: x - y, lambda k: k[1], True
+            ),
+            'county': sorted(
+                solr_facets.get('facet_fields')['county'].items(), lambda x, y: x - y, lambda k: k[1], True
+            ),
+            'region': sorted(
+                solr_facets.get('facet_fields')['region'].items(), lambda x, y: x - y, lambda k: k[1], True
+            ),
+            'city': sorted(
+                solr_facets.get('facet_fields')['city'].items(), lambda x, y: x - y, lambda k: k[1], True
+            ),
+            'newspaper_type': sorted(
+                solr_facets.get('facet_fields')['newspaper_type'].items(), lambda x, y: x - y, lambda k: k[1], True
+            )
+        }
         # sort by year (desc)
         facets['year'] = sorted(solr_facets['facet_ranges']['year']['counts'].items(),
                                 lambda x, y: int(x) - int(y), lambda k: k[0], True)
@@ -427,6 +442,7 @@ def page_search(d):
     Pass in form data for a given page search, and get back
     a corresponding solr query.
     """
+
     q = ['+type:page']
 
     if d.get('lccn', None):
@@ -471,8 +487,8 @@ def page_search(d):
         gap = max(1, int(math.ceil((date2 - date1) / 10)))
 
     # ocrs = ['ocr_%s' % l for l in settings.SOLR_LANGUAGES]
+    # ocr_lang = 'ocr'
 
-    ocr_lang = 'ocr'
     if d.get('ortext', None):
         q.append('+((' + query_join(solr_escape(d['ortext']).split(' '), "ocr"))
         q.append('))')
@@ -481,9 +497,8 @@ def page_search(d):
         q.append('))')
     if d.get('phrasetext', None):
         phrase = solr_escape(d['phrasetext'])
-        q.append('+((' + 'ocr' + ':"%s"^10000' % (phrase))
+        q.append('+((' + 'ocr' + ':"%s"^10000' % phrase)
         q.append('))')
-
     if d.get('proxtext', None):
         distance = d.get('proxdistance', PROX_DISTANCE_DEFAULT)
         prox = solr_escape(d['proxtext'])
@@ -494,7 +509,7 @@ def page_search(d):
     if d.get('issue_date', None):
         q.append('+month:%d +day:%d' % (int(d['date_month']), int(d['date_day'])))
 
-    facet_params = {'facet': 'true','facet_field': ['state', 'county'],
+    facet_params = {'facet': 'true','facet_field': ['lccn', 'county', 'city', 'newspaper_type', 'region'],
                     'facet_range':'year',
                     'f_year_facet_range_start': date1,
                     'f_year_facet_range_end': date2,
@@ -639,10 +654,11 @@ def commit():
 
 def _get_sort(sort, in_pages=False):
     sort_field = sort_order = None
-    if sort == 'state':
-        sort_field = 'country' # odd artifact of Title model
-        sort_order = 'asc'
-    elif sort == 'title':
+    # if sort == 'state':
+    #     sort_field = 'country' # odd artifact of Title model
+    #     sort_order = 'asc'
+    # elif sort == 'title':
+    if sort == 'title':
         # important to sort on title_facet since it's the original
         # string, and not the analyzed title
         sort_field = 'title_normal'
