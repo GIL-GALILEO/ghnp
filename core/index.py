@@ -170,12 +170,12 @@ class SolrPaginator(Paginator):
         facets['city'] = sorted(solr_facets.get('facet_fields')['city'].items(), lambda x, y: x - y, lambda k: k[1], True)
         facets['newspaper_type'] = sorted(solr_facets.get('facet_fields')['newspaper_type'].items(), lambda x, y: x - y, lambda k: k[1], True)
         # sort by year (desc)
-        # facets['year'] = sorted(solr_facets['facet_ranges']['year']['counts'].items(),
-        #                         lambda x, y: int(x) - int(y), lambda k: k[0], True)
-        # facet_gap = self.facet_params['f_year_facet_range_gap']
-        # if facet_gap > 1:
-        #     facets['year'] = [('%s-%d' % (y[0], int(y[0])+facet_gap-1), y[1])
-        #                       for y in facets['year']]
+        facets['year'] = sorted(solr_facets['facet_ranges']['year']['counts'].items(),
+                                lambda x, y: int(x) - int(y), lambda k: k[0], True)
+        facet_gap = self.facet_params['f_year_facet_range_gap']
+        if facet_gap > 1:
+            facets['year'] = [('%s-%d' % (y[0], int(y[0])+facet_gap-1), y[1])
+                              for y in facets['year']]
         pages = []
         for result in solr_response.results:
             page = models.Page.lookup(result['id'])
@@ -440,38 +440,40 @@ def page_search(d):
     if d.get('region', None):
         q.append(query_join(d.getlist('region'), 'region'))
 
-    # date_filter_type = d.get('dateFilterType', None)
-    # date_boundaries = _fulltext_range()
-    # date1 = d.get('date1', None)
-    # date2 = d.get('date2', None)
-    date1 = None
-    date2 = None
+    date_filter_type = d.get('dateFilterType', None)
+    date_boundaries = _fulltext_range()
+    date1 = d.get('date1', None)
+    date2 = d.get('date2', None)
 
-    # if not date1:
-    #     date1 = date_boundaries[0]
-    # if not date2:
-    #     date2 = date_boundaries[1]
-    # if date_filter_type == 'year':
-    #     date1 = int(date1)
-    #     date2 = int(date2)
-    #     q.append('+year:[%(year)s TO %(year)s]' % d)
-    # elif date_filter_type in ('range', 'yearRange'):
-    #     d1 = _solrize_date(str(date1))
-    #     d2 = _solrize_date(str(date2), is_start=False)
-    #     if d1 and d2:
-    #         date1, date2 = map(lambda d: int(str(d)[:4]), (d1, d2))
-    #         q.append('+date:[%i TO %i]' % (d1, d2))
 
-    # if d.get('searchType', None) == 'advanced':
-    #     date1 = _solrize_date(date1)
-    #     date2 = _solrize_date(date2)
-    #     gap = 9
-    # else:
-    #     # choose a facet range gap such that the number of date ranges returned
-    #     # is <= 10. These would be used to populate a select dropdown on search
-    #     # results page.
-    #     gap = max(1, int(math.ceil((date2 - date1) / 10)))
-    gap = 1
+    # date1 = None
+    # date2 = None
+
+    if not date1:
+        date1 = date_boundaries[0]
+    if not date2:
+        date2 = date_boundaries[1]
+    if date_filter_type == 'year':
+        date1 = int(date1)
+        date2 = int(date2)
+        q.append('+year:[%(year)s TO %(year)s]' % d)
+    elif date_filter_type in ('range', 'yearRange'):
+        d1 = _solrize_date(str(date1))
+        d2 = _solrize_date(str(date2), is_start=False)
+        if d1 and d2:
+            date1, date2 = map(lambda d: int(str(d)[:4]), (d1, d2))
+            q.append('+date:[%i TO %i]' % (d1, d2))
+
+    if d.get('searchType', None) == 'advanced':
+        date1 = _solrize_date(date1)
+        date2 = _solrize_date(date2)
+        gap = 9
+    else:
+        # choose a facet range gap such that the number of date ranges returned
+        # is <= 10. These would be used to populate a select dropdown on search
+        # results page.
+        gap = max(1, int(math.ceil((date2 - date1) / 10)))
+    # gap = 1
 
     # ocrs = ['ocr_%s' % l for l in settings.SOLR_LANGUAGES]
     # ocr_lang = 'ocr'
@@ -493,14 +495,14 @@ def page_search(d):
         q.append('))')
     if d.get('sequence', None):
         q.append('+sequence:"%s"' % d['sequence'])
-    # if d.get('issue_date', None):
-    #     q.append('+month:%d +day:%d' % (int(d['date_month']), int(d['date_day'])))
+    if d.get('issue_date', None):
+        q.append('+month:%d +day:%d' % (int(d['date_month']), int(d['date_day'])))
 
     facet_params = {'facet': 'true','facet_field': ['lccn', 'county', 'city', 'newspaper_type', 'region'],
-                    # 'facet_range':'year',
-                    # 'f_year_facet_range_start': date1,
-                    # 'f_year_facet_range_end': date2,
-                    # 'f_year_facet_range_gap': gap,
+                    'facet_range':'year',
+                    'f_year_facet_range_start': date1,
+                    'f_year_facet_range_end': date2,
+                    'f_year_facet_range_gap': gap,
                     'facet_mincount': 1}
     return ' '.join(q), facet_params
 
