@@ -8,7 +8,7 @@ import logging
 import tarfile
 import textwrap
 import urlparse
-import pytz
+import datetime
 from cStringIO import StringIO
 
 from rfc3339 import rfc3339
@@ -727,12 +727,12 @@ class Page(models.Model):
 
     @property
     def solr_doc(self):
-        tz = pytz.timezone('America/New_York')
         date = self.issue.date_issued
         month, day, year  = '%02i'%date.month, '%02i'%date.day, '%04i'%date.year
         date = ''.join([year, month, day])
         # start with basic title data
         doc = self.issue.title.solr_doc
+
         # no real need to repeat this stuff in pages
         del doc['essay']
         del doc['url']
@@ -742,7 +742,7 @@ class Page(models.Model):
             'type': 'page',
             'batch': self.issue.batch.name,
             'date': date,
-            'date_date': tz.localize(self.issue.date_issued),
+            'date_date': datetime.date(int(year), int(month), int(day)),
             'month': month,
             'year': year,
             'day': day,
