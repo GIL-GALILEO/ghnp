@@ -60,9 +60,7 @@ def search_pages_results(request, view_type='gallery'):
     end_time = timeit.default_timer()
     start = page.start_index()
     end = page.end_index()
-
     query_time = end_time - start_time
-
     # figure out the next page number
     query = request.GET.copy()
     if page.has_next():
