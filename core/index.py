@@ -154,7 +154,8 @@ class SolrPaginator(Paginator):
         solr_response = solr.query(
            self._q,
            fields="*",
-           highlight=self._ocr_list,
+           # highlight=self._ocr_list,
+           highlight='ocr_vector',
            rows=self.per_page,
            sort=sort_field,
            sort_order=sort_order,
@@ -179,9 +180,9 @@ class SolrPaginator(Paginator):
                 continue
             words = set()
             coords = solr_response.highlighting[result['id']]
-            for ocr in self._ocr_list:
-                for s in coords.get(ocr) or []:
-                    words.update(find_words(s))
+            # for ocr in self._ocr_list:
+            for s in coords.get('ocr_vector') or []:
+                words.update(find_words(s))
             page.words = sorted(words, key=lambda v: v.lower())
 
             page.highlight_url = self.highlight_url(page.url,
