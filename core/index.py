@@ -447,12 +447,19 @@ def page_search(d):
     # TODO ensure basic search also sends date in this format, otherwise check here
     # set a query param for date between provided dates
     if date1:
-        begin_date = datetime.strptime(date1, form_date_format).isoformat() + 'Z'
+        try:
+            begin_date = datetime.strptime(date1, form_date_format).isoformat() + 'Z'
+        except:
+            # TODO return to form and display message in this case?
+            begin_date = '*'
     else:
         begin_date = '*'
 
     if date2:
-        end_date = datetime.strptime(date2, form_date_format).isoformat() + 'Z'
+        try:
+            end_date = datetime.strptime(date2, form_date_format).isoformat() + 'Z'
+        except:
+            end_date = '*'
     else:
         end_date = '*'
 
