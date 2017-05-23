@@ -57,6 +57,11 @@
             </div>
             <div class="row">
                 <div class="col-md-12">
+                    <p>{{ region_text|linebreaks }}</p>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
                     <h3>Titles By County</h3>
                     {% if county_titles %}
                         {% for ct in county_titles %}
@@ -87,12 +92,6 @@
                     {% else %}
                         None Yet!
                     {% endif %}
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-md-12">
-                    <h3>About {{ region.name }}</h3>
-                    <p>{{ region_text|linebreaks }}</p>
                 </div>
             </div>
         </div>

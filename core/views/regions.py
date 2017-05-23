@@ -31,6 +31,9 @@ def region_page(request, region):
         if not place.city in cities:
             cities.append(place.city)
 
+    counties = sorted(counties)
+    cities = sorted(cities)
+
     for county in counties:
         if county:
             t = dict()
