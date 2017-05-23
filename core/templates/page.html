@@ -72,7 +72,7 @@
                     {% if next_issue_first_page %}<a href="{% url 'chronam_page' title.lccn next_issue_first_page.issue.date_issued next_issue_first_page.issue.edition next_issue_first_page.sequence %}" class="btn btn-default">Next Issue</a>{% endif %}
                 </div>
                 <div class="btn-group pull-right" role="group" aria-label="Page Options">
-                    <a id="clip" href="#" target="print" class="btn btn-default">Clip Image</a>
+                    <a id="clip" href="#" target="print" class="btn btn-default">Clip Visible Area</a>
                     <a href="{% url 'chronam_page_ocr' title.lccn issue.date_issued issue.edition page.sequence %}" class="btn btn-default">View Page Text</a>
                     <a href="{% url 'chronam_page_pdf' title.lccn issue.date_issued issue.edition page.sequence %}" class="btn btn-default">View PDF</a>
                 </div>
