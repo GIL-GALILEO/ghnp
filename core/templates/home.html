@@ -33,7 +33,7 @@
     </div>
 
     <div class="col-md-6">
-        <img src="{% static 'images/map.svg' %}" border="0" width="681" height="760" usemap="#ga_regions_map" alt="Georgia County Map" />
+        <img src="{% static 'images/state_nc_2.png' %}" border="0" width="681" height="760" usemap="#ga_regions_map" alt="Georgia County Map" />
         <map name="ga_regions_map" id="ga_regions_map">
             <area id="northga" alt="northga" title="North Georgia" href="{% url 'region_page' 'north'  %}" shape="poly" coords="297,56,320,66,337,85,359,83,411,164,384,164,372,180,360,195,360,214,350,218,327,210,309,223,326,255,300,269,274,256,256,283,228,267,245,223,233,216,254,193,246,179,248,163,213,152,207,174,190,167,189,150,176,153,166,172,103,177,87,209,46,214,1,38,322,1" style="outline:none;" target="_self" data-maphilight='northga' />
             <area id="atlanta" alt="atlanta" title="Metro Atlanta" href="{% url 'region_page' 'atlanta'  %}" shape="poly" coords="129,181,132,222,145,218,152,228,123,264,131,275,175,261,182,293,224,302,243,274,226,263,243,225,226,219,251,193,239,180,244,161,216,154,208,174,189,171,189,150,173,162,171,175" style="outline:none;" target="_self" data-maphilight='atlanta' />
@@ -44,7 +44,7 @@
         </map>
     </div>
 
-    <div class="col-md-3">
+{#    <div class="col-md-3">#}
 {#        <div class="panel panel-default">#}
 {#            <div class="panel-heading">#}
 {#                <h3 class="panel-title">#}
@@ -62,7 +62,7 @@
 {#                </ul>#}
 {#            </div>#}
 {#        </div>#}
-    </div>
+{#    </div>#}
 </div>
 
 {% endblock content %}
