@@ -1,7 +1,12 @@
 {% extends "site_base.html" %}
 {% load static from staticfiles %}
 
+{% block head_content %}{{ block.super }}
+    <link href="{% static 'chosen/chosen.min.css' %}" rel="stylesheet" media="screen">
+{% endblock head_content %}
+
 {% block page_head %}
+
     <h1>{{ page_title }}</h1>
 {% endblock %}
 
@@ -13,43 +18,43 @@
                     <div class="panel panel-default">
                         <div class="panel-body">
                             <form action="{% url 'chronam_search_pages_results' %}" class="form-horizontal" method="get">
-                                <div class="input-group" id="adv-search">
-                                    <input type="hidden" name="region" value="{{ region.slug }}" />
+                                <input type="hidden" name="region" value="{{ region.slug }}" />
+                                <div class="form-group">
                                     <input name="proxtext" type="text" class="form-control" placeholder="Search within {{ region.name }}" />
-                                    <div class="input-group-btn">
-                                        <div class="btn-group" role="group">
-                                            <div class="dropdown dropdown-lg">
-                                                <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-                                                    <span class="caret"></span>
-                                                </button>
-                                                <div class="dropdown-menu dropdown-menu-right" role="menu">
-                                                    <div class="form-group">
-                                                        <label for="city">Filter by City</label>
-                                                        <select class="form-control" name="city" id="city" title="City filter">
-                                                        <option value="">All {{ region.name }} cities with Titles</option>
-                                                        {% for city in cities_with_titles %}
-                                                            <option value="{{ city.city }}">{{ city.city }}</option>
-                                                        {% endfor %}
-                                                        </select>
-                                                    </div>
-                                                    <div class="form-group">
-                                                        <label for="type">Newspaper Type</label>
-                                                        <select name="newspaper_type" id="type" class="form-control col-md-3" title="Type filter">
-                                                        <option value="">All {{ region.name }} newspaper types</option>
-                                                        {% for type in types %}
-                                                            <option value="{{ type.slug }}">{{ type.name }}</option>
-                                                        {% endfor %}
-                                                        </select>
-                                                    </div>
-                                                    <button type="submit" class="btn btn-primary" style="border-radius: 4px;"><i class="fa fa-search" aria-hidden="true"></i> Submit Filtered Search</button>
-                                                </div>
+                                </div>
+                                <div class="additional-search-options">
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label for="city">City</label>
+                                                <select class="form-control" name="city" id="city" title="City filter" multiple>
+                                                    <option value=""></option>
+                                                    {% for city in cities_with_titles %}
+                                                        <option value="{{ city.city }}">{{ city.city }}</option>
+                                                    {% endfor %}
+                                                </select>
                                             </div>
-                                            <div class="input-group-btn">
-                                                <button type="submit" class="btn btn-primary"><i class="fa fa-search" aria-hidden="true"></i></button>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label for="type">Newspaper Type</label>
+                                                <select name="newspaper_type" id="type" class="form-control col-md-3" title="Type filter" multiple>
+                                                    <option value=""></option>
+                                                    {% for type in types %}
+                                                        <option value="{{ type.slug }}">{{ type.name }}</option>
+                                                    {% endfor %}
+                                                </select>
                                             </div>
                                         </div>
                                     </div>
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <p class="help-block small">You may use these boxes to select multiple options</p>
+                                        </div>
+                                    </div>
                                 </div>
+                                <button type="submit" class="btn btn-primary">Search <i class="fa fa-search" aria-hidden="true"></i></button>
+                                <a href="#search" class="show-additional-search-options btn btn-link">Show More Options</a>
                             </form>
                         </div>
                     </div>
@@ -121,11 +126,23 @@
     </div>
 {% endblock %}
 {% block javascript %}{{ block.super }}
+<script src="{% static 'chosen/chosen.jquery.min.js' %}"></script>
 <script type="text/javascript">
 (function($) {
     function initPage() {
+        $('#city').chosen({allow_single_deselect: true});
+        $('#type').chosen({allow_single_deselect: true});
         $('.active').removeClass('active');
         $('.region-menu-item').addClass('active');
+        $('.show-additional-search-options').click(function(){
+            $('.additional-search-options').show();
+            $(this).hide();
+        });
+        if(window.location.hash !== '#search') {
+            $('.additional-search-options').hide();
+        } else {
+            $('.show-additional-search-options').hide();
+        }
     }
     $(initPage);
 })(jQuery)
