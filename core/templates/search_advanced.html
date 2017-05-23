@@ -15,9 +15,27 @@
 <main class="advanced-search">
     <section>
         <form action="{% url 'chronam_search_pages_results' %}" method="get" name="fulltext2" id="fulltext2">
+            <div class="col-md-12">
+                <label for="id_andtext">Pages containing <strong>ALL</strong> of the words: {{ adv_search_form.andtext }}</label>
+                <label for="id_ortext">Pages containing <strong>ANY</strong> of the words: {{ adv_search_form.ortext }}</label>
+            </div>
+            <div class="col-md-12">
+                <fieldset>
+                    <legend>Word Proximity Search</legend>
+                    <div class="row">
+                        <div class="col-md-8">
+                            <label for="id_proxtext_adv">Pages containing the words:<br> {{ adv_search_form.proxtext }}</label>
+                        </div>
+                        <div class="col-md-4">
+                            <label for="id_proxdistance">within<br> {{ adv_search_form.proxdistance }}<span>words of each other</span></label>
+                        </div>
+                    </div>
+                </fieldset>
+            </div>
             <div class="col-md-8">
                 <fieldset>
                     <legend>Limit Search</legend>
+                    <p class="help-block">You may use the boxes below to select multiple options.</p>
                     <div class="row">
                         <div class="col-md-6">
                             <label for="id_cities">Cities: {{ adv_search_form.city }} </label>
@@ -39,18 +57,13 @@
                             <label for="id_states">Newspapers: {{ adv_search_form.lccn }} </label>
                         </div>
                     </div>
-{#                    <div class="row">#}
-{#                        <div class="col-md-12">#}
-{#                            <label for="id_sequence">Specific page {{ adv_search_form.sequence }} </label>#}
-{#                        </div>#}
-{#                    </div>#}
                 </fieldset>
             </div>
             <div class="col-md-4">
                 <fieldset>
-                    <legend>Select Date Range</legend>
+                    <legend>Limit by Date Range</legend>
                         <!-- date -->
-                        <p class="help-block">Newspaper pages are available for newspapers published between <strong>{{adv_search_form.fulltextStartYear}}-{{adv_search_form.fulltextEndYear}}</strong></p>
+                        <p class="help-block">Newspaper pages are available for newspapers published between <strong>{{adv_search_form.fulltextStartYear}}-{{adv_search_form.fulltextEndYear}}</strong>. Dates must be in <strong>MM/DD/YYYY</strong> format.</p>
                         <div class="row">
                             <div class="col-md-6">
                                 <label for="id_date_from">from
@@ -63,24 +76,6 @@
                                 </label>
                             </div>
                         </div>
-                </fieldset>
-            </div>
-            <div class="col-md-12">
-                <fieldset>
-                    <legend>Enter Search</legend>
-                    <div class="row">
-                        <div class="col-md-6">
-                            <label for="id_ortext">...with <strong>any</strong> of the words: {{ adv_search_form.ortext }}</label>
-                            <label for="id_andtext">...with <strong>all</strong> of the words: {{ adv_search_form.andtext }}</label>
-                            <label for="id_phrasetext">...with the <strong>phrase</strong>: {{ adv_search_form.phrasetext }}</label>
-                        </div>
-                        <div class="col-md-4">
-                            <label for="id_proxtext_adv">...with the words:<br> {{ adv_search_form.proxtext }}</label>
-                        </div>
-                        <div class="col-md-2">
-                            <label for="id_proxdistance">within<br> {{ adv_search_form.proxdistance }}<span>words of each other</span></label>
-                        </div>
-                    </div>
                 </fieldset>
             </div>
             <div class="col-md-12">

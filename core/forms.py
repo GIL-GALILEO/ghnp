@@ -229,11 +229,11 @@ class AdvSearchPagesForm(SearchPagesForm):
         self.fields["date1"].initial = ""
         self.fields["date2"].widget.attrs = {"id": "id_date_to", "max_length": 10}
         self.fields["date2"].initial = ""
-        self.fields["city"].widget.attrs = {"data-placeholder": "Click here to choose some Cities"}
-        self.fields["county"].widget.attrs = {"data-placeholder": "Click here to choose some Counties"}
-        self.fields["newspaper_type"].widget.attrs = {"data-placeholder": "Click here to choose some Types"}
-        self.fields["region"].widget.attrs = {"data-placeholder": "Click here to choose some Regions"}
-        self.fields["lccn"].widget.attrs = {'id': 'id_lccns', "data-placeholder": "Click here to choose some Titles"}
+        # self.fields["city"].widget.attrs = {"data-placeholder": "Click here to choose some Cities"}
+        # self.fields["county"].widget.attrs = {"data-placeholder": "Click here to choose some Counties"}
+        # self.fields["newspaper_type"].widget.attrs = {"data-placeholder": "Click here to choose some Types"}
+        # self.fields["region"].widget.attrs = {"data-placeholder": "Click here to choose some Regions"}
+        self.fields["lccn"].widget.attrs = {'id': 'id_lccns'}
         self.fields["sequence"].widget.attrs = {"id": "id_char_sequence", "size": "3"}
         self.fields["proxtext"].widget.attrs = {"id": "id_proxtext_adv", "class": "form-control"}
         self.fields["ortext"].widget.attrs = {"class": "form-control"}

@@ -43,8 +43,6 @@ def search_pages_results(request, view_type='gallery'):
     page_title = "Search Results"
     crumbs = list(settings.BASE_CRUMBS)
     crumbs.extend([
-        {'label':'Advanced Search',
-         'href':  urlresolvers.reverse('chronam_search_advanced') },
         {'label':'Results'},
     ])
     paginator = search_pages_paginator(request)
