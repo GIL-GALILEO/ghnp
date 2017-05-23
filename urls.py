@@ -198,7 +198,7 @@ urlpatterns += [
     # TOD0: remove this some suitable time after 08/2010 since it
     # permanently redirects to new essay id based URL
     # example: /lccn/sn85066387/essay
-    url(r'^lccn/(?P<lccn>\w+)/essays/$', 
+    url(r'^lccn/(?P<lccn>\w+)/essays/$',
         views.title_essays, 
         name="chronam_title_essays"),
 
