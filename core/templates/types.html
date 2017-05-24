@@ -9,28 +9,34 @@
 
     <div class="row" id="newspaper-type-nav">
         <div class="col-md-12">
-            <ul class="nav nav-pills">
+            <ul class="nav nav-tabs">
             {% for type, titles in titles_by_type.items %}
-                <li role="presentation" class="{{ type|lower|cut:" " }}"><a href="#{{ type|lower|cut:" " }}">{{ type }}</a></li>
+                <li role="presentation" class="{{ type|lower|cut:" " }}" data-show="{{ type|lower|cut:" " }}"><a href="#{{ type|lower|cut:" " }}">{{ type }}</a></li>
             {% endfor %}
+                <li role="presentation" class="lgbtq" data-show="lgbtq"><a href="#lgbtq">LGBTQ</a></li>
+                <li role="presentation" class="student" data-show="student"><a href="#student">Student</a></li>
+                <li role="presentation" class="paperofrecord" data-show="{{ "Paper of Record"|lower|cut:" " }}"><a href="#paperofrecord">Paper of Record</a></li>
             </ul>
         </div>
     </div>
 
     <div class="types">
     {% for type, titles in titles_by_type.items %}
-        <div class="row">
-            <div class="col-md-8">
-                <div class="panel panel-default">
-                    <div class="panel-heading">
-                        <a name="{{ type|lower|cut:" " }}"></a>{{ type }}
-                        <span class="badge pull-right">{{ titles|length }}</span>
+        <div class="row {{ type|lower|cut:" " }} type-row">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12">
+                        <p>Description of Newspaper Type...</p>
                     </div>
-                    <ul class="list-group">
-                        {% for t in titles %}
-                            <li class="list-group-item"><a href="{% url 'chronam_title' t.lccn %}">{{ t }}</a></li>
-                        {% endfor %}
-                    </ul>
+                    <div class="col-md-8">
+                        <div class="panel panel-default">
+                            <ul class="list-group">
+                                {% for t in titles %}
+                                    <li class="list-group-item"><a href="{% url 'chronam_title' t.lccn %}">{{ t }}</a></li>
+                                {% endfor %}
+                            </ul>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -42,14 +48,20 @@
 <script type="text/javascript">
 (function($) {
     function initPage() {
-        $('.active').removeClass('active');
         $('.browse-menu-item').addClass('active');
-        if(window.location.hash){
-            $('.nav-pills .' + window.location.hash.slice(1)).addClass('active');
-        }
-        $('.nav-pills li').click(function(){
-            $('.nav-pills li').removeClass('active');
-            $(this).addClass('active');
+        var $type_rows = $('.type-row');
+        var type_slug = window.location.hash.slice(1) || 'community';
+        var $nav_tabs = $('.nav-tabs li');
+        $('.nav-tabs .' + type_slug).addClass('active');
+        $type_rows.hide();
+        $('.type-row.' + type_slug).show();
+        $nav_tabs.click(function(){
+            var $this = $(this);
+            $nav_tabs.removeClass('active');
+            $this.addClass('active');
+            $type_rows.hide();
+            var show_row = $this.data('show');
+            $('.type-row.' + show_row).show();
         });
     }
     $(initPage);
