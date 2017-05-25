@@ -234,7 +234,7 @@
             previousButton: "previous",
             tileSources: ts,
             timeout: 60000,
-            zoomPerClick: 1.5,
+            zoomPerClick: 1.2,
             zoomPerScroll: 1.2
         });
 
