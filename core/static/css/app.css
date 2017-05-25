@@ -8449,7 +8449,7 @@ h1 {
     height: 520px;
 }
 
-.banner-home-link, .banner-home-link:hover {
+.banner-home-link, .banner-home-link:hover, .banner-home-link:visited {
   color: inherit;
   text-decoration: none;
 }
