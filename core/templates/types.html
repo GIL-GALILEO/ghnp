@@ -13,9 +13,6 @@
             {% for type, titles in titles_by_type.items %}
                 <li role="presentation" class="{{ type|lower|cut:" " }}" data-show="{{ type|lower|cut:" " }}"><a href="#{{ type|lower|cut:" " }}">{{ type }}</a></li>
             {% endfor %}
-                <li role="presentation" class="lgbtq" data-show="lgbtq"><a href="#lgbtq">LGBTQ</a></li>
-                <li role="presentation" class="student" data-show="student"><a href="#student">Student</a></li>
-                <li role="presentation" class="paperofrecord" data-show="{{ "Paper of Record"|lower|cut:" " }}"><a href="#paperofrecord">Paper of Record</a></li>
             </ul>
         </div>
     </div>
@@ -26,12 +23,14 @@
             <div class="container">
                 <div class="row">
                     <div class="col-md-12">
-                        <p>Description of Newspaper Type...</p>
+                        <div class="well well-sm">
+                            <h4>{{ titles.type.description }}</h4>
+                        </div>
                     </div>
                     <div class="col-md-8">
                         <div class="panel panel-default">
                             <ul class="list-group">
-                                {% for t in titles %}
+                                {% for t in titles.titles %}
                                     <li class="list-group-item"><a href="{% url 'chronam_title' t.lccn %}">{{ t }}</a></li>
                                 {% endfor %}
                             </ul>

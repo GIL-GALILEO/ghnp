@@ -657,7 +657,10 @@ def chronam_type_browse(request):
     for nt in models.NewspaperType.objects.all():
         type_titles = models.Title.objects.filter(newspaper_types__exact=nt)
         if len(type_titles) > 0:
-            titles_by_type[nt.name] = type_titles
+            titles_by_type[nt.name] = {
+                'titles': type_titles,
+                'type': nt
+            }
 
     return render_to_response('types.html', dictionary=locals(),
                               context_instance=RequestContext(request))

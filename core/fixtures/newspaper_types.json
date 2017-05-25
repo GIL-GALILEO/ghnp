@@ -2,7 +2,8 @@
   {
     "fields": {
       "slug": "religious",
-      "name": "Religious"
+      "name": "Religious",
+      "description": "Newspapers published by churches and religious organizations or publications intended for a particular denomination or religious community."
     },
     "model": "core.newspapertype",
     "pk": 1
@@ -10,7 +11,8 @@
   {
     "fields": {
       "slug": "community",
-      "name": "Community"
+      "name": "Community",
+      "description": "Newspapers published for the general population or for the citizens of a city, county, or region."
     },
     "model": "core.newspapertype",
     "pk": 2
@@ -18,7 +20,8 @@
   {
     "fields": {
       "slug": "school",
-      "name": "School"
+      "name": "School",
+      "description": "Newspapers published by a secondary school, college, or university in Georgia."
     },
     "model": "core.newspapertype",
     "pk": 3
@@ -26,7 +29,8 @@
   {
     "fields": {
       "slug": "african_american",
-      "name": "African American"
+      "name": "African American",
+      "description": "Newspapers published by and for the African American community."
     },
     "model": "core.newspapertype",
     "pk": 4
@@ -34,9 +38,19 @@
   {
     "fields": {
       "slug": "record",
-      "name": "Paper of Record"
+      "name": "Paper of Record",
+      "description": "Newspapers published by churches and religious organizations or publications intended for a particular denomination or religious community."
     },
     "model": "core.newspapertype",
     "pk": 5
+  },
+  {
+    "fields": {
+      "slug": "lgbtq",
+      "name": "LGBTQ",
+      "description": "Newspapers published by and for the lesbian, gay, bisexual, transgender, and queer/questioning communities."
+    },
+    "model": "core.newspapertype",
+    "pk": 6
   }
 ]
