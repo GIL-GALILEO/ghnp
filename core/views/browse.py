@@ -569,8 +569,14 @@ def issues_first_pages(request, lccn, page_num=1):
     page_range_short = list(_page_range_short(paginator, page))
     page_title = 'All Front Pages: %s' % label(title)
     total_items = len(first_pages)
+    if (int(page_num) - 1) > 1:
+        prev_page_num = int(page_num) - 1
+    else:
+        prev_page_num = 1
+    next_url = urlresolvers.reverse('chronam_issues_first_pages_page_number', args=(title.lccn, int(page_num) + 1))
+    previous_url = urlresolvers.reverse('chronam_issues_first_pages_page_number', args=(title.lccn, prev_page_num))
     # title_lccn = lccn
-    return render_to_response('issue_pages.html', dictionary=locals(),
+    return render_to_response('issue_first_pages.html', dictionary=locals(),
                               context_instance=RequestContext(request))
 
 

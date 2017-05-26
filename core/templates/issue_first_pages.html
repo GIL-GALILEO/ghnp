@@ -1,0 +1,106 @@
+{% extends "site_base.html" %}
+{% load static from staticfiles %}
+{% load custom_filters %}
+
+{% block page_head %}
+    <h1>{{ page_title }}</h1>
+{% endblock page_head %}
+
+{% block main_content %}
+
+{% if first_pages or page %}
+    <div class="row search-pagination">
+        <div class="col-md-6">
+            <nav aria-label="Page navigation">
+                <ul class="pagination">
+                    <li{% if not page.has_previous %} class="disabled"{% endif %}>
+                        <a href="{{ previous_url }}" aria-label="Previous"><span aria-hidden="true">&laquo;</span></a>
+                    </li>
+                    {% for page_number in page_range_short %}
+                    {% if page_number == "..." %}
+                    <li><span>...</span></li>
+                    {% else %}
+                        {% if page_number == page.number %}
+                            <li class="active"><span>{{ page_number }}<span class="sr-only"> (current)</span></span></li>
+                        {% else %}
+                            <li>
+                                <a href="{% url 'chronam_issues_first_pages_page_number' lccn page_number %}">{{ page_number }}</a>
+                            </li>
+                        {% endif %}
+                    {% endif %}
+                    {% endfor %}
+                    <li{% if not page.has_next %} class="disabled"{% endif %}>
+                        <a href="{{ next_url }}" aria-label="Next"><span aria-hidden="true">&raquo;</span></a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+        <div class="col-md-6 text-right">
+            {% if total_items > 0 %}<span class="badge badge-info">{{ total_items }}</span> total issues.{% endif %}
+        </div>
+    </div>
+    <div class="row">
+    {% if page.object_list %}
+        {% for object in page.object_list %}
+        <div class="col-sm-4 col-md-3 result-thumbnail-container">
+            <div class="thumbnail">
+                <div class="caption">
+                    <h4>{{ object.issue.title.name }}</h4>
+                    <p><a href="{{ object.url }}">{{object.issue.place_of_publication}} {{object.issue|label}}, {{object|label}}</a></p>
+                </div>
+                <a href="{{ object.url }}" title="{% with object.issue.title as title %}{{title.display_name}} ({{title.place_of_publication}}), {{object.issue|label}}, {{object|label}}{% endwith %}">
+                    <img src="{{ object.thumb_url }}" alt="Result thumbnail"
+                         class="highlight_words img-responsive"
+                         data-script_name="{{script_name}}"
+                         data-id="{{object.url}}"
+                         data-words="{{object.words|join:' '}}">
+                </a>
+            </div>
+        </div>
+        {% endfor %}
+    {% endif %}
+    </div>
+    <div class="row">
+        <div class="col-md-6">
+            <nav aria-label="Page navigation">
+                <ul class="pagination">
+                    <li{% if not page.has_previous %} class="disabled"{% endif %}>
+                        <a href="{{ previous_url }}" aria-label="Previous"><span aria-hidden="true">&laquo;</span></a>
+                    </li>
+                    {% for page_number in page_range_short %}
+                    {% if page_number == "..." %}
+                    <li><span>...</span></li>
+                    {% else %}
+                        {% if page_number == page.number %}
+                            <li class="active"><span>{{ page_number }}<span class="sr-only"> (current)</span></span></li>
+                        {% else %}
+                            <li>
+                                <a href="{% url 'chronam_issues_first_pages_page_number' lccn page_number %}">{{ page_number }}</a>
+                            </li>
+                        {% endif %}
+                    {% endif %}
+                    {% endfor %}
+                    <li{% if not page.has_next %} class="disabled"{% endif %}>
+                        <a href="{{ next_url }}" aria-label="Next"><span aria-hidden="true">&raquo;</span></a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+    </div>
+{% else %}
+    <div class="missing">
+        <h2>This issue has no available digitized pages{% if display_label %}: {{ display_label }}{% endif %}{% if explanation %}; {{explanation}}{% endif %}.</h2>
+    </div>
+{% endif %}
+
+{% endblock main_content %}
+{% block javascript %}{{ block.super }}
+<script type="text/javascript">
+(function($) {
+    function initPage() {
+        $('.browse-menu-item').addClass('active');
+    }
+    $(initPage);
+})(jQuery)
+</script>
+{% endblock javascript %}
