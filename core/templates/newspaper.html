@@ -1,20 +1,14 @@
 {% extends "site_base.html" %}
 {% load static from staticfiles %}
 
-
-                      
 {% block page_head %}
 <h1>{{ page_title }}</h1>
 {% endblock %}
 
-{% block subcontent %}
-<div id="std_box"> 
+{% block main_content %}
     {% block extra_nav %}
     {% endblock %}
-    
+
     {% block newspaper_content %}
     {% endblock %}
-
-    <div class="clear"><!-- --></div> 
-</div><!-- end id:std_box --> 
 {% endblock %}

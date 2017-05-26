@@ -13,220 +13,239 @@
 {% endblock %}
 
 {% block newspaper_content %}
+<div class="row">
+
+</div>
+
+    <div class="row"><div class="col-md-12">&nbsp;</div></div>
 
 <div class="row">
-    <div class="col-md-8 newspaper-about">
-        <div class="row">
-            <div class="col-md-2">
-                <h4>Title:</h4>
-            </div>
-            <div class="col-md-10">
-                {{ title.name }}
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-md-2">
-                <h4>Place of Publication:</h4>
-            </div>
-            <div class="col-md-10">
-                {{ title.place_of_publication }}
+    <div class="col-md-8">
+        <div class="newspaper-browse-options" style="padding-bottom: 20px;">
+            <div class="btn-toolbar" role="toolbar">
+                <div class="btn-group" role="group" aria-label="Newspaper Browse Options">
+                    <a role="button" class="btn btn-default" href="{% url 'chronam_issues' lccn %}">Calendar View</a>
+                    <a role="button" class="btn btn-default" href="{% url 'chronam_issues_first_pages' title.lccn %}">All Issues Front Pages</a>
+                </div>
+                <div class="btn-group" role="group" aria-label="Newspaper Navigation Actions">
+                    {% if title.first_issue.first_page.sequence %}<a role="button" class="btn btn-default" href="{% url 'chronam_page' title.lccn title.first_issue.date_issued title.first_issue.edition title.first_issue.first_page.sequence %}">First Issue</a>{% endif %} {% if title.last_issue.first_page.sequence %}<a role="button" class="btn btn-default" href="{% url 'chronam_page' title.lccn title.last_issue.date_issued title.last_issue.edition title.last_issue.first_page.sequence %}">Last Issue</a>{% endif %}
+                </div>
             </div>
         </div>
-        <div class="row">
-            <div class="col-md-2">
-                <h4>Geographic coverage:</h4>
+        <div class="newspaper-about">
+            <div class="row">
+                <div class="col-md-2">
+                    <h4>Title:</h4>
+                </div>
+                <div class="col-md-10">
+                    {{ title.name }}
+                </div>
             </div>
-            <div class="col-md-10">
-                <ul>
-                    {% for place in title.places.all %}
-                    <li>
-                        {{ place.city }},
-                        {% ifnotequal place.county None %}
-                        {{ place.county }} county
-                        {% endifnotequal %}
-                    </li>
-                    {% endfor %}
-                </ul>
+            <div class="row">
+                <div class="col-md-2">
+                    <h4>Place of Publication:</h4>
+                </div>
+                <div class="col-md-10">
+                    {{ title.place_of_publication }}
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-2">
+                    <h4>Geographic coverage:</h4>
+                </div>
+                <div class="col-md-10">
+                    <ul>
+                        {% for place in title.places.all %}
+                        <li>
+                            {{ place.city }},
+                            {% ifnotequal place.county None %}
+                            {{ place.county }} county
+                            {% endifnotequal %}
+                        </li>
+                        {% endfor %}
+                    </ul>
 
+                </div>
             </div>
-        </div>
-        <div class="row">
-            <div class="col-md-2">
-                <h4>Publisher:</h4>
+            <div class="row">
+                <div class="col-md-2">
+                    <h4>Publisher:</h4>
+                </div>
+                <div class="col-md-10">
+                    {{ title.publisher }}
+                </div>
             </div>
-            <div class="col-md-10">
-                {{ title.publisher }}
+            {% if title.start_year or title_end_year %}
+            <div class="row">
+                <div class="col-md-2">
+                    <h4>Dates of publication:</h4>
+                </div>
+                <div class="col-md-10">
+                    {{title.start_year|default:"?"}}-{{title.end_year|default:"?"}}
+                </div>
             </div>
-        </div>
-        {% if title.start_year or title_end_year %}
-        <div class="row">
-            <div class="col-md-2">
-                <h4>Dates of publication:</h4>
+            {% endif %}
+            {% if title.publication_dates.all %}
+            <div class="row">
+                <div class="col-md-2">
+                    <h4>Description:</h4>
+                </div>
+                <div class="col-md-10">
+                    <ul>
+                        {% for pd in title.publication_dates.all %}
+                        <li>{{ pd.text }}</li>
+                        {% endfor %}
+                    </ul>
+                </div>
             </div>
-            <div class="col-md-10">
-                {{title.start_year|default:"?"}}-{{title.end_year|default:"?"}}
+            {% endif %}
+            {% if title.frequency %}
+            <div class="row">
+                <div class="col-md-2">
+                    <h4>Frequency:</h4>
+                </div>
+                <div class="col-md-10">
+                    {{ title.frequency }}
+                    {% if title.frequency_date %}
+                    {{ title.frequency_date }}
+                    {% endif %}
+                </div>
             </div>
-        </div>
-        {% endif %}
-        {% if title.publication_dates.all %}
-        <div class="row">
-            <div class="col-md-2">
-                <h4>Description:</h4>
-            </div>
-            <div class="col-md-10">
+            {% endif %}
+            {% if title.languages.all %}
+            <div class="row">
+                <div class="col-md-2">
+                    <h4>Languages:</h4>
+                </div>
+                <div class="col-md-10">
                 <ul>
-                    {% for pd in title.publication_dates.all %}
-                    <li>{{ pd.text }}</li>
+                    {% for lang in title.languages.all %}
+                    <li>{{ lang.name }}</li>
                     {% endfor %}
                 </ul>
+                </div>
             </div>
-        </div>
-        {% endif %}
-        {% if title.frequency %}
-        <div class="row">
-            <div class="col-md-2">
-                <h4>Frequency:</h4>
-            </div>
-            <div class="col-md-10">
-                {{ title.frequency }}
-                {% if title.frequency_date %}
-                {{ title.frequency_date }}
-                {% endif %}
-            </div>
-        </div>
-        {% endif %}
-        {% if title.languages.all %}
-        <div class="row">
-            <div class="col-md-2">
-                <h4>Languages:</h4>
-            </div>
-            <div class="col-md-10">
-            <ul>
-                {% for lang in title.languages.all %}
-                <li>{{ lang.name }}</li>
-                {% endfor %}
-            </ul>
-            </div>
-        </div>
-        {% endif %}
-        {% if title.subjects.all %}
-        <div class="row">
-            <div class="col-md-2">
-                <h4>Subjects:</h4>
-            </div>
-            <div class="col-md-10">
-            <ul>
-                {% for subject in title.subjects.all %}
-                <li>{{ subject.heading }}</li>
-                {% endfor %}
-            </ul>
-            </div>
-        </div>
-        {% endif %}
-        {% if title.notes.all %}
-        <div class="row">
-            <div class="col-md-2">
-                <h4>Notes:</h4>
-            </div>
-            <div class="col-md-10">
-            <ul>
-                {% for note in title.notes.all %}
-                <li>{{ note.text }}</li>
-                {% endfor %}
-            </ul>
-            </div>
-        </div>
-        {% endif %}
-        <div class="row">
-            <div class="col-md-2">
-                <h4>LCCN:</h4>
-            </div>
-            <div class="col-md-10">
-                {{ title.lccn }}
-            </div>
-        </div>
-        {% if title.oclc %}
-        <div class="row">
-            <div class="col-md-2">
-                <h4>OCLC:</h4>
-            </div>
-            <div class="col-md-10">
-                {{ title.oclc }}
-            </div>
-        </div>
-        {% endif %}
-        {% if title.issn %}
-        <div class="row">
-            <div class="col-md-2">
-                <h4>ISSN:</h4>
-            </div>
-            <div class="col-md-10">
-                {{ title.issn }}
-            </div>
-        </div>
-        {% endif %}
-        {% if preceeding_titles %}
-        <div class="row">
-            <div class="col-md-2">
-                <h4>Preceding Titles:</h4>
-            </div>
-            <div class="col-md-10">
+            {% endif %}
+            {% if title.subjects.all %}
+            <div class="row">
+                <div class="col-md-2">
+                    <h4>Subjects:</h4>
+                </div>
+                <div class="col-md-10">
                 <ul>
-                {% for t in preceeding_titles %}
-                    <li><a href="{% url 'chronam_title' t.lccn %}">{{ t }}</a></li>
-                {% endfor %}
+                    {% for subject in title.subjects.all %}
+                    <li>{{ subject.heading }}</li>
+                    {% endfor %}
                 </ul>
+                </div>
             </div>
-        </div>
-        {% endif %}
-        {% if succeeding_titles %}
-        <div class="row">
-            <div class="col-md-2">
-                <h4>Succeeding Titles:</h4>
-            </div>
-            <div class="col-md-10">
+            {% endif %}
+            {% if title.notes.all %}
+            <div class="row">
+                <div class="col-md-2">
+                    <h4>Notes:</h4>
+                </div>
+                <div class="col-md-10">
                 <ul>
-                {% for t in succeeding_titles %}
-                    <li><a href="{% url 'chronam_title' t.lccn %}">{{ t }}</a></li>
-                {% endfor %}
+                    {% for note in title.notes.all %}
+                    <li>{{ note.text }}</li>
+                    {% endfor %}
                 </ul>
+                </div>
             </div>
+            {% endif %}
+            <div class="row">
+                <div class="col-md-2">
+                    <h4>LCCN:</h4>
+                </div>
+                <div class="col-md-10">
+                    {{ title.lccn }}
+                </div>
+            </div>
+            {% if title.oclc %}
+            <div class="row">
+                <div class="col-md-2">
+                    <h4>OCLC:</h4>
+                </div>
+                <div class="col-md-10">
+                    {{ title.oclc }}
+                </div>
+            </div>
+            {% endif %}
+            {% if title.issn %}
+            <div class="row">
+                <div class="col-md-2">
+                    <h4>ISSN:</h4>
+                </div>
+                <div class="col-md-10">
+                    {{ title.issn }}
+                </div>
+            </div>
+            {% endif %}
+            {% if preceeding_titles %}
+            <div class="row">
+                <div class="col-md-2">
+                    <h4>Preceding Titles:</h4>
+                </div>
+                <div class="col-md-10">
+                    <ul>
+                    {% for t in preceeding_titles %}
+                        <li><a href="{% url 'chronam_title' t.lccn %}">{{ t }}</a></li>
+                    {% endfor %}
+                    </ul>
+                </div>
+            </div>
+            {% endif %}
+            {% if succeeding_titles %}
+            <div class="row">
+                <div class="col-md-2">
+                    <h4>Succeeding Titles:</h4>
+                </div>
+                <div class="col-md-10">
+                    <ul>
+                    {% for t in succeeding_titles %}
+                        <li><a href="{% url 'chronam_title' t.lccn %}">{{ t }}</a></li>
+                    {% endfor %}
+                    </ul>
+                </div>
+            </div>
+            {% endif %}
+            {% if related_titles %}
+            <div class="row">
+                <div class="col-md-2">
+                    <h4>Related Titles:</h4>
+                </div>
+                <div class="col-md-10">
+                    <ul>
+                    {% for t in related_titles %}
+                        <li><a href="{% url 'chronam_title' t.lccn %}">{{ t }}</a></li>
+                    {% endfor %}
+                    </ul>
+                </div>
+            </div>
+            {% endif %}
+            {% if title.urls.all %}
+            <div class="row">
+                <div class="col-md-2">
+                    <h4>Related Links:</h4>
+                </div>
+                <div class="col-md-10">
+                    <ul>
+                    {% for u in titles.urls.all %}
+                        <li><a href="{{u.value}}">{{u.value}}</a></li>
+                    {% endfor %}
+                    </ul>
+                </div>
+            </div>
+            {% endif %}
         </div>
-        {% endif %}
-        {% if related_titles %}
-        <div class="row">
-            <div class="col-md-2">
-                <h4>Related Titles:</h4>
-            </div>
-            <div class="col-md-10">
-                <ul>
-                {% for t in related_titles %}
-                    <li><a href="{% url 'chronam_title' t.lccn %}">{{ t }}</a></li>
-                {% endfor %}
-                </ul>
-            </div>
-        </div>
-        {% endif %}
-        {% if title.urls.all %}
-        <div class="row">
-            <div class="col-md-2">
-                <h4>Related Links:</h4>
-            </div>
-            <div class="col-md-10">
-                <ul>
-                {% for u in titles.urls.all %}
-                    <li><a href="{{u.value}}">{{u.value}}</a></li>
-                {% endfor %}
-                </ul>
-            </div>
-        </div>
-        {% endif %}
+
     </div>
 
     <div class="col-md-4">
         {% if title.has_issues %}
             <h3>{{title.display_name}}&nbsp;{{issue_date|date:"F j, Y"}}</h3>
-            <div class="col-md-5">
+            <div class="col-md-12">
                 {% if title.first_issue.first_page_with_image.jp2_filename and title.first_issue.first_page_with_image.sequence %}
                     <a href="{% url 'chronam_page' title.lccn title.first_issue.date_issued title.first_issue.edition title.first_issue.first_page_with_image.sequence %}">
                         <img class="thumbnail img-responsive" src="{% url 'chronam_page_thumbnail' title.lccn title.first_issue.date_issued title.first_issue.edition title.first_issue.first_page_with_image.sequence %}" alt="" />
@@ -234,14 +253,6 @@
                 {% else %}
                     Missing Page: {{explanation}}
                 {% endif %}
-            </div>
-            <div class="col-md-7">
-                <h4>Browse:</h4>
-                <ul class="fa-ul">
-                    <li><i class="fa-li fa fa-newspaper-o" aria-hidden="true"></i><a href="{% url 'chronam_issues' lccn %}">Calendar View</a></li>
-                    <li><i class="fa-li fa fa-newspaper-o" aria-hidden="true"></i><a href="{% url 'chronam_issues_first_pages' title.lccn %}">All front pages</a></li>
-                    <li><i class="fa-li fa fa-newspaper-o" aria-hidden="true"></i>{% if title.first_issue.first_page.sequence %}<a href="{% url 'chronam_page' title.lccn title.first_issue.date_issued title.first_issue.edition title.first_issue.first_page.sequence %}">First Issue</a>{% endif %} | {% if title.last_issue.first_page.sequence %}<a href="{% url 'chronam_page' title.lccn title.last_issue.date_issued title.last_issue.edition title.last_issue.first_page.sequence %}">Last Issue</a>{% endif %}</li>
-                </ul>
             </div>
         {% else %}
             No Issues
