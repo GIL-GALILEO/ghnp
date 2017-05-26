@@ -17,26 +17,26 @@
 <div class="row">
     <div class="col-md-8 newspaper-about">
         <div class="row">
-            <div class="col-md-3 text-right">
+            <div class="col-md-2">
                 <h4>Title:</h4>
             </div>
-            <div class="col-md-9">
+            <div class="col-md-10">
                 {{ title.name }}
             </div>
         </div>
         <div class="row">
-            <div class="col-md-3 text-right">
+            <div class="col-md-2">
                 <h4>Place of Publication:</h4>
             </div>
-            <div class="col-md-9">
+            <div class="col-md-10">
                 {{ title.place_of_publication }}
             </div>
         </div>
         <div class="row">
-            <div class="col-md-3 text-right">
+            <div class="col-md-2">
                 <h4>Geographic coverage:</h4>
             </div>
-            <div class="col-md-9">
+            <div class="col-md-10">
                 <ul>
                     {% for place in title.places.all %}
                     <li>
@@ -51,29 +51,29 @@
             </div>
         </div>
         <div class="row">
-            <div class="col-md-3 text-right">
+            <div class="col-md-2">
                 <h4>Publisher:</h4>
             </div>
-            <div class="col-md-9">
+            <div class="col-md-10">
                 {{ title.publisher }}
             </div>
         </div>
         {% if title.start_year or title_end_year %}
         <div class="row">
-            <div class="col-md-3 text-right">
+            <div class="col-md-2">
                 <h4>Dates of publication:</h4>
             </div>
-            <div class="col-md-9">
+            <div class="col-md-10">
                 {{title.start_year|default:"?"}}-{{title.end_year|default:"?"}}
             </div>
         </div>
         {% endif %}
         {% if title.publication_dates.all %}
         <div class="row">
-            <div class="col-md-3 text-right">
+            <div class="col-md-2">
                 <h4>Description:</h4>
             </div>
-            <div class="col-md-9">
+            <div class="col-md-10">
                 <ul>
                     {% for pd in title.publication_dates.all %}
                     <li>{{ pd.text }}</li>
@@ -84,10 +84,10 @@
         {% endif %}
         {% if title.frequency %}
         <div class="row">
-            <div class="col-md-3 text-right">
+            <div class="col-md-2">
                 <h4>Frequency:</h4>
             </div>
-            <div class="col-md-9">
+            <div class="col-md-10">
                 {{ title.frequency }}
                 {% if title.frequency_date %}
                 {{ title.frequency_date }}
@@ -97,10 +97,10 @@
         {% endif %}
         {% if title.languages.all %}
         <div class="row">
-            <div class="col-md-3 text-right">
+            <div class="col-md-2">
                 <h4>Languages:</h4>
             </div>
-            <div class="col-md-9">
+            <div class="col-md-10">
             <ul>
                 {% for lang in title.languages.all %}
                 <li>{{ lang.name }}</li>
@@ -111,10 +111,10 @@
         {% endif %}
         {% if title.subjects.all %}
         <div class="row">
-            <div class="col-md-3 text-right">
+            <div class="col-md-2">
                 <h4>Subjects:</h4>
             </div>
-            <div class="col-md-9">
+            <div class="col-md-10">
             <ul>
                 {% for subject in title.subjects.all %}
                 <li>{{ subject.heading }}</li>
@@ -125,10 +125,10 @@
         {% endif %}
         {% if title.notes.all %}
         <div class="row">
-            <div class="col-md-3 text-right">
+            <div class="col-md-2">
                 <h4>Notes:</h4>
             </div>
-            <div class="col-md-9">
+            <div class="col-md-10">
             <ul>
                 {% for note in title.notes.all %}
                 <li>{{ note.text }}</li>
@@ -138,39 +138,39 @@
         </div>
         {% endif %}
         <div class="row">
-            <div class="col-md-3 text-right">
+            <div class="col-md-2">
                 <h4>LCCN:</h4>
             </div>
-            <div class="col-md-9">
+            <div class="col-md-10">
                 {{ title.lccn }}
             </div>
         </div>
         {% if title.oclc %}
         <div class="row">
-            <div class="col-md-3 text-right">
+            <div class="col-md-2">
                 <h4>OCLC:</h4>
             </div>
-            <div class="col-md-9">
+            <div class="col-md-10">
                 {{ title.oclc }}
             </div>
         </div>
         {% endif %}
         {% if title.issn %}
         <div class="row">
-            <div class="col-md-3 text-right">
+            <div class="col-md-2">
                 <h4>ISSN:</h4>
             </div>
-            <div class="col-md-9">
+            <div class="col-md-10">
                 {{ title.issn }}
             </div>
         </div>
         {% endif %}
         {% if preceeding_titles %}
         <div class="row">
-            <div class="col-md-3 text-right">
+            <div class="col-md-2">
                 <h4>Preceding Titles:</h4>
             </div>
-            <div class="col-md-9">
+            <div class="col-md-10">
                 <ul>
                 {% for t in preceeding_titles %}
                     <li><a href="{% url 'chronam_title' t.lccn %}">{{ t }}</a></li>
@@ -181,10 +181,10 @@
         {% endif %}
         {% if succeeding_titles %}
         <div class="row">
-            <div class="col-md-3 text-right">
+            <div class="col-md-2">
                 <h4>Succeeding Titles:</h4>
             </div>
-            <div class="col-md-9">
+            <div class="col-md-10">
                 <ul>
                 {% for t in succeeding_titles %}
                     <li><a href="{% url 'chronam_title' t.lccn %}">{{ t }}</a></li>
@@ -195,10 +195,10 @@
         {% endif %}
         {% if related_titles %}
         <div class="row">
-            <div class="col-md-3 text-right">
+            <div class="col-md-2">
                 <h4>Related Titles:</h4>
             </div>
-            <div class="col-md-9">
+            <div class="col-md-10">
                 <ul>
                 {% for t in related_titles %}
                     <li><a href="{% url 'chronam_title' t.lccn %}">{{ t }}</a></li>
@@ -209,10 +209,10 @@
         {% endif %}
         {% if title.urls.all %}
         <div class="row">
-            <div class="col-md-3 text-right">
+            <div class="col-md-2">
                 <h4>Related Links:</h4>
             </div>
-            <div class="col-md-9">
+            <div class="col-md-10">
                 <ul>
                 {% for u in titles.urls.all %}
                     <li><a href="{{u.value}}">{{u.value}}</a></li>
