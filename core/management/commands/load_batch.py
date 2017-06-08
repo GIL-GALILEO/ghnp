@@ -23,13 +23,6 @@ class Command(BaseCommand):
                     action='store_false', 
                     dest='process_coordinates', default=True,
                     help='Do not out word coordinates'),
-        make_option('--additional-metadata',
-                    action='store',
-                    default=None,
-                    type='string',
-                    dest='metadata_filename',
-                    help='Read additional metadata from FILE',
-                    metavar='FILE'),
     )
 
     help = "Load a batch"
@@ -40,8 +33,7 @@ class Command(BaseCommand):
             raise CommandError('Usage is load_batch %s' % self.args)
 
         loader = BatchLoader(process_ocr=options['process_ocr'],
-                             process_coordinates=options['process_coordinates'],
-                             additional_metadata=options['metadata_filename'])
+                             process_coordinates=options['process_coordinates'])
         try:
             batch = loader.load_batch(batch_name)
         except BatchLoaderException, e:

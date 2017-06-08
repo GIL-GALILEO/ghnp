@@ -68,26 +68,6 @@ class BatchLoader(object):
         if self.PROCESS_OCR:
             self.solr = SolrConnection(settings.SOLR)
         self.PROCESS_COORDINATES = process_coordinates
-        self.FUNDING_SOURCE_SLUG = None
-        self.NEWSPAPER_TYPE_SLUGS = None
-        self.ESSAY_TEXT = None
-        if additional_metadata:
-            try:
-                with open(additional_metadata, 'rb') as f:
-                    data = json.load(f)
-                funding_source = data.get('funding_source')
-                newspaper_types = data.get('newspaper_types')
-                essay_text = data.get('essay')
-                if funding_source and funding_source.strip():
-                    self.FUNDING_SOURCE_SLUG = funding_source
-                if newspaper_types:
-                    self.NEWSPAPER_TYPE_SLUGS = newspaper_types
-                if essay_text and essay_text.strip():
-                    self.ESSAY_TEXT = essay_text
-            except IOError, e:
-                _logger.exception(e)
-            except json.JSONDecodeError, e:
-                _logger.exception(e)
 
 
     def _find_batch_file(self, batch):
@@ -282,14 +262,6 @@ class BatchLoader(object):
             logging.info("attempting to load marc record from %s", url)
             management.call_command('load_titles', url)
             title = Title.objects.get(lccn=lccn)
-
-        # update title with funding source and newspaper types
-        if self.FUNDING_SOURCE_SLUG:
-            title.funding_source = FundingSource.objects.get(slug= self.FUNDING_SOURCE_SLUG)
-        if self.NEWSPAPER_TYPE_SLUGS:
-            title.newspaper_types = NewspaperType.objects.filter(slug__in= self.NEWSPAPER_TYPE_SLUGS)
-        if self.ESSAY_TEXT:
-            title.essay_text = self.ESSAY_TEXT
 
         title.save()
 
