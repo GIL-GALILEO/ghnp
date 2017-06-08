@@ -235,7 +235,6 @@
             autoHideControls: false,
             nextButton: "next",
             previousButton: "previous",
-            debugMode: true,
             tileSources: ts,
             timeout: 60000,
             zoomPerClick: 1.2,
