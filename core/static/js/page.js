@@ -49,7 +49,7 @@
         $(".locshare-print-button").find('a:first').attr('href', dimension).click(function(event) {
             window.open($(this).attr('href'), "print");
         });
-    };
+    }
 
     function fitWithinBoundingBox(d, max) {
         if (d.width/d.height > max.x/max.y) {
@@ -108,7 +108,7 @@
             var scale = 1 / all_coordinates["width"];
             
             $.each(words.split(" "), function(index, word) {
-                if (word!="") {
+                if (word !== "") {
                     var boxes = [];
 
                     var coordinates = all_coordinates["coords"][word];
@@ -127,12 +127,12 @@
     }
 
     function getTileUrl(level, column, row) {
-        var px = 0
-        if (column!=0) {
+        var px = 0;
+        if (column !== 0) {
             px = this.tileSize * column - this.tileOverlap;
         }
-        var py = 0
-        if (row!=0) {
+        var py = 0;
+        if (row !== 0) {
             py = this.tileSize * row - this.tileOverlap;
         }
         var scale = this.getLevelScale(level);
@@ -140,15 +140,15 @@
 
         // find the dimension of the tile, adjust for no
         // overlap data on top and left edges
-        sx = this.tileSize + (column==0 ? 1 : 2) * this.tileOverlap;
-        sy = this.tileSize + (row==0 ? 1 : 2) * this.tileOverlap;
+        var sx = this.tileSize + (column === 0 ? 1 : 2) * this.tileOverlap;
+        var sy = this.tileSize + (row === 0 ? 1 : 2) * this.tileOverlap;
 
         // adjust size for single-tile levels where the image
         // size is smaller than the regular tile size, and for
         // tiles on the bottom and right edges that would
         // exceed the image bounds.
-        sx = Math.min(sx, dimensionsScaled.x - px)
-        sy = Math.min(sy, dimensionsScaled.y - py)
+        var sx = Math.min(sx, dimensionsScaled.x - px);
+        var sy = Math.min(sy, dimensionsScaled.y - py);
 
         var x1 = parseInt(px / scale);
         var y1 = parseInt(py / scale);
@@ -165,20 +165,20 @@
     function updateSearchNav(data) {
         if (!data) return;
 
-        jQuerynav_result = $(".nav_result");
+        var jQuerynav_result = $(".nav_result");
         jQuerynav_result.find("a.backtoresults").attr("href", data.results);
         jQuerynav_result.find(".current").text(data.current);
         jQuerynav_result.find(".total").text(data.total);
 
         if (data.next_result) {
-            var url = data.next_result;
+            var next_url = data.next_result;
             jQuerynav_result.find(".next")
             .removeClass("disabled")
             .find("a")
             .wrapInner($('<a>').attr('href', url));
         }
         if (data.previous_result) {
-            var url = data.previous_result;
+            var previous_url = data.previous_result;
             jQuerynav_result.find(".previous")
             .removeClass("disabled")
             .find("a")
@@ -206,18 +206,21 @@
     }
 
     function initPage() {
-	page_url = $('#page_data').data("page_url")
-	tile_url = $('#page_data').data("tile_url")
-	coordinates_url = $('#page_data').data("coordinates_url")
-	navigation_url = $('#page_data').data("navigation_url")
-	width = $('#page_data').data("width")
-	height = $('#page_data').data("height")
-	static_url = $('#page_data').data("static_url")
 
-        var viewer = null;
+        var $page_data = $('#page_data');
+
+        page_url = $page_data.data("page_url");
+        tile_url = $page_data.data("tile_url");
+        coordinates_url = $page_data.data("coordinates_url");
+        navigation_url = $page_data.data("navigation_url");
+        width = $page_data.data("width");
+        height = $page_data.data("height");
+        static_url = $page_data.data("static_url");
+
+        // var viewer = null;
         addSearchNav();
 
-        var tileSize = 512;
+        var tileSize = 1024;
         var tileOverlap = 1;
         var minLevel = 8;
         var maxLevel = Math.ceil(Math.log(Math.max(width, height)) / Math.log(2));
@@ -232,10 +235,12 @@
             autoHideControls: false,
             nextButton: "next",
             previousButton: "previous",
+            debugMode: true,
             tileSources: ts,
             timeout: 60000,
             zoomPerClick: 1.2,
-            zoomPerScroll: 1.2
+            zoomPerScroll: 1.2,
+            showNavigator: false
         });
 
         viewer.addHandler("open", addOverlays);
@@ -260,4 +265,4 @@
 
     }
     $(initPage);
-})(jQuery)
+})(jQuery);
