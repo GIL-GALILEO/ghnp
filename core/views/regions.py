@@ -47,7 +47,7 @@ def region_page(request, region):
                 for title in titles:
                     all_titles.append(title)
 
-    cities_with_titles = Place.objects.filter(titles__in=all_titles).values('city')
+    cities_with_titles = Place.objects.filter(titles__in=all_titles).values('city').distinct()
 
     types = NewspaperType.objects.all
 
