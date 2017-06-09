@@ -52,7 +52,9 @@ def region_page(request, region):
     cities_with_titles = []
     for city_with_title in cities_with_titles_r:
         if not city_with_title['city'] in cities_with_titles:
-            cities_with_titles.append(city_with_title)
+            cities_with_titles.append(city_with_title['city'])
+
+    cities_with_titles = sorted(cities_with_titles)
 
     types = NewspaperType.objects.all
 
