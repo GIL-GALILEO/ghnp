@@ -17,5 +17,7 @@ kombu<4
 django-kombu==0.9.4
 worldcat==0.3.6
 psycopg2>=2.7,<2.8
+django-settings-export==1.2.1
+
 
 
