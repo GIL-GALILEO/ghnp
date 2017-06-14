@@ -1,0 +1,78 @@
+{% extends 'site_base.html' %}
+
+{% load static from staticfiles %}
+
+{% block content %}
+
+    <h2>{{ page_title }}</h2>
+
+    <p>
+        When viewing a newspaper image, there are several tools available to help you navigate the page.
+    </p>
+
+    <p>Contents:</p>
+    <ul>
+        <li><a href="#image">The Newspaper Image</a></li>
+        <li><a href="#highlighting">Highlighting</a></li>
+        <li><a href="#zooming">Zooming In and Out</a></li>
+        <li><a href="#view_options">Page View Options</a></li>
+        <li><a href="#navigating">Navigating Between Pages and Issues</a></li>
+    </ul>
+
+    <h3>
+        <a name="image"></a>The Newspaper Image
+    </h3>
+
+    <p>
+        The newspaper page view provides you with information about the image you are viewing, including title, city, date, and page number, at the top of the page. The page image itself can be navigated by clicking and dragging your mouse on the image. The will allow you to view different portions of the newspaper page you are interested in.
+    </p>
+
+    <h3>
+        <a name="highlighting"></a>Highlighting
+    </h3>
+
+    <p>
+        If you have performed a keyword search, all of your search terms will be highlighted in red on the newspaper image to improve your ability to locate them on the page. This can be helpful if you are looking for a surname, place name, etc.
+    </p>
+
+    <h3>
+        <a name="zooming"></a>Zooming In and Out
+    </h3>
+
+    <p>
+        There are multiple tools and features to help you zoom in and out on a newspaper page. In the upper left corner of the image, there is a column with four buttons.
+    </p>
+
+    <ul>
+        <li>The first button with the “plus” symbol on it will allow you to zoom in on the image.</li>
+        <li>The second button with the “minus” symbol will zoom out of the image.</li>
+        <li>The third button is a home button that will restore the image to its original zoom ratio.</li>
+        <li>The fourth button will allow you to expand the image to full screen mode. You can leave full screen mode by pressing the escape button on your keyboard.</li>
+    </ul>
+
+    <p>
+        You can also zoom in and out on the image by using the scroll wheel on your mouse. Additionally, clicking on an image with your mouse will also allow you to zoom in on a newspaper page image.
+    </p>
+
+    <h3>
+        <a name="view_options"></a>Page View Options
+    </h3>
+
+    <p>
+        The newspaper page images are presented as JPEGs by default. If you wish to view a PDF of the image, click the “View PDF” button in the upper right corner above the image. You also have the ability to view the raw OCR (Optical Character Recognition) text that is used for keyword searching by clicking the “View Page Text” button in the upper right corner. For more information on OCR text, please visit our
+        <a href="{% url 'help_faq' %}"></a>FAQ Help Page.
+    </p>
+
+    <h3>
+        <a name="navigating"></a>Navigating Between Pages and Issues
+    </h3>
+
+    <p>
+        To navigate between issues or pages within issues, you can utilize the buttons above the upper left corner of the newspaper page image. The “Previous Page” and “Next Page” buttons will allow you to move to a different page within an issue. The “Previous Issue” and “Next Issue” buttons will allow you to view the first page of the issues printed before and after the issue you are currently viewing.
+    </p>
+
+    <p>
+        <strong>Note:</strong> If you are on the first or last page or issue, some of the buttons may be disabled, because there is no page to view before or after the page you are currently viewing.
+    </p>
+
+{% endblock content %}

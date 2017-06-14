@@ -105,6 +105,30 @@ def help_searching(request):
                               context_instance=RequestContext(request))
 
 @cache_page(settings.DEFAULT_TTL_SECONDS)
+def help_viewing(request):
+    page_title = "Help with Viewing"
+    crumbs = list(settings.BASE_CRUMBS)
+    crumbs.extend([
+        {'label':'Help'},
+        {'label':'Viewing',
+         'active': True},
+    ])
+    return render_to_response('viewing.html', dictionary=locals(),
+                              context_instance=RequestContext(request))
+
+@cache_page(settings.DEFAULT_TTL_SECONDS)
+def help_clipping(request):
+    page_title = "Help with Clipping"
+    crumbs = list(settings.BASE_CRUMBS)
+    crumbs.extend([
+        {'label':'Help'},
+        {'label':'Clipping',
+         'active': True},
+    ])
+    return render_to_response('clipping.html', dictionary=locals(),
+                              context_instance=RequestContext(request))
+
+@cache_page(settings.DEFAULT_TTL_SECONDS)
 def participate(request):
     page_title = "Participate"
     crumbs = list(settings.BASE_CRUMBS)

@@ -105,6 +105,14 @@ urlpatterns += [
         views.help_searching,
         name="help_searching"),
 
+    url(r'^help/clipping',
+        views.help_clipping,
+        name="help_clipping"),
+
+    url(r'^help/viewing$',
+        views.help_viewing,
+        name="help_viewing"),
+
     url(r'^help/faq$',
         views.help_faq,
         name="help_faq"),

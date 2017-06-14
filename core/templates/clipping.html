@@ -1,0 +1,56 @@
+{% extends 'site_base.html' %}
+
+{% load static from staticfiles %}
+
+{% block content %}
+
+    <h2>{{ page_title }}</h2>
+
+    <p>Contents:</p>
+    <ul>
+        <li><a href="#clipping">Clipping</a></li>
+        <li><a href="#printing">Printing</a></li>
+        <li><a href="#saving">Saving</a></li>
+    </ul>
+
+    <h3>
+        <a name="clipping"></a>Clipping
+    </h3>
+
+    <p>
+        The Georgia Historic Newspapers site has a clipping option that will allow you to print or save a portion of a newspaper page. If you are viewing a page you would like to clip, zoom in to the portion of the page you are interested in and click the “Clip Visible Area” button on the top right corner of the image. A new tab will load with the portion of the newspaper page you selected. You will then be able to print, save, or bookmark this clipped page image. For more information on how to zoom in on an image, please see <a href="{% url 'help_viewing' %}">Page Viewing Help</a>.
+    </p>
+
+    <h3>
+        <a name="printing"></a>Printing
+    </h3>
+
+    <p>
+        If you are interested in printing a portion of a newspaper page, use the clipping option as described above. Once you have selected the “Clip Visible Area” button, a new tab will load with the portion of the newspaper page you selected. You can print the page using the “Print This Page” button above the image. The printed page will include information on the title, date, and persistent link for the clipped newspaper page.    </p>
+    </p>
+
+    <h3>
+        <a name="saving"></a>Saving
+    </h3>
+
+    <p>
+        If you would like to save a portion of a newspaper page for personal use:
+    </p>
+
+    <ol>
+        <li>Zoom in to the portion of the page you would like to save and click the “Clip Visible Area” button on the top right corner of the image, as described above. </li>
+        <li>A new tab will load with the portion of the newspaper page you selected.</li>
+        <li>You can then right click the clipped newspaper page image using your mouse.</li>
+        <li>From the right click menu, you can select the “save image as…” option. This will then allow you to save the newspaper page image as a JPEG in the folder of your choosing.</li>
+    </ol>
+
+    <p>
+        You can also save the newspaper page images as a bookmarked link.
+    </p>
+
+    <ol>
+        <li>Once you have clipped the newspaper page, select the “bookmark” option in your browser menu (this is often located in the upper right corner of the browser).</li>
+        <li>The URL will persistently link you to the image you have clipped.</li>
+    </ol>
+
+{% endblock content %}
