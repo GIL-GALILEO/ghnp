@@ -112,10 +112,10 @@ class BatchLoader(object):
         dirname, batch_name = os.path.split(batch_path.rstrip("/"))
         if dirname:
             batch_source = None
-            # link_name = os.path.join(settings.BATCH_STORAGE, batch_name)
-            # if batch_path != link_name and not os.path.islink(link_name):
-            #     _logger.info("creating symlink %s -> %s", batch_path, link_name)
-            #     os.symlink(batch_path, link_name)
+            link_name = os.path.join(settings.BATCH_STORAGE, batch_name)
+            if batch_path != link_name and not os.path.islink(link_name):
+                _logger.info("creating symlink %s -> %s", batch_path, link_name)
+                os.symlink(batch_path, link_name)
         else:
             batch_source = urlparse.urljoin(settings.BATCH_STORAGE, batch_name)
             if not batch_source.endswith("/"):
