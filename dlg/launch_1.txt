@@ -5,7 +5,6 @@
 /opt/chronam/data/dlg_batches/houston/vendor_batches/batch_gua_houstonhomejournal04_ver01
 /opt/chronam/data/dlg_batches/houston/vendor_batches/batch_gua_houstonhomejournal02_ver01
 /opt/chronam/data/dlg_batches/houston/vendor_batches/batch_gua_houstonhomejournal03_ver01
-/opt/chronam/data/dlg_batches/houston/vendor_batches/batch_gua_houstonhomejournal01_ver01
 /opt/chronam/data/dlg_batches/houston/batch_gua_hhj1890_ver01
 /opt/chronam/data/dlg_batches/houston/batch_gua_hhj1901_ver01
 /opt/chronam/data/dlg_batches/houston/batch_gua_hhj1920_ver01
