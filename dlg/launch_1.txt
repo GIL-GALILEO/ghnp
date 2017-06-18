@@ -61,7 +61,6 @@
 /opt/chronam/data/dlg_batches/houston/batch_gua_hhj1870_ver01
 /opt/chronam/data/dlg_batches/houston/batch_gua_hhj1897_ver01
 /opt/chronam/data/dlg_batches/houston/batch_gua_hhj1906_ver01
-/opt/chronam/data/dlg_batches/bumblebee/batch_gua_bmb_ver01
 /opt/chronam/data/dlg_batches/colored_tribune/batch_gua_sct1876_ver01
 /opt/chronam/data/dlg_batches/columbus/cde1875/batch_gua_cde1875_ver01
 /opt/chronam/data/dlg_batches/columbus/cwe1838/batch_gua_cwe1838_ver01
