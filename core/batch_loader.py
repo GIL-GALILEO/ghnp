@@ -258,7 +258,7 @@ class BatchLoader(object):
         try:
             title = Title.objects.get(lccn=lccn)
         except Exception, e:
-            url = 'http://chroniclingamerica.loc.gov/lccn/%s/marc.xml' % lccn
+            url = os.path.join(settings.BIB_STORAGE, lccn + '.xml')
             logging.info("attempting to load marc record from %s", url)
             management.call_command('load_titles', url)
             title = Title.objects.get(lccn=lccn)
