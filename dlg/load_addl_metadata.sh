@@ -30,3 +30,4 @@ python /opt/chronam/core/manage.py add_metadata --lccns=sn85034106 --json=/opt/c
 python /opt/chronam/core/manage.py add_metadata --lccns=sn86053063,sn89053943 --json=/opt/chronam/dlg/ghnp_md/louis_gazette.json
 python /opt/chronam/core/manage.py add_metadata --lccns=sn90052270 --json=/opt/chronam/dlg/ghnp_md/dublin_post.json
 python /opt/chronam/core/manage.py add_metadata --lccns=sn89053289 --json=/opt/chronam/dlg/ghnp_md/true_citizen.json
+python /opt/chronam/core/manage.py add_metadata --lccns=sn84031635 --json=/opt/chronam/dlg/ghnp_md/weekly_constitution.json
