@@ -52,5 +52,14 @@
     },
     "model": "core.newspapertype",
     "pk": 6
+  },
+  {
+    "fields": {
+      "slug": "native_american",
+      "name": "Native American",
+      "description": "Newspapers published by and for Native American communities."
+    },
+    "model": "core.newspapertype",
+    "pk": 7
   }
 ]
