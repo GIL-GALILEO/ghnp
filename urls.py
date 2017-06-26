@@ -556,6 +556,11 @@ urlpatterns += [
         views.funding_sources,
         name="api_funding_sources"),
 
+    # show stored batches
+    url(r'^api/batches',
+        views.batches,
+        name="api_batches"),
+
 ]
 
 # linked-data rdf/atom/json views

@@ -1,6 +1,6 @@
 import json
 from django.shortcuts import HttpResponse
-from chronam.core.models import FundingSource, NewspaperType
+from chronam.core.models import FundingSource, NewspaperType, Batch
 
 def newspaper_types(request):
     data = []
@@ -14,4 +14,11 @@ def funding_sources(request):
     for s in FundingSource.objects.all():
         source_data = dict(id = s.id, slug = s.slug, name = s.name)
         data.append(source_data)
+    return HttpResponse(json.dumps(data), content_type='application/json')
+
+def batches(request):
+    data = []
+    for b in Batch.objects.all():
+        batch_data = dict(name = b.name, created = b.created)
+        data.append(batch_data)
     return HttpResponse(json.dumps(data), content_type='application/json')
