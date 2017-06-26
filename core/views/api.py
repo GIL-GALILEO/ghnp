@@ -16,7 +16,7 @@ def funding_sources(request):
         data.append(source_data)
     return HttpResponse(json.dumps(data), content_type='application/json')
 
-def batches(request):
+def loaded_batches(request):
     data = []
     for b in Batch.objects.all():
         batch_data = dict(name = b.name, created = b.created)

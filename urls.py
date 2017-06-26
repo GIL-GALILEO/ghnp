@@ -558,8 +558,8 @@ urlpatterns += [
 
     # show stored batches
     url(r'^api/batches',
-        views.batches,
-        name="api_batches"),
+        views.loaded_batches,
+        name="api_loaded_batches"),
 
 ]
 
