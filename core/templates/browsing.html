@@ -7,84 +7,125 @@
     <h2>{{ page_title }}</h2>
 
     <p>
-        The Georgia Historic Newspapers Archive allows users to browse by title, date, city, and county. Included below
-        is a description of how to navigate the site using the various browsing features available.
+        The Georgia Historic Newspapers Archive allows users to browse by title, date, city, and county. Click on the
+        relevant tab below for a video and description of how to navigate the site using the various browsing features
+        available.
     </p>
 
-    <p>Contents:</p>
-    <ul>
-        <li><a href="#title">Browse by Title</a></li>
-        <li><a href="#city">Browse by City</a></li>
-        <li><a href="#date">Browse by Date</a></li>
-        <li><a href="#type">Browse by Type</a></li>
-    </ul>
-
-    <h3>
-        <a name="title"></a>Browse by Title
-    </h3>
-
-    <div class="well well-large">
-       <video preload controls
-              poster="{% static 'images/browsebytitle.png' %}"
-              width="100%">
-           MP4 Video Cannot be Played
-           <source src="{% static 'videos/browse_by_title.mp4' %}" />
-       </video>
+    <div class="row" id="help-browse-nav">
+        <div class="col-md-12">
+            <ul class="nav nav-tabs">
+                <li role="presentation" class="browse-title" data-show="browse-title"><a href="#browse-title">Browse by Title</a></li>
+                <li role="presentation" class="browse-city" data-show="browse-city"><a href="#browse-city">Browse by City</a></li>
+                <li role="presentation" class="browse-date" data-show="browse-date"><a href="#browse-date">Browse by Date</a></li>
+                <li role="presentation" class="browse-type" data-show="browse-type"><a href="#browse-type">Browse by Type</a></li>
+            </ul>
+        </div>
     </div>
 
-    <p>
-        Select “Browse by Title” from the “Browse” drop down tab at the top of the homepage. This will direct you to a page with a list of all of the titles available in the Georgia Historic Newspapers Archive. The list is sortable by title, county, city, region, type, number of issues, and date by clicking the arrows at the top of each column.
-    </p>
+    <div class="help-sections">
+        <div class="browse-title help-section">
+            <h3>
+                <a name="title"></a>Browse by Title
+            </h3>
 
-    <h3>
-        <a name="city"></a>Browse by City
-    </h3>
+            <div class="well well-large">
+               <video preload controls
+                      poster="{% static 'images/browsebytitle.png' %}"
+                      width="100%">
+                   MP4 Video Cannot be Played
+                   <source src="{% static 'videos/browse_by_title.mp4' %}" />
+               </video>
+            </div>
 
-    <div class="well well-large">
-       <video preload controls
-              poster="{% static 'images/browsebycity.png' %}"
-              width="100%">
-           MP4 Video Cannot be Played
-           <source src="{% static 'videos/browse_by_city.mp4' %}" />
-       </video>
+            <p>
+                Select “Browse by Title” from the “Browse” drop down tab at the top of the homepage. This will direct you to a page with a list of all of the titles available in the Georgia Historic Newspapers Archive. The list is sortable by title, county, city, region, type, number of issues, and date by clicking the arrows at the top of each column.
+            </p>
+        </div>
+
+        <div class="browse-city help-section">
+            <h3>
+                <a name="city"></a>Browse by City
+            </h3>
+
+            <div class="well well-large">
+               <video preload controls
+                      poster="{% static 'images/browsebycity.png' %}"
+                      width="100%">
+                   MP4 Video Cannot be Played
+                   <source src="{% static 'videos/browse_by_city.mp4' %}" />
+               </video>
+            </div>
+
+            <p>
+                Select “Browse by City” from the “Browse” drop down tab at the top of the homepage. This will direct you to a list of newspaper titles organized alphabetically by city. Selecting one of the titles will take you to the title information page where you can browse the title.
+            </p>
+        </div>
+
+        <div class="browse-date help-section">
+            <h3>
+                <a name="date"></a>Browse by Date
+            </h3>
+
+            <div class="well well-large">
+               <video preload controls
+                      poster="{% static 'images/browsebydate.png' %}"
+                      width="100%">
+                   MP4 Video Cannot be Played
+                   <source src="{% static 'videos/browse_by_date.mp4' %}" />
+               </video>
+            </div>
+
+            <p>
+                Select the “Browse by Date” from the “Browse” drop down tab at the top of the homepage. You will be directed to a calendar view with highlighted dates. A drop-down box to the left of the calendar will allow you to select the year you are interested in viewing. All of the issue dates available for that year will be highlighted as active links. Selecting the date will open a drop down box with the titles available for that year. Selecting a title will direct you to the issue from that date.
+            </p>
+        </div>
+
+        <div class="browse-type help-section">
+
+            <h3>
+                <a name="type"></a>Browse by Type
+            </h3>
+
+            <div class="well well-large">
+               <video preload controls
+                      poster="{% static 'images/browsebytype.png' %}"
+                      width="100%">
+                   MP4 Video Cannot be Played
+                   <source src="{% static 'videos/browse_by_type.mp4' %}" />
+               </video>
+            </div>
+
+            <p>
+                Users can browse by newspaper type by selecting “Browse by Type” from the “Browse” drop down tab at the top of the homepage. This will direct you to the Browse by Type page, where you will be able to view lists of newspapers organized by type, including African American papers, school papers, religious papers, community papers, and papers of record.
+            </p>
+
+        </div>
+
     </div>
-
-    <p>
-        Select “Browse by City” from the “Browse” drop down tab at the top of the homepage. This will direct you to a list of newspaper titles organized alphabetically by city. Selecting one of the titles will take you to the title information page where you can browse the title.
-    </p>
-
-    <h3>
-        <a name="date"></a>Browse by Date
-    </h3>
-
-    <div class="well well-large">
-       <video preload controls
-              poster="{% static 'images/browsebydate.png' %}"
-              width="100%">
-           MP4 Video Cannot be Played
-           <source src="{% static 'videos/browse_by_date.mp4' %}" />
-       </video>
-    </div>
-
-    <p>
-        Select the “Browse by Date” from the “Browse” drop down tab at the top of the homepage. You will be directed to a calendar view with highlighted dates. A drop-down box to the left of the calendar will allow you to select the year you are interested in viewing. All of the issue dates available for that year will be highlighted as active links. Selecting the date will open a drop down box with the titles available for that year. Selecting a title will direct you to the issue from that date.
-    </p>
-
-    <h3>
-        <a name="type"></a>Browse by Type
-    </h3>
-
-    <div class="well well-large">
-       <video preload controls
-              poster="{% static 'images/browsebytype.png' %}"
-              width="100%">
-           MP4 Video Cannot be Played
-           <source src="{% static 'videos/browse_by_type.mp4' %}" />
-       </video>
-    </div>
-
-    <p>
-        Users can browse by newspaper type by selecting “Browse by Type” from the “Browse” drop down tab at the top of the homepage. This will direct you to the Browse by Type page, where you will be able to view lists of newspapers organized by type, including African American papers, school papers, religious papers, community papers, and papers of record.
-    </p>
 
 {% endblock content %}
+{% block javascript %}{{ block.super }}
+<script type="text/javascript">
+(function($) {
+    function initPage() {
+        $('.browse-menu-item').addClass('active');
+        var $sections = $('.help-section');
+        var section = window.location.hash.slice(1) || 'browse-title';
+        var $nav_tabs = $('.nav-tabs li');
+        $('.nav-tabs .' + section).addClass('active');
+        $sections.hide();
+        $('.help-section.' + section).show();
+        $nav_tabs.click(function(){
+            var $this = $(this);
+            $nav_tabs.removeClass('active');
+            $this.addClass('active');
+            $sections.hide();
+            var show_row = $this.data('show');
+            $('.help-section.' + show_row).show();
+        });
+    }
+    $(initPage);
+})(jQuery)
+</script>
+{% endblock javascript %}
