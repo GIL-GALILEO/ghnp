@@ -81,7 +81,7 @@ class HTMLCalendar(calendar.Calendar):
             elif count > 1:
                 _class = "multiple"
                 # use a dropdown instead of expanding the calendar in order to display multiple titles
-                _day = "<div class='btn-group'><a class='btn dropdown-toggle' data-toggle='dropdown' href='#'>"
+                _day = "<div class='btn-group'><a class='btn btn-xs dropdown-toggle' data-toggle='dropdown' href='#'>"
                 _day += """%s<span class='caret'></span></a>""" % day
                 _day += "<ul class='dropdown-menu'>"
                 for lccn, date_issued, edition, title in issues:
