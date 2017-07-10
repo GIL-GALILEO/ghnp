@@ -634,7 +634,7 @@ urlpatterns += [
     #     views.pages_on_flickr,
     #     name='chronam_pages_on_flickr'),
     #
-    # # batch summary
+    # batch summary
     # url(r'^batches/summary/$',
     #     views.batch_summary,
     #     name='chronam_batch_summary'),
@@ -644,10 +644,10 @@ urlpatterns += [
     #     name='chronam_batch_summary_txt'),
 
     # batch view
-    # url(r'^batches/$',
-    #     views.batches,
-    #     name='chronam_batches'),
-    #
+    url(r'^batches/$',
+        views.batches,
+        name='chronam_batches'),
+
     # url(r'^batches/;page=(?P<page_number>\d+)$',
     #     views.batches,
     #     name='chronam_batches_page'),
@@ -675,7 +675,7 @@ urlpatterns += [
     # url(r'^batches/(?P<batch_name>.+)/$',
     #     views.batch,
     #     name='chronam_batch'),
-    #
+
     # url(r'^batches/(?P<batch_name>.+).rdf$',
     #     views.batch_rdf,
     #     name='chronam_batch_dot_rdf'),
