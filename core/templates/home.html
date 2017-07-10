@@ -52,17 +52,16 @@
 {#                </h3>#}
 {#            </div>#}
 {#            <div class="panel-body">#}
+{#                {% for issue in latest %}#}
 {#                <ul class="fa-ul">#}
 {#                    <li>#}
-{#                        <i class="fa-li fa fa-newspaper-o" aria-hidden="true"></i> <a href="#">Some new Newspaper</a>#}
-{#                    </li>#}
-{#                    <li>#}
-{#                        <i class="fa-li fa fa-newspaper-o" aria-hidden="true"></i> <a href="#">Another new Newspaper</a>#}
+{#                        <i class="fa-li fa fa-newspaper-o" aria-hidden="true"></i> <a href="#">{{ issue.title }}</a>#}
 {#                    </li>#}
 {#                </ul>#}
+{#                {% endfor %}#}
 {#            </div>#}
 {#        </div>#}
 {#    </div>#}
-</div>
+{#</div>#}
 
 {% endblock content %}
