@@ -6,7 +6,6 @@
 {% endblock head_content %}
 
 {% block page_head %}
-
     <h1>{{ page_title }}</h1>
 {% endblock %}
 
@@ -15,6 +14,7 @@
         <div class="col-md-8">
             <div class="row">
                 <div class="col-md-12 region" id="region-search">
+                    {% if start_year and end_year %}<p>Issues are available from <strong>{{ start_year }}</strong> to <strong>{{ end_year }}</strong>.</p>{% endif %}
                     <div class="panel panel-default">
                         <div class="panel-body">
                             <form action="{% url 'chronam_search_pages_results' %}" class="form-horizontal" method="get">

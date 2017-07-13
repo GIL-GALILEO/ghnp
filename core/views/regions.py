@@ -2,7 +2,8 @@ from django.conf import settings
 from django.shortcuts import render_to_response, get_object_or_404
 from django.template import RequestContext
 from django.core import urlresolvers
-from chronam.core.models import Region, Place, Title, NewspaperType
+from django.db.models import Min, Max
+from chronam.core.models import Region, Place, Title, NewspaperType, Issue
 
 def region_page(request, region):
 
@@ -35,6 +36,15 @@ def region_page(request, region):
 
     counties = sorted(counties)
     cities = sorted(cities)
+
+    # available page range
+    issue_dates = Issue.objects.filter(title__places__region=region).aggregate(min_date=Min('date_issued'), max_date=Max('date_issued'))
+    if issue_dates['min_date'] and issue_dates['max_date']:
+        start_year = issue_dates['min_date'].year
+        end_year = issue_dates['max_date'].year
+    else:
+        start_year = None
+        end_year = None
 
     for county in counties:
         if county:
