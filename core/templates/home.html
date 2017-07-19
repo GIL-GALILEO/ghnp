@@ -44,24 +44,24 @@
         </map>
     </div>
 
-{#    <div class="col-md-3">#}
-{#        <div class="panel panel-default">#}
-{#            <div class="panel-heading">#}
-{#                <h3 class="panel-title">#}
-{#                    Updates#}
-{#                </h3>#}
-{#            </div>#}
-{#            <div class="panel-body">#}
-{#                {% for issue in latest %}#}
-{#                <ul class="fa-ul">#}
-{#                    <li>#}
-{#                        <i class="fa-li fa fa-newspaper-o" aria-hidden="true"></i> <a href="#">{{ issue.title }}</a>#}
-{#                    </li>#}
-{#                </ul>#}
-{#                {% endfor %}#}
-{#            </div>#}
-{#        </div>#}
-{#    </div>#}
-{#</div>#}
+    <div class="col-md-3">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3 class="panel-title">
+                    Recently Added Titles
+                </h3>
+            </div>
+            <div class="panel-body">
+                {% for title in latest_titles %}
+                <ul class="fa-ul">
+                    <li>
+                        <i class="fa-li fa fa-newspaper-o" aria-hidden="true"></i> {{ title.created|date:'Y-m-d' }} - <a href="{% url 'chronam_title' title.lccn %}">{{ title.display_name_with_date_range }}</a>
+                    </li>
+                </ul>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</div>
 
 {% endblock content %}

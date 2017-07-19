@@ -12,15 +12,12 @@ from chronam.core import models
 from chronam.core import forms
 
 
-def home(request, date=None):
+def home(request):
     crumbs = list(settings.BASE_CRUMBS)
-    # today = datetime.date.today()
-    # context["date"] = date = today.replace(year=today.year-100)
-    # context["pages"] = _frontpages(request, date)
-    # regions = models.Region.objects.all()
-    # note the date is handled on the client side in javascript
+    latest_titles = models.Title.objects.filter(has_issues=True).order_by('-created')[0:5]
     return render(request, 'home.html', {
-        "crumbs": crumbs
+        "crumbs": crumbs,
+        "latest_titles": latest_titles
     })
 
 def _frontpages(request, date):
