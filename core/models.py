@@ -243,6 +243,13 @@ class Title(models.Model):
             return self.name
 
     @property
+    def display_name_with_date_range(self):
+        if self.start_year and self.end_year:
+            return self.name + ' (' + self.start_year + ' - ' + self.end_year + ')'
+        else:
+            return self.name
+
+    @property
     def first_issue(self):
         try:
             return self.issues.order_by("date_issued")[0]

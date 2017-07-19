@@ -50,7 +50,7 @@ def region_page(request, region):
         if county:
             t = dict()
             t['county'] = county
-            titles = Title.objects.filter(places__county__contains=county)
+            titles = Title.objects.filter(places__county__contains=county).order_by('+name').order_by('-start_year')
             t['titles'] = titles
             if t['titles']:
                 county_titles.append(t)

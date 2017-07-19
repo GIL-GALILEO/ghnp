@@ -85,7 +85,7 @@
                                     {% for title in ct.titles %}
                                          <div class="county-titles-list-item">
                                             <a href="{% url 'chronam_title' title.lccn %}">
-                                                {{ title.display_name }}
+                                                {{ title.display_name_with_date_range }}
                                             </a>
                                         </div>
                                     {% endfor %}
