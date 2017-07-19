@@ -82,10 +82,8 @@
         <br>
 
     {% if title.funding_source %}
-        <div class="row">
-            <div class="alert alert-info">
-                Funding for the digitization of this title was provided by {{ title.funding_source.name }}
-            </div>
+        <div class="alert alert-info">
+            {{ title.funding_source.message }}
         </div>
     {% endif %}
 

@@ -1319,4 +1319,4 @@ class NewspaperType(models.Model):
 
 class FundingSource(models.Model):
     slug = models.CharField(max_length=50, null=True)
-    name = models.CharField(max_length=250, null=True)
+    message = models.CharField(max_length=1000, null=True)
