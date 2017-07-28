@@ -634,6 +634,8 @@ def commit():
 
 def _get_sort(sort, in_pages=False):
     sort_field = sort_order = None
+    if sort:
+        sort, sort_order = sort.split('_')
     # if sort == 'state':
     #     sort_field = 'country' # odd artifact of Title model
     #     sort_order = 'asc'
@@ -642,14 +644,14 @@ def _get_sort(sort, in_pages=False):
         # important to sort on title_facet since it's the original
         # string, and not the analyzed title
         sort_field = 'title_normal'
-        sort_order = 'asc'
+        sort_order = sort_order or 'asc'
     # sort by the full issue date if we searching pages
     elif sort == 'date' and in_pages:
         sort_field = 'date'
-        sort_order = 'asc'
+        sort_order = sort_order or 'asc'
     elif sort == 'date':
         sort_field = 'start_year'
-        sort_order = 'asc'
+        sort_order = sort_order or 'asc'
     return sort_field, sort_order
 
 def _expand_ethnicity(e):
