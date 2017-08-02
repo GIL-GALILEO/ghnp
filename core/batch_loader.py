@@ -2,7 +2,6 @@ import os
 import os.path
 import re
 import logging
-import urllib2
 import urlparse
 
 import io
@@ -16,7 +15,6 @@ import simplejson as json
 from lxml import etree
 from solr import SolrConnection
 
-from django.core import management
 from django.db import reset_queries
 from django.db.models import Q
 from django.conf import settings
@@ -90,7 +88,6 @@ class BatchLoader(object):
     def _sanity_check_batch(self, batch):
         if not os.path.exists(batch.path):
            raise BatchLoaderException("batch does not exist at %s" % batch.path)
-        # b = urllib2.urlopen(batch.url)
         batch.validated_batch_file = self._find_batch_file(batch)
 
     def load_batch(self, batch_path, strict=True):

@@ -4,7 +4,6 @@ import logging
 from optparse import make_option
 
 from django.conf import settings
-from django.db import connection
 from django.core.management.base import BaseCommand, CommandError
 
 from solr import SolrConnection
