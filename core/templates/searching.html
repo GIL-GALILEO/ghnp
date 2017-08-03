@@ -6,63 +6,96 @@
 
     <h2>{{ page_title }}</h2>
 
-    <p>Contents:</p>
-    <ul>
-        <li><a href="#keyword">Keyword Searching</a></li>
-        <li><a href="#advanced">Advanced Searching</a></li>
-        <li><a href="#regional">Regional Searching</a></li>
-    </ul>
+    <p>
+        The Georgia Historic Newspapers Archive allows for searching by keyword, within a region, or by using the
+        advanced search form. Click on the relevant tab below for a video and description of how to discover relevant
+        content using the various search features available.
+    </p>
 
-    <h3><a name="keyword"></a>Keyword Searching</h3>
-
-    <div class="well well-large">
-       <video preload controls
-              width="100%">
-           MP4 Video Cannot be Played
-           <source src="{% static 'videos/keyword_searches.mp4' %}" />
-       </video>
+    <div class="row" id="help-browse-nav">
+        <div class="col-md-12">
+            <ul class="nav nav-tabs">
+                <li role="presentation" class="keyword" data-show="keyword"><a href="#keyword">Keyword Searching</a></li>
+                <li role="presentation" class="regional" data-show="regional"><a href="#regional">Regional Searching</a></li>
+                <li role="presentation" class="advanced" data-show="advanced"><a href="#advanced">Advanced Searching</a></li>
+            </ul>
+        </div>
     </div>
 
-    <p>
-        Keyword searches can be performed using the search box at the top of the homepage. This will allow you to search for words or terms in all of the newspapers included in the Georgia Historic Newspapers website.
-    </p>
+    <div class="help-sections">
+        <div class="keyword help-section">
+            <h3><a name="keyword"></a>Keyword Searching</h3>
+            <div class="well well-large">
+               <video preload controls
+                      width="100%">
+                   MP4 Video Cannot be Played
+                   <source src="{% static 'videos/keyword_searches.mp4' %}" />
+               </video>
+            </div>
+            <p>
+                Keyword searches can be performed using the search box at the top of the homepage. This will allow you to search for words or terms in all of the newspapers included in the Georgia Historic Newspapers website.
+            </p>
+            <p>
+                Using this search box will direct you to a search results page with image thumbnails of the newspaper pages. If you select a page from the search results you will be directed to the page view for your selection.
+            </p>
+        </div>
 
-    <p>
-        Using this search box will direct you to a search results page with image thumbnails of the newspaper pages. If you select a page from the search results you will be directed to the page view for your selection.
-    </p>
+        <div class="regional help-section">
+            <h3><a name="regional"></a>Regional Searching</h3>
+            <div class="well well-large">
+               <video preload controls
+                      poster="{% static 'images/searchbyregion.png' %}"
+                      width="100%">
+                   MP4 Video Cannot be Played
+                   <source src="{% static 'videos/region_searching.mp4' %}" />
+               </video>
+            </div>
+            <p>
+                Users can search newspaper titles by region using the site’s region page option. You can choose a region by selecting it on the homepage map or by using the “Regions” drop down tab at the top of the homepage.
+            </p>
+            <p>
+                The region pages provide information about the history of the area along with lists of the counties and cities that are included in the region. You have the option of searching for keywords in newspaper titles from that region by entering your search terms in the search box near the top of the page. Additionally, you can browse the titles from the region by selecting them from the “Titles By County” lists below the search box.
+            </p>
+        </div>
 
-    <h3><a name="advanced"></a>Advanced Searching</h3>
-
-    <div class="well well-large">
-       <video preload controls
-              poster="{% static 'images/advancedsearch.png' %}"
-              width="100%">
-           MP4 Video Cannot be Played
-           <source src="{% static 'videos/advanced_searching.mp4' %}" />
-       </video>
+        <div class="advanced help-section">
+            <h3><a name="advanced"></a>Advanced Searching</h3>
+            <div class="well well-large">
+               <video preload controls
+                      poster="{% static 'images/advancedsearch.png' %}"
+                      width="100%">
+                   MP4 Video Cannot be Played
+                   <source src="{% static 'videos/advanced_searching.mp4' %}" />
+               </video>
+            </div>
+            <p>
+                To perform more specific searches, select the “Search” tab at the top of the homepage. This will direct you to the advanced search page. The options on this page will allow you to limit your search by city, county, type, region, newspaper title, and date. Clicking on a box will open a drop down menu that will allow you to select multiple options. You will also have the option of entering keywords into a variety of search term boxes. Once you have selected all of your search parameters, click the search box at the bottom of the page. This will direct you to the search results page.
+            </p>
+        </div>
     </div>
-
-    <p>
-        To perform more specific searches, select the “Search” tab at the top of the homepage. This will direct you to the advanced search page. The options on this page will allow you to limit your search by city, county, type, region, newspaper title, and date. Clicking on a box will open a drop down menu that will allow you to select multiple options. You will also have the option of entering keywords into a variety of search term boxes. Once you have selected all of your search parameters, click the search box at the bottom of the page. This will direct you to the search results page.
-    </p>
-
-    <h3><a name="regional"></a>Regional Searching</h3>
-
-    <div class="well well-large">
-       <video preload controls
-              poster="{% static 'images/searchbyregion.png' %}"
-              width="100%">
-           MP4 Video Cannot be Played
-           <source src="{% static 'videos/region_searching.mp4' %}" />
-       </video>
-    </div>
-
-    <p>
-        Users can search newspaper titles by region using the site’s region page option. You can choose a region by selecting it on the homepage map or by using the “Regions” drop down tab at the top of the homepage.
-    </p>
-
-    <p>
-        The region pages provide information about the history of the area along with lists of the counties and cities that are included in the region. You have the option of searching for keywords in newspaper titles from that region by entering your search terms in the search box near the top of the page. Additionally, you can browse the titles from the region by selecting them from the “Titles By County” lists below the search box.
-    </p>
 
 {% endblock content %}
+{% block javascript %}{{ block.super }}
+<script type="text/javascript">
+(function($) {
+    function initPage() {
+        $('.browse-menu-item').addClass('active');
+        var $sections = $('.help-section');
+        var section = window.location.hash.slice(1) || 'keyword';
+        var $nav_tabs = $('.nav-tabs li');
+        $('.nav-tabs .' + section).addClass('active');
+        $sections.hide();
+        $('.help-section.' + section).show();
+        $nav_tabs.click(function(){
+            var $this = $(this);
+            $nav_tabs.removeClass('active');
+            $this.addClass('active');
+            $sections.hide();
+            var show_row = $this.data('show');
+            $('.help-section.' + show_row).show();
+        });
+    }
+    $(initPage);
+})(jQuery)
+</script>
+{% endblock javascript %}
