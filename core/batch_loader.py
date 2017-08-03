@@ -84,9 +84,7 @@ class BatchLoader(object):
                 u = os.path.isfile(file)
                 validated_batch_file = alias
                 break
-            except urllib2.HTTPError, e:
-                continue
-            except urllib2.URLError, e:
+            except IOError, e:
                 continue
         else:
             raise BatchLoaderException(
