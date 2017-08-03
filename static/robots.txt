@@ -2,3 +2,5 @@ User-Agent: *
 Disallow: /*thumbnail.jpg$
 Disallow /data/
 Disallow: /images/tiles/
+Disallow: /*.pdf$
+Disallow: /*.txt$
