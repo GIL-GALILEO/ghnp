@@ -80,12 +80,9 @@ class BatchLoader(object):
             # TODO: might we want 'batch.xml' first? Leaving last for now to
             # minimize impact.
             file = os.path.join(batch.storage_url, alias)
-            try:
-                u = os.path.isfile(file)
+            if os.path.isfile(file):
                 validated_batch_file = alias
                 break
-            except IOError, e:
-                continue
         else:
             raise BatchLoaderException(
                 "could not find batch_1.xml (or any of its aliases) in '%s' -- has the batch been validated?" % batch.path)
