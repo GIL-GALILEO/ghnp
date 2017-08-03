@@ -54,6 +54,7 @@
         <div class="col-md-3">
             <label for="sort">Sort Results By</label>
             <select name="sort" id="sort" class="form-control" title="Results Sort">
+                <option value="relevance"{% if sort == 'relevance' %} selected{% endif %}>Relevance</option>
                 <option value="date_asc"{% if sort == 'date_asc' %} selected{% endif %}>Date (Oldest First)</option>
                 <option value="date_desc"{% if sort == 'date_desc' %} selected{% endif %}>Date (Newest First)</option>
             </select>
@@ -120,7 +121,7 @@
     <script type="text/javascript">
     jQuery(function($){
         $("#sort").change(function(){
-            window.location.href = '?{{ q }}' + '&sort=' + this.value;
+            window.location.href = '?{{ q|urlencode }}' + '&sort=' + this.value;
         });
     });
     </script>
