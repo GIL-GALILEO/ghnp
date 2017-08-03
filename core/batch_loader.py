@@ -2,6 +2,7 @@ import os
 import os.path
 import re
 import logging
+import urllib2
 import urlparse
 
 import io
@@ -15,6 +16,7 @@ import simplejson as json
 from lxml import etree
 from solr import SolrConnection
 
+from django.core import management
 from django.db import reset_queries
 from django.db.models import Q
 from django.conf import settings
@@ -26,7 +28,7 @@ except ImportError:
     j2k = None
 
 from chronam.core import models
-from chronam.core.models import Batch, Issue, Title, Awardee, Page, OCR
+from chronam.core.models import Batch, Issue, Title, Awardee, Page, OCR, FundingSource, NewspaperType
 from chronam.core.models import LoadBatchEvent
 from chronam.core.ocr_extractor import ocr_extractor
 
@@ -62,7 +64,6 @@ class BatchLoader(object):
         The process_ocr parameter is used (mainly in testing) when we don't
         want to spend time actually extracting ocr text and indexing.
         """
-        self.pages_processed = 0
         self.PROCESS_OCR = process_ocr
         if self.PROCESS_OCR:
             self.solr = SolrConnection(settings.SOLR)
@@ -76,11 +77,18 @@ class BatchLoader(object):
         """
         # look for batch_1.xml, BATCH_1.xml, etc
         for alias in ["batch_1.xml", "BATCH_1.xml", "batchfile_1.xml", "batch_2.xml", "BATCH_2.xml", "batch.xml", "BATCH.xml"]:
-            # TODO: might we want 'batch.xml' first? Leaving last for now to minimize impact.
-            url = urlparse.urljoin(batch.storage_url, alias)
-            if os.path.isfile(url):
+            # TODO: might we want 'batch.xml' first? Leaving last for now to
+            # minimize impact.
+            file = os.path.join(batch.storage_url, alias)
+            try:
+                u = os.path.isfile(file)
                 validated_batch_file = alias
                 break
+            except urllib2.HTTPError, e:
+                continue
+            except urllib2.URLError, e:
+                continue
+        else:
             raise BatchLoaderException(
                 "could not find batch_1.xml (or any of its aliases) in '%s' -- has the batch been validated?" % batch.path)
         return validated_batch_file
@@ -97,6 +105,7 @@ class BatchLoader(object):
           loader.load_batch('/path/to/batch_curiv_ahwahnee_ver01')
 
         """
+        self.pages_processed = 0
 
         logging.info("loading batch at %s", batch_path)
         dirname, batch_name = os.path.split(batch_path.rstrip("/"))
@@ -107,7 +116,7 @@ class BatchLoader(object):
                 _logger.info("creating symlink %s -> %s", batch_path, link_name)
                 os.symlink(batch_path, link_name)
         else:
-            batch_source = os.path.join(settings.BATCH_STORAGE, batch_name)
+            batch_source = urlparse.urljoin(settings.BATCH_STORAGE, batch_name)
             if not batch_source.endswith("/"):
                 batch_source += "/"
 
@@ -248,7 +257,7 @@ class BatchLoader(object):
         try:
             title = Title.objects.get(lccn=lccn)
         except Exception, e:
-            url = os.path.join(settings.BIB_STORAGE, lccn + '.xml')
+            url = 'http://chroniclingamerica.loc.gov/lccn/%s/marc.xml' % lccn
             logging.info("attempting to load marc record from %s", url)
             management.call_command('load_titles', url)
             title = Title.objects.get(lccn=lccn)
