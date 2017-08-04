@@ -39,7 +39,7 @@
     "fields": {
       "slug": "record",
       "name": "Paper of Record",
-      "description": "Newspapers published by churches and religious organizations or publications intended for a particular denomination or religious community."
+      "description": "Newspapers authorized by a city, county, or state government to publish legal and public notice advertisements."
     },
     "model": "core.newspapertype",
     "pk": 5
