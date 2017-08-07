@@ -79,7 +79,7 @@ class BatchLoader(object):
         for alias in ["batch_1.xml", "BATCH_1.xml", "batchfile_1.xml", "batch_2.xml", "BATCH_2.xml", "batch.xml", "BATCH.xml"]:
             # TODO: might we want 'batch.xml' first? Leaving last for now to
             # minimize impact.
-            file = os.path.join(batch.storage_url, alias)
+            file = os.path.join(batch.storage_url[7:], alias)
             logging.info("checking for validated batch file at %s", file)
             if os.path.isfile(file):
                 validated_batch_file = alias
