@@ -158,7 +158,7 @@ class BatchLoader(object):
             for e in doc.xpath('ndnp:issue', namespaces=ns):
                 mets_url = urlparse.urljoin(batch.storage_url, e.text)
                 try:
-                    issue = self._load_issue(mets_url)
+                    issue = self._load_issue(mets_url[7:])
                 except ValueError, e:
                     _logger.exception(e)
                     continue
