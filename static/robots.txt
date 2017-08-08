@@ -4,3 +4,4 @@ Disallow /data/
 Disallow: /images/tiles/
 Disallow: /*.pdf$
 Disallow: /*.txt$
+Disallow: /*.xml$
