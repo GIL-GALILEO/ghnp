@@ -14,7 +14,7 @@ from chronam.core import forms
 
 def home(request):
     crumbs = list(settings.BASE_CRUMBS)
-    latest_titles = models.Title.objects.filter(has_issues=True).order_by('-created')[0:5]
+    latest_titles = models.Title.objects.filter(has_issues=True).order_by('-created')[0:4]
     return render(request, 'home.html', {
         "crumbs": crumbs,
         "latest_titles": latest_titles
