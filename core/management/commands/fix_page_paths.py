@@ -29,16 +29,16 @@ class Command(BaseCommand):
         paths_fixed = 0
 
         for page in pages:
-            if bsp in page.jp2_filename:
+            if page.jp2_filename and bsp in page.jp2_filename:
                 page.jp2_filename = page.jp2_filename[page.jp2_filename.rfind('data/') + 5:]
                 paths_fixed += 1
-            if bsp in page.tiff_filename:
+            if page.tiff_filename and bsp in page.tiff_filename:
                 page.tiff_filename = page.tiff_filename[page.tiff_filename.rfind('data/') + 5:]
                 paths_fixed += 1
-            if bsp in page.pdf_filename:
+            if page.pdf_filename and bsp in page.pdf_filename:
                 page.pdf_filename = page.pdf_filename[page.pdf_filename.rfind('data/') + 5:]
                 paths_fixed += 1
-            if bsp in page.ocr_filename:
+            if page.ocr_filename and bsp in page.ocr_filename:
                 page.ocr_filename = page.ocr_filename[page.ocr_filename.rfind('data/') + 5:]
                 paths_fixed += 1
             if options['save']:
