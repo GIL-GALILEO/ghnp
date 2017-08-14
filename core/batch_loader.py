@@ -28,7 +28,7 @@ except ImportError:
     j2k = None
 
 from chronam.core import models
-from chronam.core.models import Batch, Issue, Title, Awardee, Page, OCR, FundingSource, NewspaperType
+from chronam.core.models import Batch, Issue, Title, Awardee, Page, OCR
 from chronam.core.models import LoadBatchEvent
 from chronam.core.ocr_extractor import ocr_extractor
 
@@ -60,7 +60,6 @@ class BatchLoader(object):
 
     def __init__(self, process_ocr=True, process_coordinates=True):
         """Create a BatchLoader.
-
         The process_ocr parameter is used (mainly in testing) when we don't
         want to spend time actually extracting ocr text and indexing.
         """
@@ -69,37 +68,39 @@ class BatchLoader(object):
             self.solr = SolrConnection(settings.SOLR)
         self.PROCESS_COORDINATES = process_coordinates
 
-
     def _find_batch_file(self, batch):
         """
         TODO: Who can we toss the requirement at to make this
         available in a canonical location?
         """
         # look for batch_1.xml, BATCH_1.xml, etc
-        for alias in ["batch_1.xml", "BATCH_1.xml", "batchfile_1.xml", "batch_2.xml", "BATCH_2.xml", "batch.xml", "BATCH.xml"]:
+        for alias in ["batch_1.xml", "BATCH_1.xml", "batchfile_1.xml", "batch_2.xml", "BATCH_2.xml", "batch.xml"]:
             # TODO: might we want 'batch.xml' first? Leaving last for now to
             # minimize impact.
-            file = os.path.join(batch.storage_url[7:], alias)
-            logging.info("checking for validated batch file at %s", file)
-            if os.path.isfile(file):
+            url = urlparse.urljoin(batch.storage_url, alias)
+            try:
+                u = urllib2.urlopen(url)
                 validated_batch_file = alias
                 break
+            except urllib2.HTTPError, e:
+                continue
+            except urllib2.URLError, e:
+                continue
         else:
             raise BatchLoaderException(
                 "could not find batch_1.xml (or any of its aliases) in '%s' -- has the batch been validated?" % batch.path)
         return validated_batch_file
 
     def _sanity_check_batch(self, batch):
-        if not os.path.exists(batch.path):
-           raise BatchLoaderException("batch does not exist at %s" % batch.path)
+        #if not os.path.exists(batch.path):
+        #    raise BatchLoaderException("batch does not exist at %s" % batch.path)
+        #b = urllib2.urlopen(batch.url)
         batch.validated_batch_file = self._find_batch_file(batch)
 
     def load_batch(self, batch_path, strict=True):
         """Load a batch, and return a Batch instance for the batch
         that was loaded.
-
           loader.load_batch('/path/to/batch_curiv_ahwahnee_ver01')
-
         """
         self.pages_processed = 0
 
@@ -158,7 +159,7 @@ class BatchLoader(object):
             for e in doc.xpath('ndnp:issue', namespaces=ns):
                 mets_url = urlparse.urljoin(batch.storage_url, e.text)
                 try:
-                    issue = self._load_issue(mets_url[7:])
+                    issue = self._load_issue(mets_url)
                 except ValueError, e:
                     _logger.exception(e)
                     continue
@@ -257,9 +258,6 @@ class BatchLoader(object):
             logging.info("attempting to load marc record from %s", url)
             management.call_command('load_titles', url)
             title = Title.objects.get(lccn=lccn)
-
-        title.save()
-
         issue.title = title
 
         issue.batch = self.current_batch
@@ -463,11 +461,14 @@ class BatchLoader(object):
             self.current_batch = batch
             for issue in batch.issues.all():
                 for page in issue.pages.all():
-                    url = urlparse.urljoin(self.current_batch.storage_url,
+                    if not page.ocr_filename:
+                        logging.warn("Batch [%s] has page [%s] that has no OCR. Skipping processing coordinates for page." % (batch_name, page))
+                    else:
+                        url = urlparse.urljoin(self.current_batch.storage_url,
                                            page.ocr_filename)
-
-                    lang_text, coords = ocr_extractor(url)
-                    self._process_coordinates(page, coords)
+                        logging.debug("Extracting OCR from url %s" % url)
+                        lang_text, coords = ocr_extractor(url)
+                        self._process_coordinates(page, coords)
         except Exception, e:
             msg = "unable to process coordinates for batch: %s" % e
             _logger.error(msg)
@@ -561,4 +562,3 @@ def _normalize_batch_name(batch_name):
         _logger.error(msg)
         raise BatchLoaderException(msg)
     return batch_name
-
