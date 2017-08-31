@@ -1,6 +1,24 @@
 # Georgia Historic Newspapers
 #### aka ChronAm for the DLG
 
+[https://gahistoricnewspapers.galileo.usg.edu]
+
+## What's Different?
+
+Building on baseline ChronAm, we added:
+1. Calendar support (thanks Nebraska)
+2. Browsing by Newspaper Type, Region, City
+3. Static Pages for Help, Participation, etc.
+4. SolrCloud support
+
+## Loading Batches
+
+1. place batch files in `data/dlg_batches`
+2. ensure that an xml file containing MARC data for the Titles contained in the batch is present in the `data/nonlccn` directory
+3. run the chronam load_batch job like this:
+
+`manage.py load_batch path_to_batch_folder`
+
 ## Preparing Batches
 
 In order to import batches, batches must conform to the [NDNP Digital Assets format](http://www.loc.gov/ndnp/guidelines/examples.html) [(examples)](http://chroniclingamerica.loc.gov/data/batches/).
@@ -12,10 +30,16 @@ But since we aren't NDNP awardees, we have to hack some things...
 1. clear out any existing loaded batches with `dlg\hacks\clear_loaded_batch_data.sql`
 2. execute `dlg/hacks/setup_dlg.sql` to setup the DLG as an awardee and institution
 
-### Loading Batches
+### Apply refinements to the `core_place` table data
 
-1. place batch files in `data/dlg_batches`
-2. ensure that an xml file containing MARC data for the Titles contained in the batch is present in the `data/nonlccn` directory with the filename `{newspaper_lccn}.xml`
-3. run the chronam load_batch job like this:
+GHNP enhances the `core_place` table data to support the included
+browsing features. This includes a new model `core_region` that is related to
+each place entry that is in Georgia. As well, the county and city values
+are extracted from the core-loaded data.
 
-`core/manage.py load_batch /full_path_to/chronam/data/dlg_batches/properly_named_batch_folder`
+1. `manage.py loaddata regions`
+2. `manage.py refine_places`
+
+### Disclaimer
+
+This is my first `django` project
