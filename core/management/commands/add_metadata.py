@@ -2,7 +2,8 @@ import sys
 import simplejson as json
 
 from django.core.management.base import BaseCommand, CommandError
-from chronam.core.models import Title, Region, FundingSource, NewspaperType
+from chronam.core.models import Title, FundingSource, NewspaperType
+from django.db.utils import IntegrityError
 
 class Command(BaseCommand):
     help = 'Adds custom GHNP metadata to title records by LCCN'
@@ -62,6 +63,8 @@ class Command(BaseCommand):
                 if funding_source_code: title.funding_source = funding_source
                 if essay_text: title.essay_text = essay_text
                 title.save()
+            except IntegrityError as e:
+                raise CommandError('Problem saving title with lccn %s: %s' % (title.lccn, format(e.errno, e.strerror)))
             except:
                 e = sys.exc_info()[0]
                 raise CommandError('Problem saving title with lccn %s: %s' % (title.lccn, e))
