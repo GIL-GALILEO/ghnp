@@ -121,7 +121,7 @@
     <script type="text/javascript">
     jQuery(function($){
         $("#sort").change(function(){
-            window.location.href = '?{{ q|urlencode }}' + '&sort=' + this.value;
+            window.location.href =  "?{{ q }}&page={{ page_number }}&sort=" + this.value;
         });
     });
     </script>
