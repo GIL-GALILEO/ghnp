@@ -476,6 +476,9 @@ def page_search(d):
     if d.get('andtext', None):
         q.append('+((' + query_join(solr_escape(d['andtext']).split(' '), "ocr_vector", and_clause=True))
         q.append('))')
+    if d.get('nottext', None):
+        q.append('((' + query_join(solr_escape(d['nottext']).split(' '), "ocr_vector", not_clause=True))
+        q.append('))')
     if d.get('phrasetext', None):
         phrase = solr_escape(d['phrasetext'])
         q.append('+((' + 'ocr_vector' + ':"%s"^10000' % phrase)
@@ -485,8 +488,8 @@ def page_search(d):
         prox = solr_escape(d['proxtext'])
         q.append('+((' + 'ocr_vector' + ':("%s"~%s)^10000' % (prox, distance))
         q.append('))')
-    if d.get('sequence', None):
-        q.append('+sequence:"%s"' % d['sequence'])
+    # if d.get('sequence', None):
+    #     q.append('+sequence:"%s"' % d['sequence'])
     if d.get('issue_date', None):
         q.append('+month:%d +day:%d' % (int(d['date_month']), int(d['date_day'])))
 
@@ -497,7 +500,7 @@ def page_search(d):
     }
     return ' '.join(q), facet_params
 
-def query_join(values, field, and_clause=False):
+def query_join(values, field, and_clause=False, not_clause=False):
     """
     helper to create a chunk of a lucene query, based on
     some value(s) extracted from form data
@@ -513,19 +516,19 @@ def query_join(values, field, and_clause=False):
     # quote values
     values = ['"%s"' % v for v in values]
 
-
-    # add + to the beginnging of each value if we are doing an AND clause
+    # add + to the beginning of each value if we are doing an AND clause
     if and_clause:
         values = ["+%s" % v for v in values]
 
+    # add - to the beginning of each value if we are doing a NOT clause
+    if not_clause:
+        values = ["-%s" % v for v in values]
+
     # return the lucene query chunk
-    if field.startswith("ocr"):
-        if field == "ocr":
-            return "%s:(%s)^10000" % (field, ' '.join(values))
-        else:
-            return "%s:(%s)" % (field, ' '.join(values))
+    if not_clause:
+        return "%s:(%s)" % (field, ' '.join(values))
     else:
-        return "+%s:(%s)" % (field, ' '.join(values))
+        return "%s:(%s)^10000" % (field, ' '.join(values))
 
 
 def find_words(s):

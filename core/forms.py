@@ -209,6 +209,7 @@ class AdvSearchPagesForm(SearchPagesForm):
     sequence = fields.CharField()
     ortext = fields.CharField()
     andtext = fields.CharField()
+    nottext = fields.CharField()
     phrasetext = fields.CharField()
     proxtext = fields.CharField()
     proxdistance = fields.ChoiceField(choices=PROX_CHOICES)
@@ -238,6 +239,7 @@ class AdvSearchPagesForm(SearchPagesForm):
         self.fields["proxtext"].widget.attrs = {"id": "id_proxtext_adv", "class": "form-control"}
         self.fields["ortext"].widget.attrs = {"class": "form-control"}
         self.fields["andtext"].widget.attrs = {"class": "form-control"}
+        self.fields["nottext"].widget.attrs = {"class": "form-control"}
         self.fields["phrasetext"].widget.attrs = {"class": "form-control"}
         # lang_choices = [("", "All"), ]
         # lang_choices.extend((l, models.Language.objects.get(code=l).name) for l in settings.SOLR_LANGUAGES)
