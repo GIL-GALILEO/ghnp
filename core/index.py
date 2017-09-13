@@ -479,7 +479,7 @@ def page_search(d):
         q.append('+((' + query_join(solr_escape(d['andtext']).split(' '), "ocr_vector", and_clause=True))
         q.append('))')
     if d.get('nottext', None):
-        q.append('((' + query_join(solr_escape(d['nottext']).split(' '), "ocr_vector", not_clause=True))
+        q.append('-((' + query_join(solr_escape(d['nottext']).split(' '), "ocr_vector"))
         q.append('))')
     if d.get('phrasetext', None):
         phrase = solr_escape(d['phrasetext'])
