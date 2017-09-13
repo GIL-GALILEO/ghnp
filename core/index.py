@@ -237,19 +237,17 @@ class SolrPaginator(Paginator):
         d = self.query
         parts = {}
         if d.get('ortext', None):
-            parts['any'] = ', '.join(d['ortext'].split(' '))
+            parts['any'] = d['ortext'].split(' ')
         if d.get('andtext', None):
-            parts['all'] = ', '.join(d['andtext'].split(' '))
+            parts['all'] = d['andtext'].split(' ')
         if d.get('nottext', None):
-            parts['without'] = ', '.join(d['nottext'].split(' '))
+            parts['without'] = d['nottext'].split(' ')
         if d.get('phrasetext', None):
-            parts['phrase'] = d['phrasetext']
+            parts['phrasetext'] = d['phrasetext']
         if d.get('proxtext', None):
-            parts['proxtext'] =  ', '.join(d['proxtext'].split(' '))
+            parts['proxtext'] =  d['proxtext'].split(' ')
             parts['proxdistance'] = d.get('proxdistance', PROX_DISTANCE_DEFAULT)
         return parts
-
-
 
     # TODO: see ticket #176
     # i think this can be removed if the search pages results view uses

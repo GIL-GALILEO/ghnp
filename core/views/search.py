@@ -110,7 +110,6 @@ def search_pages_results(request, view_type='gallery'):
 
     # get some stuff from the query string for use in the form
     lccns = query.getlist('lccn')
-    states = query.getlist('state')
 
     # figure out the sort that's in use
     sort = query.get('sort', 'relevance')
