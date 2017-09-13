@@ -235,16 +235,18 @@ class SolrPaginator(Paginator):
         Returns some pseudo english text describing the query.
         """
         d = self.query
-        parts = []
+        parts = {}
         if d.get('ortext', None):
-            parts.append(' OR '.join(d['ortext'].split(' ')))
+            parts['any'] = ', '.join(d['ortext'].split(' '))
         if d.get('andtext', None):
-            parts.append(' AND '.join(d['andtext'].split(' ')))
+            parts['all'] = ', '.join(d['andtext'].split(' '))
+        if d.get('nottext', None):
+            parts['without'] = ', '.join(d['nottext'].split(' '))
         if d.get('phrasetext', None):
-            parts.append('the phrase "%s"' % d['phrasetext'])
+            parts['phrase'] = d['phrasetext']
         if d.get('proxtext', None):
-            proxdistance = d.get('proxdistance', PROX_DISTANCE_DEFAULT)
-            parts.append(d['proxtext'])
+            parts['proxtext'] =  ', '.join(d['proxtext'].split(' '))
+            parts['proxdistance'] = d.get('proxdistance', PROX_DISTANCE_DEFAULT)
         return parts
 
 

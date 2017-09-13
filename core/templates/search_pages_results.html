@@ -21,6 +21,17 @@
 {% block main_content %}
 
 <div class="content">
+    {% if parts %}
+    <p>
+        You searched for:
+        <ul>
+            {% if parts.any %}<li>Any of these words: {{ parts.any }}</li>{% endif %}
+            {% if parts.all %}<li>All of these words: {{ parts.all }}</li>{% endif %}
+            {% if parts.without %}<li>Without these words: {{ parts.without }}</li>{% endif %}
+            {% if parts.proxtext %}<li>These words within {{ parts.proxdistance }} words of each other: {{ parts.proxtext }}</li>{% endif %}
+        </ul>
+    </p>
+    {% endif %}
     {% if total_items > 0 %}
     <div class="row search-pagination">
         <div class="col-md-6">

@@ -106,7 +106,7 @@ def search_pages_results(request, view_type='gallery'):
     q = q.urlencode()
 
     # get an pseudo english version of the query
-    english_search = paginator.englishify()
+    parts = paginator.englishify()
 
     # get some stuff from the query string for use in the form
     lccns = query.getlist('lccn')
