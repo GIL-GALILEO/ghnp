@@ -638,7 +638,6 @@ def commit():
     solr.commit()
 
 def _get_sort(sort, in_pages=False):
-    valid_sorts = ['asc', 'desc']
     sort_field = sort_order = None
 
     if sort and sort != 'relevance':
@@ -656,10 +655,6 @@ def _get_sort(sort, in_pages=False):
     elif sort == 'date':
         sort_field = 'start_year'
         sort_order = sort_order or 'asc'
-
-    # safety first
-    if not sort_order in valid_sorts:
-        sort_order = 'asc'
 
     return sort_field, sort_order
 
