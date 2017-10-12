@@ -40,6 +40,14 @@ are extracted from the core-loaded data.
 1. `manage.py loaddata regions`
 2. `manage.py refine_places`
 
+## Update development Solr config
+
+From Solr dir:
+
+1. Delete old config: `bin/solr zk rm /configs/ghnp/managed-schema -n ghnp -d /opt/chronam/solr/ -z localhost:9983`
+2. Load new config: `bin/solr zk upconfig -n ghnp -d /opt/chronam/solr/ -z localhost:9983`
+3. Restart Solr
+
 ### Disclaimer
 
 This is my first `django` project
