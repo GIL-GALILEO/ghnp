@@ -518,8 +518,11 @@ def essay(request, essay_id):
 
 @cache_page(settings.API_TTL_SECONDS)
 def ocr(request):
-    page_title = "OCR Data"
-    dumps = models.OcrDump.objects.all().order_by('-created')
+    page_title = "About our OCR Data"
+    crumbs = list(settings.BASE_CRUMBS)
+    crumbs.extend([
+        {'label': 'OCR Data Information'},
+    ])
     return render_to_response('reports/ocr.html', dictionary=locals(),
                               context_instance=RequestContext(request))
 

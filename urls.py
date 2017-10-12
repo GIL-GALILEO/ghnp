@@ -231,19 +231,19 @@ urlpatterns += [
         name="chronam_page_pdf"),
 
     # example: /lccn/sn85066387/1907-03-17/ed-1/seq-4.jp2
-    url(r'^lccn/(?P<lccn>\w+)/(?P<date>\d{4}-\d{2}-\d{2})/ed-(?P<edition>\d+)/seq-(?P<sequence>\d+).jp2$',
-        views.page_jp2, 
-        name="chronam_page_jp2"),
+    # url(r'^lccn/(?P<lccn>\w+)/(?P<date>\d{4}-\d{2}-\d{2})/ed-(?P<edition>\d+)/seq-(?P<sequence>\d+).jp2$',
+    #     views.page_jp2,
+    #     name="chronam_page_jp2"),
 
     # example: /lccn/sn85066387/1907-03-17/ed-1/seq-4/ocr.xml
-    url(r'^lccn/(?P<lccn>\w+)/(?P<date>\d{4}-\d{2}-\d{2})/ed-(?P<edition>\d+)/seq-(?P<sequence>\d+)/ocr.xml$',
-        views.page_ocr_xml, 
-        name="chronam_page_ocr_xml"),
+    # url(r'^lccn/(?P<lccn>\w+)/(?P<date>\d{4}-\d{2}-\d{2})/ed-(?P<edition>\d+)/seq-(?P<sequence>\d+)/ocr.xml$',
+    #     views.page_ocr_xml,
+    #     name="chronam_page_ocr_xml"),
 
     # example: /lccn/sn85066387/1907-03-17/ed-1/seq-4/ocr.txt
-    url(r'^lccn/(?P<lccn>\w+)/(?P<date>\d{4}-\d{2}-\d{2})/ed-(?P<edition>\d+)/seq-(?P<sequence>\d+)/ocr.txt$',
-        views.page_ocr_txt, 
-        name="chronam_page_ocr_txt"),
+    # url(r'^lccn/(?P<lccn>\w+)/(?P<date>\d{4}-\d{2}-\d{2})/ed-(?P<edition>\d+)/seq-(?P<sequence>\d+)/ocr.txt$',
+    #     views.page_ocr_txt,
+    #     name="chronam_page_ocr_txt"),
         
     # example: /lccn/sn85066387/1907-03-17/ed-1/seq-4/;words=
     url(r'^lccn/(?P<lccn>\w+)/(?P<date>\d{4}-\d{2}-\d{2})/ed-(?P<edition>\d+)/seq-(?P<sequence>\d+)/;words=(?P<words>.+)$',
@@ -744,13 +744,13 @@ urlpatterns += [
     #     name='chronam_reports'),
 
     # ocr data
-    url(r'^ocr/feed/$', 
-        views.ocr_atom, 
-        name='chronam_ocr_atom'),
+    # url(r'^ocr/feed/$',
+    #     views.ocr_atom,
+    #     name='chronam_ocr_atom'),
 
-    url(r'^ocr.json$', 
-        views.ocr_json, 
-        name='chronam_ocr_json'),   
+    # url(r'^ocr.json$',
+    #     views.ocr_json,
+    #     name='chronam_ocr_json'),
 ]
 
 _ROOT = os.path.abspath(os.path.dirname(__file__))
