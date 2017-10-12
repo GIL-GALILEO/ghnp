@@ -31,6 +31,8 @@ FREQUENCY_CHOICES = (
 )
 
 PROX_CHOICES = (
+    ("1", "1"),
+    ("2", "2"),
     ("5", "5"),
     ("10", "10"),
     ("50", "50"),
@@ -210,7 +212,6 @@ class AdvSearchPagesForm(SearchPagesForm):
     ortext = fields.CharField()
     andtext = fields.CharField()
     nottext = fields.CharField()
-    phrasetext = fields.CharField()
     proxtext = fields.CharField()
     proxdistance = fields.ChoiceField(choices=PROX_CHOICES)
     # language = fields.ChoiceField()
@@ -230,6 +231,7 @@ class AdvSearchPagesForm(SearchPagesForm):
         self.fields["date1"].initial = ""
         self.fields["date2"].widget.attrs = {"id": "id_date_to", "max_length": 10}
         self.fields["date2"].initial = ""
+        self.fields["proxdistance"].initial = "5"
         # self.fields["city"].widget.attrs = {"data-placeholder": "Click here to choose some Cities"}
         # self.fields["county"].widget.attrs = {"data-placeholder": "Click here to choose some Counties"}
         # self.fields["newspaper_type"].widget.attrs = {"data-placeholder": "Click here to choose some Types"}
@@ -240,7 +242,6 @@ class AdvSearchPagesForm(SearchPagesForm):
         self.fields["ortext"].widget.attrs = {"class": "form-control"}
         self.fields["andtext"].widget.attrs = {"class": "form-control"}
         self.fields["nottext"].widget.attrs = {"class": "form-control"}
-        self.fields["phrasetext"].widget.attrs = {"class": "form-control"}
         # lang_choices = [("", "All"), ]
         # lang_choices.extend((l, models.Language.objects.get(code=l).name) for l in settings.SOLR_LANGUAGES)
         # self.fields["language"].choices = lang_choices

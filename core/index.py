@@ -479,15 +479,15 @@ def page_search(d):
     if d.get('nottext', None):
         q.append('-((' + query_join(solr_escape(d['nottext']).split(' '), "ocr_vector"))
         q.append('))')
-    if d.get('phrasetext', None):
-        phrase = solr_escape(d['phrasetext'])
-        q.append('+((' + 'ocr_vector' + ':"%s"^10000' % phrase)
-        q.append('))')
+    # if d.get('phrasetext', None):
+    #     phrase = solr_escape(d['phrasetext'])
+    #     q.append('+((+ocr_vector:"%s"))' % phrase)
+        # q.append('))')
     if d.get('proxtext', None):
         distance = d.get('proxdistance', PROX_DISTANCE_DEFAULT)
         prox = solr_escape(d['proxtext'])
-        q.append('+((' + 'ocr_vector' + ':("%s"~%s)^10000' % (prox, distance))
-        q.append('))')
+        q.append('+((+ocr_vector:"%s"~%s))' % (prox, distance))
+        # q.append('))')
     # if d.get('sequence', None):
     #     q.append('+sequence:"%s"' % d['sequence'])
     if d.get('issue_date', None):
