@@ -106,7 +106,7 @@
 <!--  <copyField source="date" dest="date_date" />-->
 
   <uniqueKey>id</uniqueKey>
-  <defaultSearchField>ocr_vector</defaultSearchField>
-  <solrQueryParser defaultOperator="OR"/>
+<!--  <defaultSearchField>ocr_vector</defaultSearchField> -->
+<!--  <solrQueryParser defaultOperator="OR"/> -->
 
 </schema>

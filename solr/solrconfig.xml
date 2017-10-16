@@ -132,6 +132,9 @@
   -->
   <codecFactory class="solr.SchemaCodecFactory"/>
 
+  <!-- Use the classic schema.xml -->
+  <schemaFactory class="ClassicIndexSchemaFactory"/>
+
   <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
        Index Config - These settings control low-level behavior of indexing
        Most example settings here show the default value, but are commented
@@ -140,51 +143,7 @@
        Note: This replaces <indexDefaults> and <mainIndex> from older versions
        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
   <indexConfig>
-    <!-- maxFieldLength was removed in 4.0. To get similar behavior, include a
-         LimitTokenCountFilterFactory in your fieldType definition. E.g.
-     <filter class="solr.LimitTokenCountFilterFactory" maxTokenCount="10000"/>
-    -->
-    <!-- Maximum time to wait for a write lock (ms) for an IndexWriter. Default: 1000 -->
-    <!-- <writeLockTimeout>1000</writeLockTimeout>  -->
 
-    <!-- Expert: Enabling compound file will use less files for the index,
-         using fewer file descriptors on the expense of performance decrease.
-         Default in Lucene is "true". Default in Solr is "false" (since 3.6) -->
-    <!-- <useCompoundFile>false</useCompoundFile> -->
-
-    <!-- ramBufferSizeMB sets the amount of RAM that may be used by Lucene
-         indexing for buffering added documents and deletions before they are
-         flushed to the Directory.
-         maxBufferedDocs sets a limit on the number of documents buffered
-         before flushing.
-         If both ramBufferSizeMB and maxBufferedDocs is set, then
-         Lucene will flush based on whichever limit is hit first.  -->
-    <!-- <ramBufferSizeMB>100</ramBufferSizeMB> -->
-    <!-- <maxBufferedDocs>1000</maxBufferedDocs> -->
-
-    <!-- Expert: Merge Policy
-         The Merge Policy in Lucene controls how merging of segments is done.
-         The default since Solr/Lucene 3.3 is TieredMergePolicy.
-         The default since Lucene 2.3 was the LogByteSizeMergePolicy,
-         Even older versions of Lucene used LogDocMergePolicy.
-      -->
-    <!--
-        <mergePolicyFactory class="org.apache.solr.index.TieredMergePolicyFactory">
-          <int name="maxMergeAtOnce">10</int>
-          <int name="segmentsPerTier">10</int>
-          <double name="noCFSRatio">0.1</double>
-        </mergePolicyFactory>
-      -->
-
-    <!-- Expert: Merge Scheduler
-         The Merge Scheduler in Lucene controls how merges are
-         performed.  The ConcurrentMergeScheduler (Lucene 2.3 default)
-         can perform merges in the background using separate threads.
-         The SerialMergeScheduler (Lucene 2.2 default) does not.
-     -->
-    <!--
-       <mergeScheduler class="org.apache.lucene.index.ConcurrentMergeScheduler"/>
-       -->
 
     <!-- LockFactory
 
@@ -207,45 +166,6 @@
     -->
     <lockType>${solr.lock.type:native}</lockType>
 
-    <!-- Commit Deletion Policy
-         Custom deletion policies can be specified here. The class must
-         implement org.apache.lucene.index.IndexDeletionPolicy.
-
-         The default Solr IndexDeletionPolicy implementation supports
-         deleting index commit points on number of commits, age of
-         commit point and optimized status.
-
-         The latest commit point should always be preserved regardless
-         of the criteria.
-    -->
-    <!--
-    <deletionPolicy class="solr.SolrDeletionPolicy">
-    -->
-    <!-- The number of commit points to be kept -->
-    <!-- <str name="maxCommitsToKeep">1</str> -->
-    <!-- The number of optimized commit points to be kept -->
-    <!-- <str name="maxOptimizedCommitsToKeep">0</str> -->
-    <!--
-        Delete all commit points once they have reached the given age.
-        Supports DateMathParser syntax e.g.
-      -->
-    <!--
-       <str name="maxCommitAge">30MINUTES</str>
-       <str name="maxCommitAge">1DAY</str>
-    -->
-    <!--
-    </deletionPolicy>
-    -->
-
-    <!-- Lucene Infostream
-
-         To aid in advanced debugging, Lucene provides an "InfoStream"
-         of detailed information when indexing.
-
-         Setting The value to true will instruct the underlying Lucene
-         IndexWriter to write its debugging info the specified file
-      -->
-    <!-- <infoStream file="INFOSTREAM.txt">false</infoStream> -->
   </indexConfig>
 
 
@@ -323,68 +243,7 @@
     <autoSoftCommit>
       <maxTime>${solr.autoSoftCommit.maxTime:-1}</maxTime>
     </autoSoftCommit>
-
-    <!-- Update Related Event Listeners
-
-         Various IndexWriter related events can trigger Listeners to
-         take actions.
-
-         postCommit - fired after every commit or optimize command
-         postOptimize - fired after every optimize command
-      -->
-    <!-- The RunExecutableListener executes an external command from a
-         hook such as postCommit or postOptimize.
-
-         exe - the name of the executable to run
-         dir - dir to use as the current working directory. (default=".")
-         wait - the calling thread waits until the executable returns.
-                (default="true")
-         args - the arguments to pass to the program.  (default is none)
-         env - environment variables to set.  (default is none)
-      -->
-    <!-- This example shows how RunExecutableListener could be used
-         with the script based replication...
-         http://wiki.apache.org/solr/CollectionDistribution
-      -->
-    <!--
-       <listener event="postCommit" class="solr.RunExecutableListener">
-         <str name="exe">solr/bin/snapshooter</str>
-         <str name="dir">.</str>
-         <bool name="wait">true</bool>
-         <arr name="args"> <str>arg1</str> <str>arg2</str> </arr>
-         <arr name="env"> <str>MYVAR=val1</str> </arr>
-       </listener>
-      -->
-
   </updateHandler>
-
-  <!-- IndexReaderFactory
-
-       Use the following format to specify a custom IndexReaderFactory,
-       which allows for alternate IndexReader implementations.
-
-       ** Experimental Feature **
-
-       Please note - Using a custom IndexReaderFactory may prevent
-       certain other features from working. The API to
-       IndexReaderFactory may change without warning or may even be
-       removed from future releases if the problems cannot be
-       resolved.
-
-
-       ** Features that may not work with custom IndexReaderFactory **
-
-       The ReplicationHandler assumes a disk-resident index. Using a
-       custom IndexReader implementation may cause incompatibility
-       with ReplicationHandler and may cause replication to not work
-       correctly. See SOLR-1366 for details.
-
-    -->
-  <!--
-  <indexReaderFactory name="IndexReaderFactory" class="package.class">
-    <str name="someArg">Some Value</str>
-  </indexReaderFactory >
-  -->
 
   <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
        Query section - these settings control query time things like caches
@@ -477,39 +336,6 @@
            autowarmCount="10"
            regenerator="solr.NoOpRegenerator" />
 
-    <!-- Field Value Cache
-
-         Cache used to hold field values that are quickly accessible
-         by document id.  The fieldValueCache is created by default
-         even if not configured here.
-      -->
-    <!--
-       <fieldValueCache class="solr.FastLRUCache"
-                        size="512"
-                        autowarmCount="128"
-                        showItems="32" />
-      -->
-
-    <!-- Custom Cache
-
-         Example of a generic cache.  These caches may be accessed by
-         name through SolrIndexSearcher.getCache(),cacheLookup(), and
-         cacheInsert().  The purpose is to enable easy caching of
-         user/application level data.  The regenerator argument should
-         be specified as an implementation of solr.CacheRegenerator
-         if autowarming is desired.
-      -->
-    <!--
-       <cache name="myUserCache"
-              class="solr.LRUCache"
-              size="4096"
-              initialSize="1024"
-              autowarmCount="1024"
-              regenerator="com.mycompany.MyRegenerator"
-              />
-      -->
-
-
     <!-- Lazy Field Loading
 
          If true, stored fields that are not requested will be loaded
@@ -519,23 +345,6 @@
          fields.
     -->
     <enableLazyFieldLoading>true</enableLazyFieldLoading>
-
-    <!-- Use Filter For Sorted Query
-
-         A possible optimization that attempts to use a filter to
-         satisfy a search.  If the requested sort does not include
-         score, then the filterCache will be checked for a filter
-         matching the query. If found, the filter will be used as the
-         source of document ids, and then the sort will be applied to
-         that.
-
-         For most situations, this will not be useful unless you
-         frequently get the same search repeatedly with different sort
-         options, and none of them ever use "score"
-      -->
-    <!--
-       <useFilterForSortedQuery>true</useFilterForSortedQuery>
-      -->
 
     <!-- Result Window Size
 
@@ -665,51 +474,7 @@
          related headers
       -->
     <httpCaching never304="true" />
-    <!-- If you include a <cacheControl> directive, it will be used to
-         generate a Cache-Control header (as well as an Expires header
-         if the value contains "max-age=")
 
-         By default, no Cache-Control header is generated.
-
-         You can use the <cacheControl> option even if you have set
-         never304="true"
-      -->
-    <!--
-       <httpCaching never304="true" >
-         <cacheControl>max-age=30, public</cacheControl>
-       </httpCaching>
-      -->
-    <!-- To enable Solr to respond with automatically generated HTTP
-         Caching headers, and to response to Cache Validation requests
-         correctly, set the value of never304="false"
-
-         This will cause Solr to generate Last-Modified and ETag
-         headers based on the properties of the Index.
-
-         The following options can also be specified to affect the
-         values of these headers...
-
-         lastModFrom - the default value is "openTime" which means the
-         Last-Modified value (and validation against If-Modified-Since
-         requests) will all be relative to when the current Searcher
-         was opened.  You can change it to lastModFrom="dirLastMod" if
-         you want the value to exactly correspond to when the physical
-         index was last modified.
-
-         etagSeed="..." is an option you can change to force the ETag
-         header (and validation against If-None-Match requests) to be
-         different even if the index has not changed (ie: when making
-         significant changes to your config file)
-
-         (lastModifiedFrom and etagSeed are both ignored if you use
-         the never304="true" option)
-      -->
-    <!--
-       <httpCaching lastModifiedFrom="openTime"
-                    etagSeed="Solr">
-         <cacheControl>max-age=30, public</cacheControl>
-       </httpCaching>
-      -->
   </requestDispatcher>
 
   <!-- Request Handlers
@@ -749,58 +514,7 @@
       <int name="rows">10</int>
       <!-- <str name="df">text</str> -->
     </lst>
-    <!-- In addition to defaults, "appends" params can be specified
-         to identify values which should be appended to the list of
-         multi-val params from the query (or the existing "defaults").
-      -->
-    <!-- In this example, the param "fq=instock:true" would be appended to
-         any query time fq params the user may specify, as a mechanism for
-         partitioning the index, independent of any user selected filtering
-         that may also be desired (perhaps as a result of faceted searching).
 
-         NOTE: there is *absolutely* nothing a client can do to prevent these
-         "appends" values from being used, so don't use this mechanism
-         unless you are sure you always want it.
-      -->
-    <!--
-       <lst name="appends">
-         <str name="fq">inStock:true</str>
-       </lst>
-      -->
-    <!-- "invariants" are a way of letting the Solr maintainer lock down
-         the options available to Solr clients.  Any params values
-         specified here are used regardless of what values may be specified
-         in either the query, the "defaults", or the "appends" params.
-
-         In this example, the facet.field and facet.query params would
-         be fixed, limiting the facets clients can use.  Faceting is
-         not turned on by default - but if the client does specify
-         facet=true in the request, these are the only facets they
-         will be able to see counts for; regardless of what other
-         facet.field or facet.query params they may specify.
-
-         NOTE: there is *absolutely* nothing a client can do to prevent these
-         "invariants" values from being used, so don't use this mechanism
-         unless you are sure you always want it.
-      -->
-    <!--
-       <lst name="invariants">
-         <str name="facet.field">cat</str>
-         <str name="facet.field">manu_exact</str>
-         <str name="facet.query">price:[* TO 500]</str>
-         <str name="facet.query">price:[500 TO *]</str>
-       </lst>
-      -->
-    <!-- If the default list of SearchComponents is not desired, that
-         list can either be overridden completely, or components can be
-         prepended or appended to the default list.  (see below)
-      -->
-    <!--
-       <arr name="components">
-         <str>nameOfCustomComponent1</str>
-         <str>nameOfCustomComponent2</str>
-       </arr>
-      -->
   </requestHandler>
 
   <!-- A request handler that returns indented JSON by default -->
@@ -822,17 +536,18 @@
        (SearchHandler) can be registered multiple times with different
        names (and different init parameters)
     -->
-  <requestHandler name="/browse" class="solr.SearchHandler" useParams="query,facets,velocity,browse">
+  <!-- <requestHandler name="/browse" class="solr.SearchHandler" useParams="query,facets,velocity,browse">
     <lst name="defaults">
       <str name="echoParams">explicit</str>
     </lst>
-  </requestHandler>
+  </requestHandler> -->
 
-  <initParams path="/update/**,/query,/select,/tvrh,/elevate,/spell,/browse">
+<!--  <initParams path="/update/**,/query,/select,/tvrh,/elevate,/spell,/browse">
+  <initParams
     <lst name="defaults">
       <str name="df">_text_</str>
     </lst>
-  </initParams>
+  </initParams> -->
 
   <!-- This enabled schemaless mode
   <initParams path="/update/**">
@@ -847,7 +562,7 @@
        http://wiki.apache.org/solr/ExtractingRequestHandler
 
     -->
-  <requestHandler name="/update/extract"
+  <!-- <requestHandler name="/update/extract"
                   startup="lazy"
                   class="solr.extraction.ExtractingRequestHandler" >
     <lst name="defaults">
@@ -855,7 +570,7 @@
       <str name="fmap.meta">ignored_</str>
       <str name="fmap.content">_text_</str>
     </lst>
-  </requestHandler>
+  </requestHandler> -->
   <!-- Search Components
 
        Search components are registered to SolrCore and used by
@@ -906,37 +621,37 @@
 
        http://wiki.apache.org/solr/SpellCheckComponent
     -->
-  <searchComponent name="spellcheck" class="solr.SpellCheckComponent">
+  <!-- <searchComponent name="spellcheck" class="solr.SpellCheckComponent"> -->
 
-    <str name="queryAnalyzerFieldType">text_general</str>
+    <!-- <str name="queryAnalyzerFieldType">text_general</str> -->
 
     <!-- Multiple "Spell Checkers" can be declared and used by this
          component
       -->
 
     <!-- a spellchecker built from a field of the main index -->
-    <lst name="spellchecker">
-      <str name="name">default</str>
-      <str name="field">_text_</str>
-      <str name="classname">solr.DirectSolrSpellChecker</str>
+    <!-- <lst name="spellchecker"> -->
+      <!-- <str name="name">default</str> -->
+      <!-- <str name="field">_text_</str> -->
+      <!-- <str name="classname">solr.DirectSolrSpellChecker</str> -->
       <!-- the spellcheck distance measure used, the default is the internal levenshtein -->
-      <str name="distanceMeasure">internal</str>
+      <!-- <str name="distanceMeasure">internal</str> -->
       <!-- minimum accuracy needed to be considered a valid spellcheck suggestion -->
-      <float name="accuracy">0.5</float>
+      <!-- <float name="accuracy">0.5</float> -->
       <!-- the maximum #edits we consider when enumerating terms: can be 1 or 2 -->
-      <int name="maxEdits">2</int>
+      <!-- <int name="maxEdits">2</int> -->
       <!-- the minimum shared prefix when enumerating terms -->
-      <int name="minPrefix">1</int>
+      <!-- <int name="minPrefix">1</int> -->
       <!-- maximum number of inspections per result. -->
-      <int name="maxInspections">5</int>
+      <!-- <int name="maxInspections">5</int> -->
       <!-- minimum length of a query term to be considered for correction -->
-      <int name="minQueryLength">4</int>
+      <!-- <int name="minQueryLength">4</int> -->
       <!-- maximum threshold of documents a query term can appear to be considered for correction -->
-      <float name="maxQueryFrequency">0.01</float>
+      <!-- <float name="maxQueryFrequency">0.01</float> -->
       <!-- uncomment this to require suggestions to occur in 1% of the documents
         <float name="thresholdTokenFrequency">.01</float>
       -->
-    </lst>
+    <!-- </lst> -->
 
     <!-- a spellchecker that can break or combine words.  See "/spell" handler below for usage -->
     <!--
@@ -949,7 +664,7 @@
       <int name="maxChanges">10</int>
     </lst>
     -->
-  </searchComponent>
+  <!-- </searchComponent> -->
 
   <!-- A request handler for demonstrating the spellcheck component.
 
@@ -964,13 +679,13 @@
        See http://wiki.apache.org/solr/SpellCheckComponent for details
        on the request parameters.
     -->
-  <requestHandler name="/spell" class="solr.SearchHandler" startup="lazy">
-    <lst name="defaults">
+  <!-- <requestHandler name="/spell" class="solr.SearchHandler" startup="lazy"> -->
+    <!-- <lst name="defaults"> -->
       <!-- Solr will use suggestions from both the 'default' spellchecker
            and from the 'wordbreak' spellchecker and combine them.
            collations (re-written queries) can include a combination of
            corrections from both spellcheckers -->
-      <str name="spellcheck.dictionary">default</str>
+      <!-- <str name="spellcheck.dictionary">default</str>
       <str name="spellcheck">on</str>
       <str name="spellcheck.extendedResults">true</str>
       <str name="spellcheck.count">10</str>
@@ -984,13 +699,13 @@
     <arr name="last-components">
       <str>spellcheck</str>
     </arr>
-  </requestHandler>
+  </requestHandler> -->
 
   <!-- Term Vector Component
 
        http://wiki.apache.org/solr/TermVectorComponent
     -->
-  <searchComponent name="tvComponent" class="solr.TermVectorComponent"/>
+  <!-- <searchComponent name="tvComponent" class="solr.TermVectorComponent"/> -->
 
   <!-- A request handler for demonstrating the term vector component
 
@@ -999,14 +714,14 @@
        In reality you will likely want to add the component to your
        already specified request handlers.
     -->
-  <requestHandler name="/tvrh" class="solr.SearchHandler" startup="lazy">
+  <!-- <requestHandler name="/tvrh" class="solr.SearchHandler" startup="lazy">
     <lst name="defaults">
       <bool name="tv">true</bool>
     </lst>
     <arr name="last-components">
       <str>tvComponent</str>
     </arr>
-  </requestHandler>
+  </requestHandler> -->
 
   <!-- Clustering Component. (Omitted here. See the default Solr example for a typical configuration.) -->
 
@@ -1020,7 +735,7 @@
   <searchComponent name="terms" class="solr.TermsComponent"/>
 
   <!-- A request handler for demonstrating the terms component -->
-  <requestHandler name="/terms" class="solr.SearchHandler" startup="lazy">
+  <!-- <requestHandler name="/terms" class="solr.SearchHandler" startup="lazy">
     <lst name="defaults">
       <bool name="terms">true</bool>
       <bool name="distrib">false</bool>
@@ -1028,31 +743,7 @@
     <arr name="components">
       <str>terms</str>
     </arr>
-  </requestHandler>
-
-
-  <!-- Query Elevation Component
-
-       http://wiki.apache.org/solr/QueryElevationComponent
-
-       a search component that enables you to configure the top
-       results for a given query regardless of the normal lucene
-       scoring.
-    -->
-  <!--<searchComponent name="elevator" class="solr.QueryElevationComponent" >
-    <str name="queryFieldType">string</str>
-    <str name="config-file">elevate.xml</str>
-  </searchComponent>-->
-
-  <!-- A request handler for demonstrating the elevator component
-  <requestHandler name="/elevate" class="solr.SearchHandler" startup="lazy">
-    <lst name="defaults">
-      <str name="echoParams">explicit</str>
-    </lst>
-    <arr name="last-components">
-      <str>elevator</str>
-    </arr>
-  </requestHandler>-->
+  </requestHandler> -->
 
   <!-- Highlighting Component
 
@@ -1160,105 +851,7 @@
     </highlighting>
   </searchComponent>
 
-  <!-- Update Processors
 
-       Chains of Update Processor Factories for dealing with Update
-       Requests can be declared, and then used by name in Update
-       Request Processors
-
-       http://wiki.apache.org/solr/UpdateRequestProcessor
-
-    -->
-
-   <!-- Deduplication
-
-       An example dedup update processor that creates the "id" field
-       on the fly based on the hash code of some other fields.  This
-       example has overwriteDupes set to false since we are using the
-       id field as the signatureField and Solr will maintain
-       uniqueness based on that anyway.
-
-    -->
-  <!--
-     <updateRequestProcessorChain name="dedupe">
-       <processor class="solr.processor.SignatureUpdateProcessorFactory">
-         <bool name="enabled">true</bool>
-         <str name="signatureField">id</str>
-         <bool name="overwriteDupes">false</bool>
-         <str name="fields">name,features,cat</str>
-         <str name="signatureClass">solr.processor.Lookup3Signature</str>
-       </processor>
-       <processor class="solr.LogUpdateProcessorFactory" />
-       <processor class="solr.RunUpdateProcessorFactory" />
-     </updateRequestProcessorChain>
-    -->
-
-  <!-- Language identification
-
-       This example update chain identifies the language of the incoming
-       documents using the langid contrib. The detected language is
-       written to field language_s. No field name mapping is done.
-       The fields used for detection are text, title, subject and description,
-       making this example suitable for detecting languages form full-text
-       rich documents injected via ExtractingRequestHandler.
-       See more about langId at http://wiki.apache.org/solr/LanguageDetection
-    -->
-  <!--
-   <updateRequestProcessorChain name="langid">
-     <processor class="org.apache.solr.update.processor.TikaLanguageIdentifierUpdateProcessorFactory">
-       <str name="langid.fl">text,title,subject,description</str>
-       <str name="langid.langField">language_s</str>
-       <str name="langid.fallback">en</str>
-     </processor>
-     <processor class="solr.LogUpdateProcessorFactory" />
-     <processor class="solr.RunUpdateProcessorFactory" />
-   </updateRequestProcessorChain>
-  -->
-
-  <!-- Script update processor
-
-    This example hooks in an update processor implemented using JavaScript.
-
-    See more about the script update processor at http://wiki.apache.org/solr/ScriptUpdateProcessor
-  -->
-  <!--
-    <updateRequestProcessorChain name="script">
-      <processor class="solr.StatelessScriptUpdateProcessorFactory">
-        <str name="script">update-script.js</str>
-        <lst name="params">
-          <str name="config_param">example config parameter</str>
-        </lst>
-      </processor>
-      <processor class="solr.RunUpdateProcessorFactory" />
-    </updateRequestProcessorChain>
-  -->
-
-  <!-- Response Writers
-
-       http://wiki.apache.org/solr/QueryResponseWriter
-
-       Request responses will be written using the writer specified by
-       the 'wt' request parameter matching the name of a registered
-       writer.
-
-       The "default" writer is the default and will be used if 'wt' is
-       not specified in the request.
-    -->
-  <!-- The following response writers are implicitly configured unless
-       overridden...
-    -->
-  <!--
-     <queryResponseWriter name="xml"
-                          default="true"
-                          class="solr.XMLResponseWriter" />
-     <queryResponseWriter name="json" class="solr.JSONResponseWriter"/>
-     <queryResponseWriter name="python" class="solr.PythonResponseWriter"/>
-     <queryResponseWriter name="ruby" class="solr.RubyResponseWriter"/>
-     <queryResponseWriter name="php" class="solr.PHPResponseWriter"/>
-     <queryResponseWriter name="phps" class="solr.PHPSerializedResponseWriter"/>
-     <queryResponseWriter name="csv" class="solr.CSVResponseWriter"/>
-     <queryResponseWriter name="schema.xml" class="solr.SchemaXmlResponseWriter"/>
-    -->
 
   <queryResponseWriter name="json" class="solr.JSONResponseWriter">
     <!-- For the purposes of the tutorial, JSON responses are written as
@@ -1281,58 +874,7 @@
        in Solr's conf/xslt directory.  Changes to xslt files are checked for
        every xsltCacheLifetimeSeconds.
     -->
-  <queryResponseWriter name="xslt" class="solr.XSLTResponseWriter">
+  <!-- <queryResponseWriter name="xslt" class="solr.XSLTResponseWriter">
     <int name="xsltCacheLifetimeSeconds">5</int>
-  </queryResponseWriter>
-
-  <!-- Query Parsers
-
-       https://cwiki.apache.org/confluence/display/solr/Query+Syntax+and+Parsing
-
-       Multiple QParserPlugins can be registered by name, and then
-       used in either the "defType" param for the QueryComponent (used
-       by SearchHandler) or in LocalParams
-    -->
-  <!-- example of registering a query parser -->
-  <!--
-     <queryParser name="myparser" class="com.mycompany.MyQParserPlugin"/>
-    -->
-
-  <!-- Function Parsers
-
-       http://wiki.apache.org/solr/FunctionQuery
-
-       Multiple ValueSourceParsers can be registered by name, and then
-       used as function names when using the "func" QParser.
-    -->
-  <!-- example of registering a custom function parser  -->
-  <!--
-     <valueSourceParser name="myfunc"
-                        class="com.mycompany.MyValueSourceParser" />
-    -->
-
-
-  <!-- Document Transformers
-       http://wiki.apache.org/solr/DocTransformers
-    -->
-  <!--
-     Could be something like:
-     <transformer name="db" class="com.mycompany.LoadFromDatabaseTransformer" >
-       <int name="connection">jdbc://....</int>
-     </transformer>
-
-     To add a constant value to all docs, use:
-     <transformer name="mytrans2" class="org.apache.solr.response.transform.ValueAugmenterFactory" >
-       <int name="value">5</int>
-     </transformer>
-
-     If you want the user to still be able to change it with _value:something_ use this:
-     <transformer name="mytrans3" class="org.apache.solr.response.transform.ValueAugmenterFactory" >
-       <double name="defaultValue">5</double>
-     </transformer>
-
-      If you are using the QueryElevationComponent, you may wish to mark documents that get boosted.  The
-      EditorialMarkerFactory will do exactly that:
-     <transformer name="qecBooster" class="org.apache.solr.response.transform.EditorialMarkerFactory" />
-    -->
+  </queryResponseWriter> -->
 </config>
