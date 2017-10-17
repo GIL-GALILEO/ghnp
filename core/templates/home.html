@@ -55,7 +55,12 @@
                 {% for title in latest_titles %}
                 <ul class="fa-ul">
                     <li>
-                        <i class="fa-li fa fa-newspaper-o" aria-hidden="true"></i> {{ title.created|date:'Y-m-d' }} - <a href="{% url 'chronam_title' title.lccn %}">{{ title.display_name_with_date_range }}</a>
+                        {# TODO: Remove this after 1m promo period is over #}
+                        {% if title.lccn == 'sn83016182' %}
+                            <i class="fa-li fa fa-newspaper-o" aria-hidden="true"></i> <a href="{% url 'chronam_title' title.lccn %}">One Millionth Page: Georgia Gazette, April 7, 1763</a>
+                        {% else %}
+                            <i class="fa-li fa fa-newspaper-o" aria-hidden="true"></i> {{ title.created|date:'Y-m-d' }} - <a href="{% url 'chronam_title' title.lccn %}">{{ title.display_name_with_date_range }}</a>
+                        {% endif %}
                     </li>
                 </ul>
                 {% endfor %}
