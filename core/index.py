@@ -525,10 +525,11 @@ def query_join(values, field, and_clause=False, not_clause=False):
         values = ["-%s" % v for v in values]
 
     # return the lucene query chunk
-    if not_clause:
-        return "%s:(%s)" % (field, ' '.join(values))
-    else:
-        return "%s:(%s)^10000" % (field, ' '.join(values))
+    # todo i can find no case where not_clause is true
+    # if not_clause:
+    #     return "%s:(%s)" % (field, ' '.join(values))
+    # else:
+    return "+%s:(%s)" % (field, ' '.join(values))
 
 
 def find_words(s):
