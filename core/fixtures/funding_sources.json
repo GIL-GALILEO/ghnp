@@ -10,7 +10,7 @@
   {
     "fields": {
       "slug": "taylor_fdn",
-      "message": "Funding for the digitization of this title was provided by R.J. Taylor, Jr. Foundation"
+      "message": "Funding for the digitization of this title was provided by R.J. Taylor, Jr. Foundation."
     },
     "model": "core.fundingsource",
     "pk": 2
@@ -18,7 +18,7 @@
   {
     "fields": {
       "slug": "rcd_sav",
-      "message": "Funding for the digitization of this title was provided by Roman Catholic Diocese of Savannah"
+      "message": "Funding for the digitization of this title was provided by Roman Catholic Diocese of Savannah."
     },
     "model": "core.fundingsource",
     "pk": 3
@@ -26,7 +26,7 @@
   {
     "fields": {
       "slug": "hargrett",
-      "message": "Funding for the digitization of this title was provided by Hargrett Rare Book and Manuscript Library"
+      "message": "Funding for the digitization of this title was provided by Hargrett Rare Book and Manuscript Library."
     },
     "model": "core.fundingsource",
     "pk": 4
@@ -42,7 +42,7 @@
   {
     "fields": {
       "slug": "rsullivan",
-      "message": "Funding for the digitization of this title was provided by Randy Sullivan"
+      "message": "Funding for the digitization of this title was provided by Randy Sullivan."
     },
     "model": "core.fundingsource",
     "pk": 6
@@ -50,7 +50,7 @@
   {
     "fields": {
       "slug": "cfa_wbjhm_srochi",
-      "message": "Funding for the digitization of this title was provided by the Cuba Family Archives, William Breman Jewish Heritage Museum and Srochi family of Atlanta"
+      "message": "Funding for the digitization of this title was provided by the Cuba Family Archives, William Breman Jewish Heritage Museum and Srochi family of Atlanta."
     },
     "model": "core.fundingsource",
     "pk": 7
@@ -58,9 +58,25 @@
   {
     "fields": {
       "slug": "mercer",
-      "message": "Funding for the digitization of this title was provided by the Mercer University Libraries"
+      "message": "Funding for the digitization of this title was provided by the Mercer University Libraries."
     },
     "model": "core.fundingsource",
     "pk": 8
+  },
+  {
+    "fields": {
+      "slug": "acc_lib",
+      "message": "Funding for the digitization of this title was provided in kind by the Athens-Clarke County Library along with permissions granted by Flagpole."
+    },
+    "model": "core.fundingsource",
+    "pk": 9
+  },
+  {
+    "fields": {
+      "slug": "homeplace",
+      "message": "Funding for the digitization of this title was provided by Georgia HomePLACE, a project of the Georgia Public Library Service."
+    },
+    "model": "core.fundingsource",
+    "pk": 10
   }
 ]
