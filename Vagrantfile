@@ -8,7 +8,7 @@ Vagrant.configure("2") do |config|
 
   config.vm.network :private_network, ip: '192.168.50.50'
 
-  config.vm.synced_folder '.', '/opt/chronam', nfs: true
+  config.vm.synced_folder '.', '/opt/chronam'
 
   config.vm.provider :virtualbox do |v, override|
     v.memory = 2048
@@ -26,6 +26,12 @@ Vagrant.configure("2") do |config|
     apt-get -y -q install python-dev python-virtualenv libxml2-dev libxslt-dev libjpeg-dev git-core graphicsmagick python-lxml zlib1g-dev libgraphicsmagick1-dev
 
   SHELL
+
+  # start solr
+  # vagrant plugin install vagrant-triggers
+  config.trigger.after :up do
+    run_remote "solr-6.4.1/bin/solr start -c -force"
+  end
 
   config.vm.provision :shell, path: 'provision/solr.sh'
   config.vm.provision :shell, path: 'provision/postgres.sh'
