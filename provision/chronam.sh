@@ -10,10 +10,6 @@ source /opt/chronam/ENV/bin/activate
 echo "Copying pth file"
 cp /opt/chronam/conf/chronam.pth /opt/chronam/ENV/lib/python2.7/site-packages/chronam.pth
 
-# TODO: make this more permanent on vagrant up
-echo "Adding /opt to PYTHONPATH"
-export PYTHONPATH=${PYTHONPATH}:/opt
-
 echo "Installing requirements with Pip"
 pip install -r /opt/chronam/requirements.pip --ignore-installed
 
@@ -35,7 +31,7 @@ python /opt/chronam/core/manage.py loaddata funding_sources
 # refine data
 python /opt/chronam/core/manage.py refine_places
 
-# TODO: this doesn't work
-# ubuntu user should own django tmp dir
+# create and own django tmp dir
+mkdir /var/tmp/django-cache/
 chown -R ubuntu:ubuntu /var/tmp/
 
