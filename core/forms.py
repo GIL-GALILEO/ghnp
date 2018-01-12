@@ -125,17 +125,15 @@ def _titles_states():
     return (titles, states)
 
 def _titles_options():
-    # todo understand this use of #cache
-    # titles = cache.get("titles")
-    # titles = None
-    # if not titles:
-    titles = [("", "All newspapers"), ]
-    for title in models.Title.objects.filter(has_issues=True).select_related():
-        short_name = title.name.split(":")[0]  # remove subtitle
-        title_name = "%s (%s)" % (short_name,
-                                  title.place_of_publication)
-        titles.append((title.lccn, title_name))
-    # cache.set("titles", titles)
+    titles = cache.get("titles")
+    if not titles:
+        titles = [("", "All newspapers"), ]
+        for title in models.Title.objects.filter(has_issues=True).order_by('name').select_related():
+            short_name = title.name.split(":")[0]  # remove subtitle
+            title_name = "%s (%s)" % (short_name,
+                                      title.place_of_publication)
+            titles.append((title.lccn, title_name))
+    cache.set("titles", titles)
     return titles
 
 
