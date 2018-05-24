@@ -1,6 +1,8 @@
 import logging
 import urlparse
 import urllib2
+import socket
+import httplib
 import datetime
 from re import sub
 from time import time, strptime
@@ -55,7 +57,15 @@ class TitleLoader(object):
                 _logger.info("processed %sk records in %.2f seconds" %
                              (self.records_processed / 1000, seconds))
 
-        map_xml(load_record, urllib2.urlopen(location))
+        if 'https' in location:
+            lccn = location[40:location.find('/marc.xml')]
+            c = httplib.HTTPSConnection('chroniclingamerica.loc.gov')
+            c.request("GET", '/lccn/%s/marc.xml' % lccn)
+            xml = c.getresponse()
+        else:
+            xml = urllib2.urlopen(location)
+
+        map_xml(load_record, xml)
 
     def load_bib(self, record):
         title = None
