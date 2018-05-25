@@ -1,11 +1,18 @@
 import sys
 import simplejson as json
 import os
+import logging
 
 from django.conf import settings
 from django.core.management.base import BaseCommand, CommandError
 from chronam.core.models import Title, FundingSource, NewspaperType
 from django.db.utils import IntegrityError
+from chronam.core.management.commands import configure_logging
+
+configure_logging('sync_extra_metadata.config',
+                  'sync_extra_metadata_%s.log' % os.getpid())
+
+LOGGER = logging.getLogger(__name__)
 
 class Command(BaseCommand):
     help = 'Adds custom GHNP metadata to title records by LCCN'
@@ -26,7 +33,6 @@ class Command(BaseCommand):
                 continue
             # get data from JSON file
             try:
-
                 with open(os.path.join(json_path, json_file), 'rb') as f:
                     data = json.load(f)
                 lccns = data.get('lccn')
@@ -34,15 +40,20 @@ class Command(BaseCommand):
                 newspaper_type_codes = data.get('newspaper_types')
                 essay_text = data.get('essay').strip()
             except IOError, _:
-                raise CommandError('Problem reading JSON file at %s' % options['json_path'])
+                LOGGER.error('Problem reading JSON file at %s' % options['json_path'])
+                continue
             except json.JSONDecodeError, e:
-                raise CommandError('JSON parsing error: %s' % e)
+                LOGGER.error('JSON parsing error: %s' % e)
+                continue
 
             # get titles from lccns
-            try:
-                titles = [Title.objects.get(lccn=lccn) for lccn in lccns]
-            except:
-                raise CommandError('At least one of your LCCNs specified in %s could not be found' % json_file)
+            titles = []
+            for lccn in lccns:
+                try:
+                    titles.append(Title.objects.get(lccn=lccn))
+                except Title.DoesNotExist:
+                    LOGGER.error('No title found for %s in %s' % (lccn, json_file))
+                    continue
 
             # get NewspaperType objects
             try:
@@ -70,7 +81,7 @@ class Command(BaseCommand):
                     e = sys.exc_info()[0]
                     raise CommandError('Problem saving title with lccn %s: %s' % (title.lccn, e))
 
-            self.stdout.write('Sync complete for file %s. %i titles updated.' % json_file, len(titles))
+            LOGGER.info('Sync complete for file %s. %i titles updated.' % (json_file, len(titles)))
 
             files_processed += 1
 
