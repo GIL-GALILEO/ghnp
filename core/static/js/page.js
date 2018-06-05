@@ -1,54 +1,18 @@
 (function($) {
-    var page_url;
-    var tile_url;
-    var coordinates_url;
-    var navigation_url;
-    var width;
-    var height;
-    var static_url;
 
-    function fullscreen(viewer) {
-        if (viewer.isFullPage()) { 
-            $.bbq.pushState({"fullscreen": true});
-            rewritePagingLinks();
-        } else {
-            window.history.pushState("",$(document).find("title").text(),$("#pageNum").val());
-            $.bbq.removeState("fullscreen");
-            rewritePagingLinks();
-        }
-    }
-
-    function rewritePagingLinks() {
-        if ($.bbq.getState("fullscreen")) {
-            $("#item-ctrl a[rel]").each(function(i, a) {
-                var href = $(a).attr("href") + "#fullscreen=true";
-                $(a).attr({href: href}); 
-            });
-        } else {
-            $("#item-ctrl a[rel]").each(function(i, a) {
-                var href = $(a).attr("href").replace("#fullscreen=true", "");
-                $(a).attr({href: href});
-            });
-        }
-    }
-    
-    function resizePrint(viewer) {
-        var image = viewer.source;
-        var zoom = viewer.viewport.getZoom(); 
-        var size = new OpenSeadragon.Rect(0, 0, image.dimensions.x, image.dimensions.y);
+    function printUrl(viewer, page_url) {
+        var image = viewer.tileSources[0];
+        var zoom = viewer.viewport.getZoom();
+        var size = new OpenSeadragon.Rect(0, 0, image.width, image.height);
         var container = viewer.viewport.getContainerSize();
         var fit_source = fitWithinBoundingBox(size, container);
-        var total_zoom = fit_source.x/image.dimensions.x;
+        var total_zoom = fit_source.x/image.width;
         var container_zoom = fit_source.x/container.x;
         var level =  (zoom * total_zoom) / container_zoom;
-        var box = getDisplayRegion(viewer, new OpenSeadragon.Point(parseInt(image.dimensions.x*level), parseInt(image.dimensions.y*level)));
+        var box = getDisplayRegion(viewer, new OpenSeadragon.Point(parseInt(image.width*level), parseInt(image.height*level)));
         var scaledBox = new OpenSeadragon.Rect(parseInt(box.x/level), parseInt(box.y/level), parseInt(box.width/level), parseInt(box.height/level));
         var d = fitWithinBoundingBox(box, new OpenSeadragon.Point(681, 817));
-        var dimension = page_url+'print/image_'+d.x+'x'+d.y+'_from_'+ scaledBox.x+','+scaledBox.y+'_to_'+scaledBox.getBottomRight().x+','+scaledBox.getBottomRight().y;
-        $("#clip").attr('href', dimension);
-        $(".locshare-print-button").find('a:first').attr('href', dimension).click(function(event) {
-            window.open($(this).attr('href'), "print");
-        });
+        return page_url+'print/image_'+d.x+'x'+d.y+'_from_'+ scaledBox.x+','+scaledBox.y+'_to_'+scaledBox.getBottomRight().x+','+scaledBox.getBottomRight().y;
     }
 
     function fitWithinBoundingBox(d, max) {
@@ -58,7 +22,7 @@
             return new OpenSeadragon.Point(parseInt(d.width * max.y/d.height),max.y);
         }
     }
-    
+
     function getDisplayRegion(viewer, source) {
         //Determine portion of scaled image that is being displayed
         var box = new OpenSeadragon.Rect(0, 0, source.x, source.y);
@@ -90,27 +54,19 @@
     }
 
     function addOverlay(viewer, x1, y1, x2, y2) {
-        var img = document.createElement("img");
-        var placement = OpenSeadragon.OverlayPlacement.BOTTOM;
-            
         var div = document.createElement("div");
         var rect = new OpenSeadragon.Rect(x1, y1, x2, y2);
-
         div.className = "overlay";
-        viewer.drawer.addOverlay(div, rect);
+        viewer.addOverlay(div, rect);
     }
 
-    function addOverlays(viewer) {
+    function addOverlays(viewer, coordinates_url) {
         var params = $.deparam.fragment();
         var words = params["words"] || "";
-        var dimensions = viewer.source.dimensions;
         $.getJSON(coordinates_url, function(all_coordinates) {
             var scale = 1 / all_coordinates["width"];
-            
             $.each(words.split(" "), function(index, word) {
                 if (word !== "") {
-                    var boxes = [];
-
                     var coordinates = all_coordinates["coords"][word];
                     if(coordinates !== undefined){
                         $.each(coordinates, function(index, value) {
@@ -126,142 +82,45 @@
         });
     }
 
-    function getTileUrl(level, column, row) {
-        var px = 0;
-        if (column !== 0) {
-            px = this.tileSize * column - this.tileOverlap;
-        }
-        var py = 0;
-        if (row !== 0) {
-            py = this.tileSize * row - this.tileOverlap;
-        }
-        var scale = this.getLevelScale(level);
-        var dimensionsScaled = this.dimensions.times(scale);
-
-        // find the dimension of the tile, adjust for no
-        // overlap data on top and left edges
-        var sx = this.tileSize + (column === 0 ? 1 : 2) * this.tileOverlap;
-        var sy = this.tileSize + (row === 0 ? 1 : 2) * this.tileOverlap;
-
-        // adjust size for single-tile levels where the image
-        // size is smaller than the regular tile size, and for
-        // tiles on the bottom and right edges that would
-        // exceed the image bounds.
-        var sx = Math.min(sx, dimensionsScaled.x - px);
-        var sy = Math.min(sy, dimensionsScaled.y - py);
-
-        var x1 = parseInt(px / scale);
-        var y1 = parseInt(py / scale);
-        var x2 = parseInt((px + sx) / scale);
-        var y2 = parseInt((py + sy) / scale);
-
-        // tile width/height dimension can't be more than image sides 
-        var tile_width = Math.min(parseInt(sx), (x2-x1));
-        var tile_height = Math.min(parseInt(sy), (y2-y1));
-
-        return tile_url + 'image_'+tile_width+'x'+tile_height+'_from_'+x1+','+y1+'_to_'+x2+','+y2+'.jpg';
-    }
-
-    function updateSearchNav(data) {
-        if (!data) return;
-
-        var jQuerynav_result = $(".nav_result");
-        jQuerynav_result.find("a.backtoresults").attr("href", data.results);
-        jQuerynav_result.find(".current").text(data.current);
-        jQuerynav_result.find(".total").text(data.total);
-
-        if (data.next_result) {
-            var next_url = data.next_result;
-            jQuerynav_result.find(".next")
-            .removeClass("disabled")
-            .find("a")
-            .wrapInner($('<a>').attr('href', url));
-        }
-        if (data.previous_result) {
-            var previous_url = data.previous_result;
-            jQuerynav_result.find(".previous")
-            .removeClass("disabled")
-            .find("a")
-            .wrapInner($('<a>').attr('href', url));
-        }
-        jQuerynav_result.slideDown("fast");
-    }
-
-    function addSearchNav() {
-        var params, search_qs;
-
-        params = $.extend($.deparam.querystring(), $.deparam.fragment());
-        search_qs = $.param(params, true);
-
-        var view_type = params.view_type || 'gallery';
-
-        if (!search_qs || !search_qs.match(/searchType/)) return;
-
-        $.ajax({
-            url: navigation_url + search_qs,
-            dataType: "json",
-            cache: true,
-            success: updateSearchNav
-        });
-    }
-
     function initPage() {
 
         var $page_data = $('#page_data');
+        var width = $page_data.data("width");
+        var height = $page_data.data("height");
+        var page_url = $page_data.data("page_url");
+        var static_url = $page_data.data("static_url");
+        var iiif_url = $page_data.data("iiif_url");
+        var coordinates_url = $page_data.data("coordinates_url");
 
-        page_url = $page_data.data("page_url");
-        tile_url = $page_data.data("tile_url");
-        coordinates_url = $page_data.data("coordinates_url");
-        navigation_url = $page_data.data("navigation_url");
-        width = $page_data.data("width");
-        height = $page_data.data("height");
-        static_url = $page_data.data("static_url");
-
-        // var viewer = null;
-        addSearchNav();
-
-        var tileSize = 1024;
-        var tileOverlap = 1;
-        var minLevel = 8;
-        var maxLevel = Math.ceil(Math.log(Math.max(width, height)) / Math.log(2));
-
-        var ts = new OpenSeadragon.TileSource(width, height, tileSize, tileOverlap, minLevel, maxLevel);
-        ts.getTileUrl =  getTileUrl;
-
-        var viewer = new OpenSeadragon.Viewer({
+        var viewer = OpenSeadragon({
             id: "viewer_container",
-            toolbar: "item-ctrl",
-            prefixUrl: static_url,
-            autoHideControls: false,
-            nextButton: "next",
-            previousButton: "previous",
-            tileSources: ts,
-            timeout: 60000,
-            zoomPerClick: 1.2,
-            zoomPerScroll: 1.2,
-            showNavigator: false
+            prefixUrl:          static_url,
+            visibilityRatio:    1,
+            minZoomLevel:       1,
+            defaultZoomLevel:   1,
+            tileSources:   [{
+                              "@context": "http://iiif.io/api/image/2/context.json",
+                              "@id": iiif_url,
+                              "height": height,
+                              "width": width,
+                              "profile": [ "http://iiif.io/api/image/2/level2.json" ],
+                              "protocol": "http://iiif.io/api/image",
+                              "tiles": [{
+                                "scaleFactors": [ 1, 2, 4, 8, 16, 32 ],
+                                "width": 1024
+                              }]
+                            }]
         });
 
-        viewer.addHandler("open", addOverlays);
-        viewer.addHandler("open", resizePrint);
-        viewer.addHandler("animationfinish", resizePrint);
-        viewer.addHandler("resize", fullscreen);
+        viewer.addHandler("open", addOverlays(viewer, coordinates_url));
 
-        if ($.bbq.getState("fullscreen")) {
-            viewer.setFullPage(true);
-            rewritePagingLinks();
-        }
-
-        $("#pageNum").change(function(event) { 
-            viewer.close();
-            page_url = $("#pageNum").val();
-            tile_url = $("#pageNum").val();
-            viewer.openTileSource(ts);
-            if (!($.bbq.getState("fullscreen"))) {
-                window.history.pushState("",$(document).find("title").text(),$("#pageNum").val());
-            }
+        $('#clip').on('click', function(){
+           window.open(printUrl(viewer, page_url));
         });
 
     }
+
     $(initPage);
+
+
 })(jQuery);

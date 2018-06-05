@@ -3,54 +3,34 @@
 
 {% block head_content %}{{ block.super }}
     <style type="text/css">
-#viewer_container_container {
-    display: inline-block;
-    position: relative;
-    width: 100%;
-}
-#dummy { /* for specifying aspect ratio of viewer_container */
-    padding-top:{% widthratio page.jp2_length page.jp2_width 100 %}%;
-}
-#viewer_container {
-    position: absolute;
-    top: 0;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    margin: 0px;
-    padding: 0px;
-    background-color: black;
-    border: 1px solid black;
-    color: white;   /* for error messages, etc. */
-}
-.overlay
-{
-    border: 1px solid red;
-    opacity: 0.4;
-    -moz-opacity: 0.4;
-    -webkit-opacity: 0.4;
-    background: red;
-}
-.pagetools a.disabled,
-.pagetools a.disabled:hover {
-    color: #999999;
-}
-
-.toolbar
-{
-    float: left;
-    height:     33px;
-    border:     none;
-    color:      #333;
-    padding:    0px;
-    background-color: transparent;
-    z-index:    999999;
-}
-
-.toolbar.fullpage
-{
-    height: 0px;
-}
+        #viewer_container_container {
+            display: inline-block;
+            position: relative;
+            width: 100%;
+        }
+        #dummy { /* for specifying aspect ratio of viewer_container */
+            padding-top:{% widthratio page.jp2_length page.jp2_width 100 %}%;
+        }
+        #viewer_container {
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            margin: 0;
+            padding: 0;
+            background-color: black;
+            border: 1px solid black;
+            color: white;   /* for error messages, etc. */
+        }
+        .overlay
+        {
+            border: 1px solid red;
+            opacity: 0.4;
+            -moz-opacity: 0.4;
+            -webkit-opacity: 0.4;
+            background: red;
+        }
     </style>
 
 {% endblock head_content %}
@@ -93,7 +73,7 @@
                 <div id="viewer_container_container">
                     <div id="dummy"></div>
                     <div id="viewer_container" class="openseadragon">
-                       <div id="item-ctrl" class="toolbar"></div>
+{#                       <div id="item-ctrl" class="toolbar"></div>#}
                     </div>
                 </div>
             </div>
@@ -104,7 +84,7 @@
         {% endif %}
         </div>
     </div>
-      
+
 {% endblock main_content %}
 
 {% block javascript %}
@@ -113,6 +93,7 @@
     <script src="{% static 'js/jquery.ba-bbq.min.js' %}"></script> 
 
     <div id="page_data"
+     data-iiif_url="{{ page.iiif_url }}"
 	 data-static_url="{% static '' %}images/"
 	 data-width="{{page.jp2_width}}"
 	 data-height="{{page.jp2_length}}"
