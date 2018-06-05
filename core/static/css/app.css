@@ -8457,6 +8457,14 @@ h1 {
   text-decoration: none;
 }
 
+.funding-source-image {
+  display: inline-block;
+  max-height: 100px;
+  max-width: 200px;
+  width: auto;
+  height: auto;
+}
+
 /* Extra small devices (phones, less than 768px) */
 /* No media query since this is the default in Bootstrap */
 /* Small devices (tablets, 768px and up) */

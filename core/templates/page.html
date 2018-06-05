@@ -83,6 +83,9 @@
 
     {% if title.funding_source %}
         <div class="alert alert-info">
+            {% if title.funding_source.image %}
+                <img class="img-responsive funding-source-image" src="{% static 'images/' + title.funding_source.image %}" alt="Funding partner logo for {{ title.funding_source.name }}">
+            {% endif %}
             {{ title.funding_source.message }}
         </div>
     {% endif %}

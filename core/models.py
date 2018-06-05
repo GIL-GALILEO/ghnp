@@ -1311,8 +1311,6 @@ class TopicPages(models.Model):
     url = models.CharField(max_length=1000)
     description = models.TextField()
 
-# todo move to non-core file?
-
 class Region(models.Model):
     slug = models.CharField(max_length=50, null=True)
     name = models.CharField(max_length=100, null=True)
@@ -1326,4 +1324,6 @@ class NewspaperType(models.Model):
 
 class FundingSource(models.Model):
     slug = models.CharField(max_length=50, null=True)
+    name = models.CharField(max_length=200, null=True)
     message = models.CharField(max_length=1000, null=True)
+    image = models.CharField(max_length=100, null=True)

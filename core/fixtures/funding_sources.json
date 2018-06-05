@@ -10,7 +10,9 @@
   {
     "fields": {
       "slug": "taylor_fdn",
-      "message": "Funding for the digitization of this title was provided by R.J. Taylor, Jr. Foundation."
+      "name": "R.J. Taylor Foundation",
+      "message": "Funding for the digitization of this title was provided by R.J. Taylor, Jr. Foundation.",
+      "image": "taylor.png"
     },
     "model": "core.fundingsource",
     "pk": 2
