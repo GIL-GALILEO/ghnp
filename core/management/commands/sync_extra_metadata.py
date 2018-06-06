@@ -52,7 +52,7 @@ class Command(BaseCommand):
                 try:
                     titles.append(Title.objects.get(lccn=lccn))
                 except Title.DoesNotExist:
-                    LOGGER.error('No title found for %s in %s' % (lccn, json_file))
+                    LOGGER.error('No existing title found for %s in %s' % (lccn, json_file))
                     continue
 
             # get NewspaperType objects
