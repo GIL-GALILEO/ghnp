@@ -7,11 +7,11 @@ virtualenv -p /usr/bin/python2.7 ENV
 echo "Activating Virtualenv"
 source /opt/chronam/ENV/bin/activate
 
-echo "Copying pth file"
-cp /opt/chronam/conf/chronam.pth /opt/chronam/ENV/lib/python2.7/site-packages/chronam.pth
+echo "Creating pth file"
+echo '/opt' > /opt/chronam/ENV/lib/python2.7/site-packages/chronam.pth
 
 echo "Installing requirements with Pip"
-pip install -r /opt/chronam/requirements.pip --ignore-installed
+python -m pip install -r /opt/chronam/requirements.pip --ignore-installed
 
 # run db migrations
 python /opt/chronam/core/manage.py migrate
@@ -32,6 +32,6 @@ python /opt/chronam/core/manage.py loaddata funding_sources
 python /opt/chronam/core/manage.py refine_places
 
 # create and own django tmp dir
-mkdir /var/tmp/django-cache/
-chown -R ubuntu:ubuntu /var/tmp/
+mkdir /var/tmp/django_cache/
+chown -R vagrant:vagrant /var/tmp/
 
