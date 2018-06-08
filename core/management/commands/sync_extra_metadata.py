@@ -40,10 +40,10 @@ class Command(BaseCommand):
                 newspaper_type_codes = data.get('newspaper_types')
                 essay_text = data.get('essay').strip()
             except IOError, _:
-                LOGGER.error('Problem reading JSON file at %s' % options['json_path'])
+                LOGGER.error('Problem reading JSON file at %s' % json_file)
                 continue
             except json.JSONDecodeError, e:
-                LOGGER.error('JSON parsing error at %s: %s' % (options['json_path'] % e))
+                LOGGER.error('JSON parsing error at %s: %s' % (json_file, e))
                 continue
 
             # get titles from lccns
