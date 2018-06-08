@@ -43,7 +43,7 @@ class Command(BaseCommand):
                 LOGGER.error('Problem reading JSON file at %s' % options['json_path'])
                 continue
             except json.JSONDecodeError, e:
-                LOGGER.error('JSON parsing error: %s' % e)
+                LOGGER.error('JSON parsing error at %s: %s' % (options['json_path'] % e))
                 continue
 
             # get titles from lccns
