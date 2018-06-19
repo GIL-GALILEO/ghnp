@@ -58,7 +58,7 @@ class BatchLoader(object):
     object serves as a context for a particular batch loading job.
     """
 
-    def __init__(self, process_ocr=True, process_coordinates=True):
+    def __init__(self, process_ocr=True, process_coordinates=True, in_copyright=False):
         """Create a BatchLoader.
         The process_ocr parameter is used (mainly in testing) when we don't
         want to spend time actually extracting ocr text and indexing.
@@ -67,6 +67,7 @@ class BatchLoader(object):
         if self.PROCESS_OCR:
             self.solr = SolrConnection(settings.SOLR)
         self.PROCESS_COORDINATES = process_coordinates
+        self.IN_COPYRIGHT = in_copyright
 
     def _find_batch_file(self, batch):
         """
@@ -199,6 +200,7 @@ class BatchLoader(object):
     def _get_batch(self, batch_name, batch_source=None, create=False):
         if create:
             batch = self._create_batch(batch_name, batch_source)
+            batch.api_available = not self.IN_COPYRIGHT
         else:
             batch = Batch.objects.get(name=batch_name)
         return batch

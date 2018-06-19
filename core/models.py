@@ -72,6 +72,7 @@ class Batch(models.Model):
     released = models.DateTimeField(null=True)
     source = models.CharField(max_length=4096, null=True)
     sitemap_indexed = models.DateTimeField(auto_now_add=False, null=True)
+    api_available = models.BooleanField(default=True)
 
     @classmethod
     def viewable_batches(klass):
@@ -646,10 +647,11 @@ class Page(models.Model):
             "issue": {
                 "date_issued": strftime(self.issue.date_issued, "%Y-%m-%d"),
                 "url": "http://" + host + self.issue.json_url},
-            "jp2": "http://" + host + self.jp2_url,
+            # "jp2": "http://" + host + self.jp2_url,
             "ocr": "http://" + host + self.ocr_url,
             "text": "http://" + host + self.txt_url,
-            "pdf": "http://" + host + self.pdf_url,
+            # "pdf": "http://" + host + self.pdf_url,
+            "iiif": self.iiif_url(),
             "title": {
                 "name": self.issue.title.display_name,
                 "url": "http://" + host + self.issue.title.json_url}

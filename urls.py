@@ -231,19 +231,19 @@ urlpatterns += [
         name="chronam_page_pdf"),
 
     # example: /lccn/sn85066387/1907-03-17/ed-1/seq-4.jp2
-    # url(r'^lccn/(?P<lccn>\w+)/(?P<date>\d{4}-\d{2}-\d{2})/ed-(?P<edition>\d+)/seq-(?P<sequence>\d+).jp2$',
-    #     views.page_jp2,
-    #     name="chronam_page_jp2"),
+    url(r'^lccn/(?P<lccn>\w+)/(?P<date>\d{4}-\d{2}-\d{2})/ed-(?P<edition>\d+)/seq-(?P<sequence>\d+).jp2$',
+        views.page_jp2,
+        name="chronam_page_jp2"),
 
     # example: /lccn/sn85066387/1907-03-17/ed-1/seq-4/ocr.xml
-    # url(r'^lccn/(?P<lccn>\w+)/(?P<date>\d{4}-\d{2}-\d{2})/ed-(?P<edition>\d+)/seq-(?P<sequence>\d+)/ocr.xml$',
-    #     views.page_ocr_xml,
-    #     name="chronam_page_ocr_xml"),
+    url(r'^lccn/(?P<lccn>\w+)/(?P<date>\d{4}-\d{2}-\d{2})/ed-(?P<edition>\d+)/seq-(?P<sequence>\d+)/ocr.xml$',
+        views.page_ocr_xml,
+        name="chronam_page_ocr_xml"),
 
     # example: /lccn/sn85066387/1907-03-17/ed-1/seq-4/ocr.txt
-    # url(r'^lccn/(?P<lccn>\w+)/(?P<date>\d{4}-\d{2}-\d{2})/ed-(?P<edition>\d+)/seq-(?P<sequence>\d+)/ocr.txt$',
-    #     views.page_ocr_txt,
-    #     name="chronam_page_ocr_txt"),
+    url(r'^lccn/(?P<lccn>\w+)/(?P<date>\d{4}-\d{2}-\d{2})/ed-(?P<edition>\d+)/seq-(?P<sequence>\d+)/ocr.txt$',
+        views.page_ocr_txt,
+        name="chronam_page_ocr_txt"),
         
     # example: /lccn/sn85066387/1907-03-17/ed-1/seq-4/;words=
     url(r'^lccn/(?P<lccn>\w+)/(?P<date>\d{4}-\d{2}-\d{2})/ed-(?P<edition>\d+)/seq-(?P<sequence>\d+)/;words=(?P<words>.+)$',
@@ -296,9 +296,9 @@ urlpatterns += [
         views.newspapers,
         name='chronam_newspapers_city'),
 
-    # url(r'^newspapers/(?P<state>[^/;]+)\.(?P<format>json)$',
-    #     views.newspapers,
-    #     name='chronam_newspapers_json'),
+    url(r'^newspapers/(?P<state>[^/;]+)\.(?P<format>json)$',
+        views.newspapers,
+        name='chronam_newspapers_json'),
 
     url('search/pages/opensearch.xml', 
         views.search_pages_opensearch,
@@ -336,37 +336,37 @@ urlpatterns += [
         views.search_advanced,
         name='chronam_search_advanced'),
 
-    url(r'^events/$', 
-        views.events, 
-        name='chronam_events'),
+    # url(r'^events/$',
+    #     views.events,
+    #     name='chronam_events'),
+    #
+    # url(r'^events\.csv$',
+    #     views.events_csv,
+    #     name='chronam_events_csv'),
+    #
+    # url(r'^events/(?P<page_number>\d+)/$',
+    #     views.events,
+    #     name='chronam_events_page'),
+    #
+    # url(r'^events/feed/$',
+    #     views.events_atom,
+    #     name='chronam_events_atom'),
+    #
+    # url(r'^events/feed/(?P<page_number>\d+)/$',
+    #     views.events_atom,
+    #     name='chronam_events_atom_page'),
+    #
+    # url(r'^event/(?P<event_id>.+)/$',
+    #     views.event,
+    #     name='chronam_event'),
 
-    url(r'^events\.csv$', 
-        views.events_csv, 
-        name='chronam_events_csv'),
-
-    url(r'^events/(?P<page_number>\d+)/$', 
-        views.events,
-        name='chronam_events_page'),
-
-    url(r'^events/feed/$', 
-        views.events_atom, 
-        name='chronam_events_atom'),
-
-    url(r'^events/feed/(?P<page_number>\d+)/$', 
-        views.events_atom,
-        name='chronam_events_atom_page'),
-
-    url(r'^event/(?P<event_id>.+)/$', 
-        views.event, 
-        name='chronam_event'),
-
-    url(r'^awardees/$',
-        views.awardees,
-        name='chronam_awardees'),
-
-    url(r'^awardees.json$',
-        views.awardees_json,
-        name='chronam_awardees_json'),
+    # url(r'^awardees/$',
+    #     views.awardees,
+    #     name='chronam_awardees'),
+    #
+    # url(r'^awardees.json$',
+    #     views.awardees_json,
+    #     name='chronam_awardees_json'),
 
     # example: /titles
     url(r'^titles/$', 
@@ -388,133 +388,133 @@ urlpatterns += [
         views.titles, 
         name='chronam_titles_start_page'),
 
-    # example: /titles/places/pennsylvania
-    url(r'^titles/places/(?P<state>[^/;]+)/$', 
-        views.titles_in_state, 
-        name='chronam_state'),
+    # # example: /titles/places/pennsylvania
+    # url(r'^titles/places/(?P<state>[^/;]+)/$',
+    #     views.titles_in_state,
+    #     name='chronam_state'),
+    #
+    # # example: /titles/places/pennsylvania;page=1
+    # url(r'^titles/places/(?P<state>[^/;]+)/;page=(?P<page_number>\d+)$',
+    #     views.titles_in_state,
+    #     name='chronam_state_page_number'),
+    #
+    # # example: /titles/places/pennsylvania;page=1;order=title
+    # url(r'^titles/places/(?P<state>[^;]+)/;page=(?P<page_number>\d+);(?P<order>\w+)$',
+    #     views.titles_in_state,
+    #     name='chronam_state_page_number'),
+    #
+    # # example /titles/places/pennsylvania/allegheny
+    # url(r'^titles/places/(?P<state>[^/;]+)/(?P<county>[^/;]+)/$',
+    #     views.titles_in_county,
+    #     name='chronam_county'),
+    #
+    # # example /titles/places/pennsylvania/allegheny;page=1
+    # url(r'^titles/places/(?P<state>[^/;]+)/(?P<county>[^/;]+)/;page=(?P<page_number>\d+)$',
+    #     views.titles_in_county,
+    #     name='chronam_county_page_number'),
+    #
+    # # example: /titles/places/pennsylvania/allegheny/pittsburgh
+    # url(r'^titles/places/(?P<state>[^/;]+)/(?P<county>[^/;]+)/(?P<city>[^/;]+)/$',
+    #     views.titles_in_city,
+    #     name='chronam_city'),
+    #
+    # # example: /titles/places/pennsylvania/allegheny/pittsburgh;page=1
+    # url(r'^titles/places/(?P<state>[^/;]+)/(?P<county>[^/]+)/(?P<city>[^/;]+)/;page=(?P<page_number>\d+)$',
+    #     views.titles_in_city,
+    #     name='chronam_city_page_number'),
+    #
+    # # example: # /titles/places/pennsylvania/allegheny/pittsburgh;page=1;order=title
+    # url(r'^titles/places/(?P<state>[^/;]+)/(?P<county>[^/;]+)/(?P<city>[^/;]+)/;page=(?P<page_number>\d+);(?P<order>\w+)$',
+    #     views.titles_in_city,
+    #     name='chronam_city_page_number'),
 
-    # example: /titles/places/pennsylvania;page=1
-    url(r'^titles/places/(?P<state>[^/;]+)/;page=(?P<page_number>\d+)$',
-        views.titles_in_state, 
-        name='chronam_state_page_number'), 
+    # # example: /states
+    # url(r'^states/$',
+    #     views.states,
+    #     name='chronam_states'),
 
-    # example: /titles/places/pennsylvania;page=1;order=title
-    url(r'^titles/places/(?P<state>[^;]+)/;page=(?P<page_number>\d+);(?P<order>\w+)$', 
-        views.titles_in_state, 
-        name='chronam_state_page_number'), 
+    # # example: /states_counties/
+    # url(r'^states_counties/$',
+    #     views.states_counties,
+    #     name='chronam_states_counties'),
 
-    # example /titles/places/pennsylvania/allegheny
-    url(r'^titles/places/(?P<state>[^/;]+)/(?P<county>[^/;]+)/$', 
-        views.titles_in_county, 
-        name='chronam_county'),
+    # # example: /states.json
+    # url(r'^states\.(?P<format>json)$',
+    #     views.states,
+    #     name='chronam_states_json'),
 
-    # example /titles/places/pennsylvania/allegheny;page=1
-    url(r'^titles/places/(?P<state>[^/;]+)/(?P<county>[^/;]+)/;page=(?P<page_number>\d+)$', 
-        views.titles_in_county, 
-        name='chronam_county_page_number'),
+    # # example: /counties/pennsylvania
+    # url(r'^counties/(?P<state>[^/;]+)/$',
+    #     views.counties_in_state,
+    #     name='chronam_counties_in_state'),
+    #
+    # # example: /counties/pennsylvania.json
+    # url(r'^counties/(?P<state>[^/;]+)\.(?P<format>json)$',
+    #     views.counties_in_state,
+    #     name='chronam_counties_in_state_json'),
+    #
+    # # example: /cities/pennsylvania/allegheny
+    # url(r'^cities/(?P<state>[^/;]+)/(?P<county>[^/]+)/$',
+    #     views.cities_in_county,
+    #     name='chronam_cities_in_county'),
+    #
+    # # example: /cities/pennsylvania/allegheny.json
+    # url(r'^cities/(?P<state>[^/;]+)/(?P<county>[^/]+)\.(?P<format>json)$',
+    #     views.cities_in_county,
+    #     name='chronam_cities_in_county_json'),
+    #
+    # # example: /cities/pennsylvania
+    # url(r'^cities/(?P<state>[^/;]+)/$',
+    #     views.cities_in_state,
+    #     name='chronam_cities_in_state'),
+    #
+    # # example: /cities/pennsylvania.json
+    # url(r'^cities/(?P<state>[^/;]+)\.(?P<format>json)$',
+    #     views.cities_in_state,
+    #     name='chronam_cities_in_state_json'),
+    #
+    # # example: /institutions
+    # url(r'^institutions/$',
+    #     views.institutions,
+    #     name='chronam_institutions'),
+    #
+    # # example: /institutions;page=5
+    # url(r'^institutions/;page=(?P<page_number>\d+)$',
+    #     views.institutions,
+    #     name='chronam_institutions_page_number'),
+    #
+    # # example: /institutions/cuy
+    # url(r'^institutions/(?P<code>[^/]+)/$',
+    #     views.institution,
+    #     name='chronam_institution'),
+    #
+    # # example: /institutions/cuy/titles
+    # url(r'^institutions/(?P<code>[^/]+)/titles/$',
+    #     views.institution_titles,
+    #     name='chronam_institution_titles'),
+    #
+    # # example: /institutions/cuy/titles/5/
+    # url(r'^institutions/(?P<code>[^/]+)/titles/(?P<page_number>\d+)/$',
+    #     views.institution_titles,
+    #     name='chronam_institution_titles_page_number'),
+    #
+    # # awardee
+    # url(r'^awardees/(?P<institution_code>\w+)/$',
+    #     views.awardee,
+    #     name='chronam_awardee'),
+    #
+    # url(r'^awardees/(?P<institution_code>\w+)/$',
+    #     views.awardee,
+    #     name='chronam_awardee'),
+    #
+    # url(r'^awardees/(?P<institution_code>\w+).json$',
+    #     views.awardee_json,
+    #     name='chronam_awardee_json'),
 
-    # example: /titles/places/pennsylvania/allegheny/pittsburgh
-    url(r'^titles/places/(?P<state>[^/;]+)/(?P<county>[^/;]+)/(?P<city>[^/;]+)/$', 
-        views.titles_in_city, 
-        name='chronam_city'),
-
-    # example: /titles/places/pennsylvania/allegheny/pittsburgh;page=1
-    url(r'^titles/places/(?P<state>[^/;]+)/(?P<county>[^/]+)/(?P<city>[^/;]+)/;page=(?P<page_number>\d+)$', 
-        views.titles_in_city, 
-        name='chronam_city_page_number'),
-
-    # example: # /titles/places/pennsylvania/allegheny/pittsburgh;page=1;order=title
-    url(r'^titles/places/(?P<state>[^/;]+)/(?P<county>[^/;]+)/(?P<city>[^/;]+)/;page=(?P<page_number>\d+);(?P<order>\w+)$', 
-        views.titles_in_city, 
-        name='chronam_city_page_number'),
-
-    # example: /states
-    url(r'^states/$',
-        views.states,
-        name='chronam_states'),
-
-    # example: /states_counties/
-    url(r'^states_counties/$',
-        views.states_counties,
-        name='chronam_states_counties'),
-
-    # example: /states.json
-    url(r'^states\.(?P<format>json)$', 
-        views.states, 
-        name='chronam_states_json'),
-
-    # example: /counties/pennsylvania
-    url(r'^counties/(?P<state>[^/;]+)/$', 
-        views.counties_in_state, 
-        name='chronam_counties_in_state'),
-
-    # example: /counties/pennsylvania.json
-    url(r'^counties/(?P<state>[^/;]+)\.(?P<format>json)$', 
-        views.counties_in_state, 
-        name='chronam_counties_in_state_json'),
-
-    # example: /cities/pennsylvania/allegheny
-    url(r'^cities/(?P<state>[^/;]+)/(?P<county>[^/]+)/$', 
-        views.cities_in_county, 
-        name='chronam_cities_in_county'),
-
-    # example: /cities/pennsylvania/allegheny.json
-    url(r'^cities/(?P<state>[^/;]+)/(?P<county>[^/]+)\.(?P<format>json)$', 
-        views.cities_in_county, 
-        name='chronam_cities_in_county_json'),
-
-    # example: /cities/pennsylvania
-    url(r'^cities/(?P<state>[^/;]+)/$', 
-        views.cities_in_state, 
-        name='chronam_cities_in_state'),
-
-    # example: /cities/pennsylvania.json
-    url(r'^cities/(?P<state>[^/;]+)\.(?P<format>json)$', 
-        views.cities_in_state, 
-        name='chronam_cities_in_state_json'),
-
-    # example: /institutions
-    url(r'^institutions/$', 
-        views.institutions, 
-        name='chronam_institutions'),
-    
-    # example: /institutions;page=5
-    url(r'^institutions/;page=(?P<page_number>\d+)$', 
-        views.institutions, 
-        name='chronam_institutions_page_number'),
-
-    # example: /institutions/cuy
-    url(r'^institutions/(?P<code>[^/]+)/$', 
-        views.institution,
-        name='chronam_institution'),
-
-    # example: /institutions/cuy/titles
-    url(r'^institutions/(?P<code>[^/]+)/titles/$', 
-        views.institution_titles,
-        name='chronam_institution_titles'),
-
-    # example: /institutions/cuy/titles/5/
-    url(r'^institutions/(?P<code>[^/]+)/titles/(?P<page_number>\d+)/$', 
-        views.institution_titles, 
-        name='chronam_institution_titles_page_number'),
-
-    # awardee
-    url(r'^awardees/(?P<institution_code>\w+)/$',
-        views.awardee,
-        name='chronam_awardee'),
-
-    url(r'^awardees/(?P<institution_code>\w+)/$',
-        views.awardee,
-        name='chronam_awardee'),
-
-    url(r'^awardees/(?P<institution_code>\w+).json$',
-        views.awardee_json,
-        name='chronam_awardee_json'),
-
-
-    url(r'^status', 
-        views.status, 
-        name='chronam_stats'),
+    #
+    # url(r'^status',
+    #     views.status,
+    #     name='chronam_stats'),
 
     # example: /calendar/
     url(r'^calendar/$',
@@ -567,53 +567,53 @@ urlpatterns += [
 
 urlpatterns += [
 
-    # newspapers
-    url(r'^newspapers.rdf$', 
-        views.newspapers_rdf, 
-        name="chronam_newspapers_dot_rdf"),
-
-    url(r'^newspapers$', 
-        views.newspapers_rdf, 
-        name="chronam_newspapers_rdf"),
-
-    # title
-    url(r'^lccn/(?P<lccn>\w+).rdf$', 
-        views.title_rdf, 
-        name='chronam_title_dot_rdf'),
-
-    url(r'^lccn/(?P<lccn>\w+)$', 
-        views.title_rdf, 
-        name='chronam_title_rdf'),
+    # # newspapers
+    # url(r'^newspapers.rdf$',
+    #     views.newspapers_rdf,
+    #     name="chronam_newspapers_dot_rdf"),
+    #
+    # url(r'^newspapers$',
+    #     views.newspapers_rdf,
+    #     name="chronam_newspapers_rdf"),
+    #
+    # # title
+    # url(r'^lccn/(?P<lccn>\w+).rdf$',
+    #     views.title_rdf,
+    #     name='chronam_title_dot_rdf'),
+    #
+    # url(r'^lccn/(?P<lccn>\w+)$',
+    #     views.title_rdf,
+    #     name='chronam_title_rdf'),
 
     url(r'^lccn/(?P<lccn>\w+).json', 
         views.title_json, 
         name='chronam_title_dot_json'),
 
-    # issue
-    url(r'^lccn/(?P<lccn>\w+)/(?P<date>\d{4}-\d{2}-\d{2})/ed-(?P<edition>\d+).rdf$', 
-        views.issue_pages_rdf, 
-        name='chronam_issue_pages_dot_rdf'),
+    # # issue
+    # url(r'^lccn/(?P<lccn>\w+)/(?P<date>\d{4}-\d{2}-\d{2})/ed-(?P<edition>\d+).rdf$',
+    #     views.issue_pages_rdf,
+    #     name='chronam_issue_pages_dot_rdf'),
 
     url(r'^lccn/(?P<lccn>\w+)/(?P<date>\d{4}-\d{2}-\d{2})/ed-(?P<edition>\d+).json$', 
         views.issue_pages_json, 
         name='chronam_issue_pages_dot_json'),
 
-    url(r'^lccn/(?P<lccn>\w+)/(?P<date>\d{4}-\d{2}-\d{2})/ed-(?P<edition>\d+)$', 
-        views.issue_pages_rdf, 
-        name='chronam_issue_pages_rdf'),
-
-    # page
-    url(r'^lccn/(?P<lccn>\w+)/(?P<date>\d{4}-\d{2}-\d{2})/ed-(?P<edition>\d+)/seq-(?P<sequence>\d+).rdf$', 
-        views.page_rdf, 
-        name="chronam_page_dot_rdf"),
+    # url(r'^lccn/(?P<lccn>\w+)/(?P<date>\d{4}-\d{2}-\d{2})/ed-(?P<edition>\d+)$',
+    #     views.issue_pages_rdf,
+    #     name='chronam_issue_pages_rdf'),
+    #
+    # # page
+    # url(r'^lccn/(?P<lccn>\w+)/(?P<date>\d{4}-\d{2}-\d{2})/ed-(?P<edition>\d+)/seq-(?P<sequence>\d+).rdf$',
+    #     views.page_rdf,
+    #     name="chronam_page_dot_rdf"),
 
     url(r'^lccn/(?P<lccn>\w+)/(?P<date>\d{4}-\d{2}-\d{2})/ed-(?P<edition>\d+)/seq-(?P<sequence>\d+).json$', 
         views.page_json, 
         name="chronam_page_dot_json"),
 
-    url(r'^lccn/(?P<lccn>\w+)/(?P<date>\d{4}-\d{2}-\d{2})/ed-(?P<edition>\d+)/seq-(?P<sequence>\d+)$', 
-        views.page_rdf, 
-        name="chronam_page_rdf"),
+    # url(r'^lccn/(?P<lccn>\w+)/(?P<date>\d{4}-\d{2}-\d{2})/ed-(?P<edition>\d+)/seq-(?P<sequence>\d+)$',
+    #     views.page_rdf,
+    #     name="chronam_page_rdf"),
 
     # awardee
     # url(r'^awardees/(?P<institution_code>\w+).rdf$',
@@ -680,9 +680,9 @@ urlpatterns += [
     #     views.batch_rdf,
     #     name='chronam_batch_dot_rdf'),
     #
-    # url(r'^batches/(?P<batch_name>.+)\.json$',
-    #     views.batch_json,
-    #     name='chronam_batch_dot_json'),
+    url(r'^batches/(?P<batch_name>.+)\.json$',
+        views.batch_json,
+        name='chronam_batch_dot_json'),
     #
     # url(r'^batches/(?P<batch_name>.+)$',
     #     views.batch_rdf,
@@ -748,9 +748,9 @@ urlpatterns += [
     #     views.ocr_atom,
     #     name='chronam_ocr_atom'),
 
-    # url(r'^ocr.json$',
-    #     views.ocr_json,
-    #     name='chronam_ocr_json'),
+    url(r'^ocr.json$',
+        views.ocr_json,
+        name='chronam_ocr_json'),
 ]
 
 _ROOT = os.path.abspath(os.path.dirname(__file__))

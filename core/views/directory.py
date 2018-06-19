@@ -129,20 +129,17 @@ def newspapers(request, city=None, region=None, type=None, format='html'):
     #                                               reverse('chronam_title_essays',
     #                                                        kwargs={'lccn': title.lccn}),),))
     #     return response
-    #
-    # elif format == "json":
-    #     host = request.get_host()
-    #     results = {"newspapers": []}
-    #     for state, titles in newspapers_by_state:
-    #         for title in titles:
-    #             results["newspapers"].append({
-    #                 "lccn": title.lccn,
-    #                 "title": title.display_name,
-    #                 "url": "http://" + host + title.json_url,
-    #                 "state": state
-    #             })
-    #
-    #     return HttpResponse(json.dumps(results, indent=2), content_type='application/json')
+    elif format == "json":
+        host = request.get_host()
+        results = {"newspapers": []}
+        for paper in newspapers:
+            results["newspapers"].append({
+                "lccn": title.lccn,
+                "title": title.display_name,
+                "url": "http://" + host + title.json_url
+            })
+
+        return HttpResponse(json.dumps(results, indent=2), content_type='application/json')
     else:
         return HttpResponseServerError("unsupported format: %s" % format)
 

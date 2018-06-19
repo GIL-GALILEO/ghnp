@@ -23,6 +23,9 @@ class Command(BaseCommand):
                     action='store_false', 
                     dest='process_coordinates', default=True,
                     help='Do not out word coordinates'),
+        make_option('--in-copyright',
+                    dest='in_copyright', default=False,
+                    help='Do not make available via API'),
     )
 
     help = "Load a batch"
@@ -33,7 +36,8 @@ class Command(BaseCommand):
             raise CommandError('Usage is load_batch %s' % self.args)
 
         loader = BatchLoader(process_ocr=options['process_ocr'],
-                             process_coordinates=options['process_coordinates'])
+                             process_coordinates=options['process_coordinates'],
+                             in_copyright=options['in_copyright'])
         try:
             batch = loader.load_batch(batch_name)
         except BatchLoaderException, e:

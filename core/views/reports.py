@@ -154,7 +154,9 @@ def title_json(request, lccn):
 def issue_pages_json(request, lccn, date, edition):
     title, issue, page = _get_tip(lccn, date, edition)
     host = request.get_host()
-    if issue:
+    if not issue.batch.api_available:
+        return HttpResponse(status=403)
+    elif issue:
         return HttpResponse(issue.json(host=host), content_type='application/json')
     else:
         return HttpResponseNotFound()
@@ -165,7 +167,9 @@ def issue_pages_json(request, lccn, date, edition):
 def page_json(request, lccn, date, edition, sequence):
     title, issue, page = _get_tip(lccn, date, edition, sequence)
     host = request.get_host()
-    if page:
+    if not issue.batch.api_available:
+        return HttpResponse(status=403)
+    elif page:
         return HttpResponse(page.json(host=host), content_type='application/json')
     else:
         return HttpResponseNotFound()
