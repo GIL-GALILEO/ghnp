@@ -1,0 +1,53 @@
+{% extends "site_base.html" %}
+{% load static from staticfiles %}
+
+{% block page_head %}
+    <h1>{{ page_title }}</h1>
+{% endblock %}
+
+{% block main_content %}
+
+    <div class="location">
+        {% for letter, county_titles in counties_with_titles_by_letter.items %}
+        <div class="row">
+            <div class="col-md-3">
+                <h2>{{ letter }}</h2>
+            </div>
+            {% for data in county_titles %}
+            <div class="col-md-3">
+                <div class="panel panel-default">
+                    <div class="panel-heading dlg-blue">
+                         <a href="{% url 'county_page' data.county|lower|urlencode %}" class="panel-header-link">
+                            {{ data.county }}
+                         </a>
+                        <span class="badge pull-right">
+                            {{ data.titles|length }}
+                        </span>
+                    </div>
+                    <ul class="list-group">
+                    {% for title in data.titles %}
+                        <li class="list-group-item">
+                            <a href="{% url 'chronam_title' title.lccn %}">{{ title.name }}</a>
+                        </li>
+                    {% endfor %}
+                    </ul>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+        {% endfor %}
+        <hr>
+    </div>
+
+{% endblock %}
+{% block javascript %}{{ block.super }}
+<script type="text/javascript">
+(function($) {
+    function initPage() {
+        $('.active').removeClass('active');
+        $('.browse-menu-item').addClass('active');
+    }
+    $(initPage);
+})(jQuery)
+</script>
+{% endblock javascript %}

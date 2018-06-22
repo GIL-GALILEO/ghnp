@@ -433,10 +433,10 @@ urlpatterns += [
     #     views.states,
     #     name='chronam_states'),
 
-    # # example: /states_counties/
-    # url(r'^states_counties/$',
-    #     views.states_counties,
-    #     name='chronam_states_counties'),
+    # example: /counties/
+    url(r'^counties/$',
+        views.counties_page,
+        name='browse_by_county'),
 
     # # example: /states.json
     # url(r'^states\.(?P<format>json)$',
@@ -545,6 +545,11 @@ urlpatterns += [
     url(r'^regions/(?P<region>[^/;]+)/$',
         views.region_page,
         name="region_page"),
+
+    # example: /counties/clarke /ben%20hill
+    url(r'^counties/(?P<county>[^/;]+)/$',
+        views.county_page,
+        name="county_page"),
 
     # show stored newspaper types
     url(r'^api/newspaper-types',
