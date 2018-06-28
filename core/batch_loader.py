@@ -1,8 +1,7 @@
 import os
-import os.path
 import re
 import logging
-import urllib2
+# import urllib2
 import urlparse
 
 import io
@@ -70,32 +69,20 @@ class BatchLoader(object):
         self.IN_COPYRIGHT = in_copyright
 
     def _find_batch_file(self, batch):
-        """
-        TODO: Who can we toss the requirement at to make this
-        available in a canonical location?
-        """
         # look for batch_1.xml, BATCH_1.xml, etc
         for alias in ["batch_1.xml", "BATCH_1.xml", "batchfile_1.xml", "batch_2.xml", "BATCH_2.xml", "batch.xml"]:
-            # TODO: might we want 'batch.xml' first? Leaving last for now to
-            # minimize impact.
-            url = urlparse.urljoin(batch.storage_url, alias)
-            try:
-                u = urllib2.urlopen(url)
-                validated_batch_file = alias
-                break
-            except urllib2.HTTPError, e:
-                continue
-            except urllib2.URLError, e:
+            if os.path.isfile(os.path.join(batch.storage_url, alias)):
+                return alias
+            else:
                 continue
         else:
             raise BatchLoaderException(
                 "could not find batch_1.xml (or any of its aliases) in '%s' -- has the batch been validated?" % batch.path)
-        return validated_batch_file
 
     def _sanity_check_batch(self, batch):
-        #if not os.path.exists(batch.path):
-        #    raise BatchLoaderException("batch does not exist at %s" % batch.path)
-        #b = urllib2.urlopen(batch.url)
+        if not os.path.exists(batch.path):
+           raise BatchLoaderException("batch does not exist at %s" % batch.path)
+        # b = urllib2.urlopen(batch.url)
         batch.validated_batch_file = self._find_batch_file(batch)
 
     def load_batch(self, batch_path, strict=True):
@@ -114,7 +101,7 @@ class BatchLoader(object):
                 _logger.info("creating symlink %s -> %s", batch_path, link_name)
                 os.symlink(batch_path, link_name)
         else:
-            batch_source = urlparse.urljoin(settings.BATCH_STORAGE, batch_name)
+            batch_source = os.path.join(settings.BATCH_STORAGE, batch_name)
             if not batch_source.endswith("/"):
                 batch_source += "/"
 
@@ -200,7 +187,6 @@ class BatchLoader(object):
     def _get_batch(self, batch_name, batch_source=None, create=False):
         if create:
             batch = self._create_batch(batch_name, batch_source)
-            batch.api_available = not self.IN_COPYRIGHT
         else:
             batch = Batch.objects.get(name=batch_name)
         return batch
@@ -211,6 +197,7 @@ class BatchLoader(object):
         batch = Batch()
         batch.name = batch_name
         batch.source = batch_source
+        batch.api_available = not self.IN_COPYRIGHT
         try:
             _, org_code, name_part, version = batch_name.split("_", 3)
             awardee_org_code = org_code
