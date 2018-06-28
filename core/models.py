@@ -636,8 +636,7 @@ class Page(models.Model):
     created = models.DateTimeField(auto_now_add=True)
 
     def iiif_url(self):
-        return settings.IIIF \
-               + 'newspapers%2F' \
+        return settings.IIIF + '%2F' \
                + self.issue.batch.path.replace('/opt/chronam/data/dlg_batches/','').replace('/','%2F') \
                + self.jp2_filename.replace('/','%2F')
 
