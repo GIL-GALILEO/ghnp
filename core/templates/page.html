@@ -53,8 +53,10 @@
                 </div>
                 <div class="btn-group pull-right" role="group" aria-label="Page Options">
                     <a id="clip" href="#" target="print" class="btn btn-default">Clip Visible Area</a>
+                    {% if page.issue.batch.api_available %}
                     <a href="{% url 'chronam_page_ocr' title.lccn issue.date_issued issue.edition page.sequence %}" class="btn btn-default" rel="nofollow">View Page Text</a>
                     <a href="{% url 'chronam_page_pdf' title.lccn issue.date_issued issue.edition page.sequence %}" class="btn btn-default" rel="nofollow">View PDF</a>
+                    {% endif %}
                 </div>
             </div>
         </div>
