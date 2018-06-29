@@ -27,7 +27,7 @@
                     <ul class="list-group">
                     {% for title in data.titles %}
                         <li class="list-group-item">
-                            <a href="{% url 'chronam_title' title.lccn %}">{{ title.name }}</a>
+                            <a href="{% url 'chronam_title' title.lccn %}">{{ title.display_name_with_date_range }}</a>
                         </li>
                     {% endfor %}
                     </ul>

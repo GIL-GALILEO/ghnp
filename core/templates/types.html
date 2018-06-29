@@ -31,7 +31,7 @@
                         <div class="panel panel-default">
                             <ul class="list-group">
                                 {% for t in titles.titles %}
-                                    <li class="list-group-item"><a href="{% url 'chronam_title' t.lccn %}">{{ t }}</a></li>
+                                    <li class="list-group-item"><a href="{% url 'chronam_title' t.lccn %}">{{ t.display_name_with_date_range }}</a></li>
                                 {% endfor %}
                             </ul>
                         </div>
