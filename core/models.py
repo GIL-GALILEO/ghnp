@@ -149,10 +149,14 @@ class Batch(models.Model):
         b['ingested'] = rfc3339(self.created)
         b['page_count'] = self.page_count
         b['lccns'] = self.lccns()
-        b['awardee'] = {
-            "name": self.awardee.name,
-            "url": "http://" + host + self.awardee.json_url
-        }
+        if self.api_available:
+            b['copyrighted_material'] = 'false'
+        else:
+            b['copyrighted_material'] = 'true'
+        # b['awardee'] = {
+        #     "name": self.awardee.name,
+        #     "url": "http://" + host + self.awardee.json_url
+        # }
         b['url'] = "http://" + host + self.json_url
         if include_issues:
             b['issues'] = []
@@ -646,15 +650,17 @@ class Page(models.Model):
             "issue": {
                 "date_issued": strftime(self.issue.date_issued, "%Y-%m-%d"),
                 "url": "http://" + host + self.issue.json_url},
-            # "jp2": "http://" + host + self.jp2_url,
-            "ocr": "http://" + host + self.ocr_url,
-            "text": "http://" + host + self.txt_url,
-            # "pdf": "http://" + host + self.pdf_url,
-            "iiif": self.iiif_url(),
             "title": {
                 "name": self.issue.title.display_name,
-                "url": "http://" + host + self.issue.title.json_url}
+                "url": "http://" + host + self.issue.title.json_url
+            }
         }
+        if self.issue.batch.api_available:
+            j["jp2"] = "http://" + host + self.jp2_url
+            j["ocr"] = "http://" + host + self.ocr_url
+            j["text"] = "http://" + host + self.txt_url
+            j["pdf"] = "http://" + host + self.pdf_url
+
         if serialize:
             return json.dumps(j, indent=2)
         return j

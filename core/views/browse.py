@@ -496,26 +496,38 @@ def page_ocr(request, lccn, date, edition, sequence):
 
 def page_pdf(request, lccn, date, edition, sequence):
     title, issue, page = _get_tip(lccn, date, edition, sequence)
-    return _stream_file(page.pdf_abs_filename, 'application/pdf')
+    if not issue.batch.api_available:
+        return HttpResponse(status=403)
+    else:
+        return _stream_file(page.pdf_abs_filename, 'application/pdf')
 
 
 def page_jp2(request, lccn, date, edition, sequence):
     title, issue, page = _get_tip(lccn, date, edition, sequence)
-    return _stream_file(page.jp2_abs_filename, 'image/jp2')
+    if not issue.batch.api_available:
+        return HttpResponse(status=403)
+    else:
+        return _stream_file(page.jp2_abs_filename, 'image/jp2')
 
 
 def page_ocr_xml(request, lccn, date, edition, sequence):
     title, issue, page = _get_tip(lccn, date, edition, sequence)
-    return _stream_file(page.ocr_abs_filename, 'application/xml')
+    if not issue.batch.api_available:
+        return HttpResponse(status=403)
+    else:
+        return _stream_file(page.ocr_abs_filename, 'application/xml')
 
 
 def page_ocr_txt(request, lccn, date, edition, sequence):
     title, issue, page = _get_tip(lccn, date, edition, sequence)
-    try:
-        text = page.ocr.text
-        return HttpResponse(text, content_type='text/plain')
-    except models.OCR.DoesNotExist:
-        raise Http404("No OCR for %s" % page)
+    if not issue.batch.api_available:
+        return HttpResponse(status=403)
+    else:
+        try:
+            text = page.ocr.text
+            return HttpResponse(text, content_type='text/plain')
+        except models.OCR.DoesNotExist:
+            raise Http404("No OCR for %s" % page)
 
 
 @cache_page(settings.DEFAULT_TTL_SECONDS)

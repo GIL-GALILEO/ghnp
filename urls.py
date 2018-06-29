@@ -31,9 +31,9 @@ urlpatterns = [
         cache_page(views.home.home, settings.DEFAULT_TTL_SECONDS),
         name="chronam_home_date"),
 
-    url(r'^frontpages/(?P<date>\d{4}-\d{1,2}-\d{1,2}).json$',
-        cache_page(views.home.frontpages, settings.DEFAULT_TTL_SECONDS),
-        name="chronam_frontpages_date_json"),
+    # url(r'^frontpages/(?P<date>\d{4}-\d{1,2}-\d{1,2}).json$',
+    #     cache_page(views.home.frontpages, settings.DEFAULT_TTL_SECONDS),
+    #     name="chronam_frontpages_date_json"),
 
     url(r'^tabs$',
         cache_page(views.home.tabs, settings.DEFAULT_TTL_SECONDS),
@@ -206,9 +206,9 @@ urlpatterns += [
     # TOD0: remove this some suitable time after 08/2010 since it
     # permanently redirects to new essay id based URL
     # example: /lccn/sn85066387/essay
-    url(r'^lccn/(?P<lccn>\w+)/essays/$',
-        views.title_essays, 
-        name="chronam_title_essays"),
+    # url(r'^lccn/(?P<lccn>\w+)/essays/$',
+    #     views.title_essays,
+    #     name="chronam_title_essays"),
 
     # example: /lccn/sn85066387/1907-03-17/ed-1
     url(r'^lccn/(?P<lccn>\w+)/(?P<date>\d{4}-\d{2}-\d{2})/ed-(?P<edition>\d+)/$',
@@ -231,9 +231,9 @@ urlpatterns += [
         name="chronam_page_pdf"),
 
     # example: /lccn/sn85066387/1907-03-17/ed-1/seq-4.jp2
-    url(r'^lccn/(?P<lccn>\w+)/(?P<date>\d{4}-\d{2}-\d{2})/ed-(?P<edition>\d+)/seq-(?P<sequence>\d+).jp2$',
-        views.page_jp2,
-        name="chronam_page_jp2"),
+    # url(r'^lccn/(?P<lccn>\w+)/(?P<date>\d{4}-\d{2}-\d{2})/ed-(?P<edition>\d+)/seq-(?P<sequence>\d+).jp2$',
+    #     views.page_jp2,
+    #     name="chronam_page_jp2"),
 
     # example: /lccn/sn85066387/1907-03-17/ed-1/seq-4/ocr.xml
     url(r'^lccn/(?P<lccn>\w+)/(?P<date>\d{4}-\d{2}-\d{2})/ed-(?P<edition>\d+)/seq-(?P<sequence>\d+)/ocr.xml$',
@@ -284,21 +284,21 @@ urlpatterns += [
     #     views.newspapers,
     #     name='chronam_newspapers_state'),
 
-    url(r'^newspapers/region/(?P<region>[^/;]+)/$',
-        views.newspapers,
-        name='chronam_newspapers_region'),
-    
-    url(r'^newspapers/type/(?P<type>[^/;]+)/$',
-        views.newspapers,
-        name='chronam_newspapers_type'),
-
-    url(r'^newspapers/city/(?P<city>[^/;]+)/$',
-        views.newspapers,
-        name='chronam_newspapers_city'),
-
-    url(r'^newspapers/(?P<state>[^/;]+)\.(?P<format>json)$',
-        views.newspapers,
-        name='chronam_newspapers_json'),
+    # url(r'^newspapers/region/(?P<region>[^/;]+)/$',
+    #     views.newspapers,
+    #     name='chronam_newspapers_region'),
+    #
+    # url(r'^newspapers/type/(?P<type>[^/;]+)/$',
+    #     views.newspapers,
+    #     name='chronam_newspapers_type'),
+    #
+    # url(r'^newspapers/city/(?P<city>[^/;]+)/$',
+    #     views.newspapers,
+    #     name='chronam_newspapers_city'),
+    #
+    # url(r'^newspapers/(?P<state>[^/;]+)\.(?P<format>json)$',
+    #     views.newspapers,
+    #     name='chronam_newspapers_json'),
 
     url('search/pages/opensearch.xml', 
         views.search_pages_opensearch,
@@ -307,26 +307,26 @@ urlpatterns += [
     url(r'^search/pages/results/$', 
         views.search_pages_results,
         name='chronam_search_pages_results'),
+    #
+    # url(r'^search/pages/results/(?P<view_type>list)/$',
+    #     views.search_pages_results,
+    #     name='chronam_search_pages_results_list'),
 
-    url(r'^search/pages/results/(?P<view_type>list)/$', 
-        views.search_pages_results,
-        name='chronam_search_pages_results_list'),
-
-    url('search/titles/opensearch.xml', 
-        views.search_titles_opensearch,
-        name='chronam_search_titles_opensearch'),
-
-    url(r'^search/titles/$', 
-        views.search_titles, 
-        name="chronam_search_titles"),
-
-    url(r'^search/titles/results/$', 
-        views.search_titles_results, 
-        name='chronam_search_titles_results'),
-
-    url(r'^suggest/titles/$', 
-        views.suggest_titles,
-        name='chronam_suggest_titles'),
+    # url('search/titles/opensearch.xml',
+    #     views.search_titles_opensearch,
+    #     name='chronam_search_titles_opensearch'),
+    #
+    # url(r'^search/titles/$',
+    #     views.search_titles,
+    #     name="chronam_search_titles"),
+    #
+    # url(r'^search/titles/results/$',
+    #     views.search_titles_results,
+    #     name='chronam_search_titles_results'),
+    #
+    # url(r'^suggest/titles/$',
+    #     views.suggest_titles,
+    #     name='chronam_suggest_titles'),
 
     url(r'^search/pages/navigation/$', 
         views.search_pages_navigation,
@@ -372,21 +372,21 @@ urlpatterns += [
     url(r'^titles/$', 
         views.titles, 
         name='chronam_titles'),
+    #
+    # # example: /titles;page=5
+    # url(r'^titles/;page=(?P<page_number>\d+)$',
+    #     views.titles,
+    #     name='chronam_titles_page'),
 
-    # example: /titles;page=5
-    url(r'^titles/;page=(?P<page_number>\d+)$', 
-        views.titles, 
-        name='chronam_titles_page'),
-
-    # example: /titles;start=F
-    url(r'^titles/;start=(?P<start>\w)$', 
-        views.titles, 
-        name='chronam_titles_start'),
-
-    # example: /titles;start=F;page=5
-    url(r'^titles/;start=(?P<start>\w);page=(?P<page_number>\d+)$', 
-        views.titles, 
-        name='chronam_titles_start_page'),
+    # # example: /titles;start=F
+    # url(r'^titles/;start=(?P<start>\w)$',
+    #     views.titles,
+    #     name='chronam_titles_start'),
+    #
+    # # example: /titles;start=F;page=5
+    # url(r'^titles/;start=(?P<start>\w);page=(?P<page_number>\d+)$',
+    #     views.titles,
+    #     name='chronam_titles_start_page'),
 
     # # example: /titles/places/pennsylvania
     # url(r'^titles/places/(?P<state>[^/;]+)/$',
@@ -512,9 +512,9 @@ urlpatterns += [
     #     name='chronam_awardee_json'),
 
     #
-    # url(r'^status',
-    #     views.status,
-    #     name='chronam_stats'),
+    url(r'^status',
+        views.status,
+        name='chronam_stats'),
 
     # example: /calendar/
     url(r'^calendar/$',
@@ -525,11 +525,6 @@ urlpatterns += [
     url(r'^calendar/(?P<year>\d{4})/$',
         views.chronam_calendar_issues,
         name="chronam_calendar"),
-
-    # example: /regions/
-    # url(r'^regions/$',
-    #     views.regions,
-    #     name="regions"),
 
     # example: /cities/
     url(r'^cities/$',
@@ -665,9 +660,9 @@ urlpatterns += [
     #     views.batches_atom,
     #     name='chronam_batches_atom_page'),
     #
-    # url(r'^batches\.json$',
-    #     views.batches_json,
-    #     name='chronam_batches_json'),
+    url(r'^batches\.json$',
+        views.batches_json,
+        name='chronam_batches_json'),
     #
     # url(r'^batches\.csv$',
     #     views.batches_csv,
@@ -752,10 +747,10 @@ urlpatterns += [
     # url(r'^ocr/feed/$',
     #     views.ocr_atom,
     #     name='chronam_ocr_atom'),
-
-    url(r'^ocr.json$',
-        views.ocr_json,
-        name='chronam_ocr_json'),
+    #
+    # url(r'^ocr.json$',
+    #     views.ocr_json,
+    #     name='chronam_ocr_json'),
 ]
 
 _ROOT = os.path.abspath(os.path.dirname(__file__))
