@@ -1,13 +1,17 @@
 import os
 import logging
+from datetime import datetime
 from optparse import make_option
 
+from django.conf import settings
 from django.core.management.base import BaseCommand
 from django.core.management.base import CommandError
 
 from chronam.core import batch_loader
 from chronam.core.management.commands import configure_logging
-    
+
+from slackclient import SlackClient
+
 configure_logging('load_batches_logging.config', 
                   'load_batches_%s.log' % os.getpid())
 
@@ -29,19 +33,56 @@ class Command(BaseCommand):
     args = '<batch_list_filename>'
 
     def handle(self, batch_list_filename, *args, **options):
+        def slack(message):
+            sc.api_call("chat.postMessage", channel="#ghnp", text=message)
+        def log(message):
+            _logger.info(message.replace('`',''))
+        def update(message):
+            slack(message)
+            log(message)
+
         if len(args)!=0:
             raise CommandError('Usage is load_batch %s' % self.args)
 
+        added_batches = []
+        failed_batches = []
+        processed = 0
+        start = datetime.now()
+
+        sc = SlackClient(settings.SLACK_KEY)
+
         loader = batch_loader.BatchLoader(process_ocr=options['process_ocr'],
                                           process_coordinates=options['process_coordinates'])
-        batch_list = file(batch_list_filename)
-        _logger.info("batch_list_filename: %s" % batch_list_filename)
-        for line in batch_list:
-            batch_name = line.strip()
-            _logger.info("batch_name: %s" % batch_name)
-            loader.load_batch(batch_name, strict=False)
-            # if len(parts)==4 and parts[0]=="batch":
-            #     loader.load_batch(batch_name, strict=False)
-            # else:
-            #     _logger.warning("invalid batch name '%s'" % batch_name)
 
+        # get legit batch names
+        with open(batch_list_filename) as f:
+            batch_names_from_file = f.readlines()
+            batch_names_from_file[:] = [batch_name for batch_name in batch_names_from_file if batch_name.strip()]
+            count = len(batch_names_from_file)
+
+        update('Loading `%s` Batches from file: `%s`' % (count, batch_list_filename))
+        for line in batch_names_from_file:
+            batch_start = datetime.now()
+            processed += 1
+            batch_name = line.strip()
+            update('Loading batch `%s` of `%s`: `%s`' % (processed, count, batch_name))
+            try:
+                batch = loader.load_batch(batch_name, strict=False)
+                added_batches.append(batch_name)
+                update('`%s` loaded in `%s`.' % (batch_name, datetime.now() - batch_start))
+            except Exception, e:
+                update('`%s` failed to load. Error: `%s`.' % (batch_name, str(e)))
+                failed_batches.append(batch_name)
+                continue
+
+        # create and write list of failed batches
+        if len(failed_batches) > 0:
+            failed_file_name = os.path.dirname(batch_list_filename) + '/FAILED_' + os.path.basename(batch_list_filename)
+            with open(failed_file_name, 'w') as ff:
+                for failed_batch in failed_batches:
+                    ff.write(failed_batch + "\n")
+
+            update('List of failed batches @ `%s`' % failed_file_name)
+
+        # all done
+        update('Run complete in `%s`. `%s` batches added and `%s` failed.' % (datetime.now() - start, len(added_batches), len(failed_batches)))
