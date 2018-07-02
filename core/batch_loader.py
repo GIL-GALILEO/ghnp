@@ -164,7 +164,7 @@ class BatchLoader(object):
             _logger.info(msg)
             event.save()
 
-            _chart(times)
+            # _chart(times)
         except Exception, e:
             msg = "unable to load batch: %s" % e
             _logger.error(msg)
