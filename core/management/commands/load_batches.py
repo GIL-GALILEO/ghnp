@@ -69,11 +69,11 @@ class Command(BaseCommand):
             batch_start = datetime.now()
             processed += 1
             batch_name = line.strip()
-            update('Loading batch `%s` of `%s`: `%s`' % (processed, count, batch_name))
             try:
                 if Batch.objects.filter(name=batch_name).count() != 0:
                     skipped_batches.append(batch_name)
                     continue
+                update('Loading batch `%s` of `%s`: `%s`' % (processed, count, batch_name))
                 batch = loader.load_batch(batch_name, strict=False)
                 added_batches.append(batch_name)
                 update('`%s` loaded in `%s`.' % (batch_name, datetime.now() - batch_start))
