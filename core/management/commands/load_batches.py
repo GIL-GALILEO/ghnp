@@ -4,6 +4,7 @@ from datetime import datetime
 from optparse import make_option
 
 from django.conf import settings
+from chronam.core.models import Batch
 from django.core.management.base import BaseCommand
 from django.core.management.base import CommandError
 
@@ -35,17 +36,20 @@ class Command(BaseCommand):
     def handle(self, batch_list_filename, *args, **options):
         def slack(message):
             sc.api_call("chat.postMessage", channel="#ghnp", text=message)
+
         def log(message):
-            _logger.info(message.replace('`',''))
+            _logger.info(message.replace('`', ''))
+
         def update(message):
             slack(message)
             log(message)
 
-        if len(args)!=0:
+        if len(args) != 0:
             raise CommandError('Usage is load_batch %s' % self.args)
 
         added_batches = []
         failed_batches = []
+        skipped_batches = []
         processed = 0
         start = datetime.now()
 
@@ -67,6 +71,9 @@ class Command(BaseCommand):
             batch_name = line.strip()
             update('Loading batch `%s` of `%s`: `%s`' % (processed, count, batch_name))
             try:
+                if Batch.objects.filter(name=batch_name).count() != 0:
+                    skipped_batches.append(batch_name)
+                    continue
                 batch = loader.load_batch(batch_name, strict=False)
                 added_batches.append(batch_name)
                 update('`%s` loaded in `%s`.' % (batch_name, datetime.now() - batch_start))
@@ -76,13 +83,14 @@ class Command(BaseCommand):
                 continue
 
         # create and write list of failed batches
-        if len(failed_batches) > 0:
-            failed_file_name = os.path.dirname(batch_list_filename) + '/FAILED_' + os.path.basename(batch_list_filename)
-            with open(failed_file_name, 'w') as ff:
-                for failed_batch in failed_batches:
-                    ff.write(failed_batch + "\n")
-
-            update('List of failed batches @ `%s`' % failed_file_name)
+        # TODO: not working IOError: [Errno 13] Permission denied: '/FAILED_all_batches_load.txt'
+        # if len(failed_batches) > 0:
+        #     failed_file_name = os.path.dirname(batch_list_filename) + '/FAILED_' + os.path.basename(batch_list_filename)
+        #     with open(failed_file_name, 'w') as ff:
+        #         for failed_batch in failed_batches:
+        #             ff.write(failed_batch + "\n")
+        #
+        #     update('List of failed batches @ `%s`' % failed_file_name)
 
         # all done
-        update('Run complete in `%s`. `%s` batches added and `%s` failed.' % (datetime.now() - start, len(added_batches), len(failed_batches)))
+        update('Run complete in `%s`. `%s` batches added, `%s` failed and `%s` skipped.' % (datetime.now() - start, len(added_batches), len(failed_batches), len(skipped_batches)))
