@@ -8,6 +8,7 @@ from django.core import urlresolvers
 
 import collections
 
+
 def counties_page(request):
     page_title = 'Browse by County'
     crumbs = list(settings.BASE_CRUMBS)
@@ -31,10 +32,11 @@ def counties_page(request):
                               dictionary=locals(),
                               context_instance=RequestContext(request))
 
+
 def county_page(request, county):
 
     # validate county
-    place = get_object_or_404(Place.objects.filter(county=county.title(), titles__has_issues='true'))
+    place = get_object_or_404(Place.objects.filter(county=county.title(), titles__has_issues='true').first())
 
     county = place.county
 
