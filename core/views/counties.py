@@ -36,7 +36,8 @@ def counties_page(request):
 def county_page(request, county):
 
     # validate county
-    place = get_object_or_404(Place.objects.filter(county=county.title(), titles__has_issues='true').first())
+    qs = Place.objects.filter(county=county.title(), titles__has_issues='true')[:1]
+    place = get_object_or_404(qs)
 
     county = place.county
 
