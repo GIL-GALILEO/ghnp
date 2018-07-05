@@ -1,7 +1,7 @@
 from django.conf import settings
 from django.shortcuts import render_to_response, get_object_or_404
 from django.template import RequestContext
-from chronam.core.models import Place, Title, Issue, NewspaperType
+from chronam.core.models import Place, Title, Issue
 from django.db.models import Min, Max
 
 from django.core import urlresolvers
@@ -10,7 +10,7 @@ import collections
 
 
 def counties_page(request):
-    page_title = 'Browse by County'
+    page_title = 'Counties'
     crumbs = list(settings.BASE_CRUMBS)
     crumbs.extend([{
         'label': page_title,
@@ -43,7 +43,7 @@ def county_page(request, county):
 
     crumbs = list(settings.BASE_CRUMBS)
     crumbs.extend([{
-        'label': 'Browse by County',
+        'label': 'Counties',
         'href': urlresolvers.reverse('browse_by_county', kwargs={} )
     },{
         'label': county,
