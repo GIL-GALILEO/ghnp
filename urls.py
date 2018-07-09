@@ -668,9 +668,9 @@ urlpatterns += [
     #     views.batches_csv,
     #     name='chronam_batches_csv'),
     #
-    # url(r'^batches/(?P<page_number>\d+).json$',
-    #     views.batches_json,
-    #     name='chronam_batches_json_page'),
+    url(r'^batches/(?P<page_number>\d+).json$',
+        views.batches_json,
+        name='chronam_batches_json_page'),
     #
     # url(r'^batches/(?P<batch_name>.+)/$',
     #     views.batch,
