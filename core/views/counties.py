@@ -1,15 +1,16 @@
 from django.conf import settings
 from django.shortcuts import render_to_response, get_object_or_404
 from django.template import RequestContext
-from chronam.core.models import Place, Title, Issue, NewspaperType
+from chronam.core.models import Place, Title, Issue
 from django.db.models import Min, Max
 
 from django.core import urlresolvers
 
 import collections
 
+
 def counties_page(request):
-    page_title = 'Browse by County'
+    page_title = 'Counties'
     crumbs = list(settings.BASE_CRUMBS)
     crumbs.extend([{
         'label': page_title,
@@ -31,16 +32,18 @@ def counties_page(request):
                               dictionary=locals(),
                               context_instance=RequestContext(request))
 
+
 def county_page(request, county):
 
     # validate county
-    place = get_object_or_404(Place.objects.filter(county=county.title(), titles__has_issues='true'))
+    qs = Place.objects.filter(county=county.title(), titles__has_issues='true')[:1]
+    place = get_object_or_404(qs)
 
     county = place.county
 
     crumbs = list(settings.BASE_CRUMBS)
     crumbs.extend([{
-        'label': 'Browse by County',
+        'label': 'Counties',
         'href': urlresolvers.reverse('browse_by_county', kwargs={} )
     },{
         'label': county,

@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8"?>
+<record xmlns="http://www.loc.gov/MARC21/slim">
+   <leader>01102nas a2200361Ia 45 0</leader>
+   <controlfield tag="001">1449733</controlfield>
+   <controlfield tag="007">hd-afa015bucu</controlfield>
+   <controlfield tag="008">941122u19uu9999gaumr p a     0   a0eng d</controlfield>
+   <datafield tag="010" ind1=" " ind2=" ">
+      <subfield code="a">gua3072345</subfield>
+   </datafield>
+   <datafield tag="035" ind1=" " ind2=" ">
+      <subfield code="a">ocm31498822</subfield>
+   </datafield>
+   <datafield tag="035" ind1=" " ind2=" ">
+      <subfield code="9">01819510</subfield>
+   </datafield>
+   <datafield tag="040" ind1=" " ind2=" ">
+      <subfield code="a">GUA</subfield>
+      <subfield code="c">GUA</subfield>
+   </datafield>
+   <datafield tag="043" ind1=" " ind2=" ">
+      <subfield code="a">n-us-ga</subfield>
+   </datafield>
+   <datafield tag="049" ind1=" " ind2=" ">
+      <subfield code="a">[FILM] GUAB</subfield>
+      <subfield code="8"/>
+      <subfield code="a">F294.A8</subfield>
+      <subfield code="b">A89</subfield>
+   </datafield>
+   <datafield tag="090" ind1=" " ind2=" ">
+      <subfield code="a">F294.A8</subfield>
+      <subfield code="b">A89</subfield>
+   </datafield>
+   <datafield tag="130" ind1="0" ind2=" ">
+      <subfield code="a">Atlantian (Atlanta, Ga.)</subfield>
+   </datafield>
+   <datafield tag="245" ind1="0" ind2="4">
+      <subfield code="a">The Atlantian</subfield>
+   </datafield>
+   <datafield tag="260" ind1=" " ind2=" ">
+      <subfield code="a">Atlanta, Ga. :</subfield>
+      <subfield code="b">Atlantian Pub. Co.,</subfield>
+   </datafield>
+   <datafield tag="300" ind1=" " ind2=" ">
+      <subfield code="a">v. :</subfield>
+      <subfield code="b">ill.</subfield>
+   </datafield>
+   <datafield tag="309" ind1=" " ind2=" ">
+      <subfield code="a">microfilm</subfield>
+   </datafield>
+   <datafield tag="310" ind1=" " ind2=" ">
+      <subfield code="a">Monthly</subfield>
+   </datafield>
+   <datafield tag="500" ind1=" " ind2=" ">
+      <subfield code="a">Description based on: Vol. 3, no. 28 (April 1911).</subfield>
+   </datafield>
+   <datafield tag="533" ind1=" " ind2=" ">
+      <subfield code="a">Microfilm.</subfield>
+      <subfield code="b">Athens, Ga. :</subfield>
+      <subfield code="c">University of Georgia Libraries, Photographic Services,</subfield>
+      <subfield code="d">1994-</subfield>
+      <subfield code="e">microfilm reels ; 35 mm.</subfield>
+   </datafield>
+   <datafield tag="539" ind1=" " ind2=" ">
+      <subfield code="a">d</subfield>
+      <subfield code="b">1911</subfield>
+      <subfield code="c">1929</subfield>
+      <subfield code="d">gau</subfield>
+      <subfield code="e">u</subfield>
+      <subfield code="f">u</subfield>
+      <subfield code="g">a</subfield>
+   </datafield>
+   <datafield tag="651" ind1=" " ind2="0">
+      <subfield code="a">Atlanta (Ga.)</subfield>
+      <subfield code="x">Periodicals.</subfield>
+   </datafield>
+   <datafield tag="752" ind1=" " ind2=" ">
+      <subfield code="a">United States</subfield>
+      <subfield code="b">Georgia</subfield>
+      <subfield code="c">Fulton</subfield>
+      <subfield code="d">Atlanta.</subfield>
+   </datafield>
+   <datafield tag="910" ind1=" " ind2=" ">
+      <subfield code="a">cg11-22-94</subfield>
+   </datafield>
+   <datafield tag="910" ind1=" " ind2=" ">
+      <subfield code="a">CA</subfield>
+   </datafield>
+   <datafield tag="936" ind1=" " ind2=" ">
+      <subfield code="a">Vol. 20, no. 247 (Sept. 1929) LIC</subfield>
+   </datafield>
+   <datafield tag="959" ind1=" " ind2=" ">
+      <subfield code="a">microfilm</subfield>
+   </datafield>
+   <datafield tag="971" ind1=" " ind2=" ">
+      <subfield code="a">19941122075816.0</subfield>
+   </datafield>
+   <datafield tag="974" ind1=" " ind2=" ">
+      <subfield code="a">cg11-22-94</subfield>
+      <subfield code="9">LOCAL</subfield>
+   </datafield>
+   <datafield tag="974" ind1=" " ind2=" ">
+      <subfield code="a">CA</subfield>
+      <subfield code="9">LOCAL</subfield>
+   </datafield>
+</record>

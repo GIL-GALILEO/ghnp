@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+<record xmlns="http://www.loc.gov/MARC21/slim">
+   <leader>01423cas a2200373Ia 4500</leader>
+   <controlfield tag="001">9910425974902931</controlfield>
+   <controlfield tag="005">20160812161835.0</controlfield>
+   <controlfield tag="007">hd-afb020buuu</controlfield>
+   <controlfield tag="008">900807d19581958gauuu pea     0uuua0eng d</controlfield>
+   <datafield tag="010" ind1=" " ind2=" ">
+      <subfield code="a">gua1189480</subfield>
+   </datafield>
+   <datafield tag="035" ind1=" " ind2=" ">
+      <subfield code="a">ocm22189453</subfield>
+   </datafield>
+   <datafield tag="035" ind1=" " ind2=" ">
+      <subfield code="9">01211416</subfield>
+   </datafield>
+   <datafield tag="035" ind1=" " ind2=" ">
+      <subfield code="a">(GU)1189480-ugadb</subfield>
+   </datafield>
+   <datafield tag="040" ind1=" " ind2=" ">
+      <subfield code="a">GUA</subfield>
+      <subfield code="c">GUA</subfield>
+   </datafield>
+   <datafield tag="049" ind1=" " ind2=" ">
+      <subfield code="a">[FILM] GUAB</subfield>
+   </datafield>
+   <datafield tag="090" ind1=" " ind2=" ">
+      <subfield code="a">BX801</subfield>
+      <subfield code="b">.S6</subfield>
+   </datafield>
+   <datafield tag="245" ind1="0" ind2="4">
+      <subfield code="a">The Savannah bulletin.</subfield>
+   </datafield>
+   <datafield tag="260" ind1="0" ind2="0">
+      <subfield code="a">Monroe, Ga. :</subfield>
+      <subfield code="b">Catholic Laymen's Association of Georgia,</subfield>
+      <subfield code="c">1958.</subfield>
+   </datafield>
+   <datafield tag="300" ind1=" " ind2=" ">
+      <subfield code="a">1 v. :</subfield>
+      <subfield code="b">ill.</subfield>
+   </datafield>
+   <datafield tag="310" ind1=" " ind2=" ">
+      <subfield code="a">Fortnightly,</subfield>
+   </datafield>
+   <datafield tag="362" ind1="0" ind2=" ">
+      <subfield code="a">Vol. 38, no. 16 (Jan. 4, 1958)-v. 38, no. 20 (Mar. 8, 1958).</subfield>
+   </datafield>
+      <datafield tag="515" ind1=" " ind2=" ">
+      <subfield code="a">Continues the volume numbering of: Bulletin (Catholic Laymen's Association of Georgia)</subfield>
+   </datafield>
+   <datafield tag="533" ind1=" " ind2=" ">
+      <subfield code="a">Microfilm.</subfield>
+      <subfield code="b">Athens, Ga. :</subfield>
+      <subfield code="c">University of Georgia Libraries.</subfield>
+      <subfield code="e">10 microfilm reels ; 35 mm.</subfield>
+   </datafield>
+   <datafield tag="550" ind1=" " ind2=" ">
+      <subfield code="a">Official newspaper of the Diocese of Savannah.</subfield>
+   </datafield>
+   <datafield tag="610" ind1="2" ind2="0">
+      <subfield code="a">Catholic Church</subfield>
+      <subfield code="v">Periodicals.</subfield>
+   </datafield>
+   <datafield tag="610" ind1="2" ind2="0">
+      <subfield code="a">Catholic Church</subfield>
+      <subfield code="z">Georgia</subfield>
+      <subfield code="v">Periodicals.</subfield>
+   </datafield>
+   <datafield tag="710" ind1="2" ind2="0">
+      <subfield code="a">Catholic Church.</subfield>
+   </datafield>
+      <datafield tag="710" ind1="2" ind2="0">
+      <subfield code="b">Diocese of Savannah.</subfield>
+   </datafield>
+   <datafield tag="752" ind1=" " ind2=" ">
+      <subfield code="a">United States</subfield>
+      <subfield code="b">Georgia</subfield>
+      <subfield code="c">Chatham</subfield>
+      <subfield code="d">Savannah.</subfield>
+   </datafield>
+   <datafield tag="785" ind1="0" ind2="0">
+      <subfield code="t">Bulletin (Catholic Church.  Diocese of Savannah)</subfield>
+   </datafield>
+   <datafield tag="910" ind1=" " ind2=" ">
+      <subfield code="a">CA</subfield>
+   </datafield>
+   <datafield tag="971" ind1=" " ind2=" ">
+      <subfield code="a">19900807071024.0</subfield>
+   </datafield>
+   <datafield tag="974" ind1=" " ind2=" ">
+      <subfield code="a">cg08-07-90</subfield>
+      <subfield code="9">LOCAL</subfield>
+   </datafield>
+   <datafield tag="974" ind1=" " ind2=" ">
+      <subfield code="a">CA</subfield>
+      <subfield code="9">LOCAL</subfield>
+   </datafield>
+</record>
