@@ -639,10 +639,6 @@ class Page(models.Model):
     indexed = models.BooleanField(default=False)
     created = models.DateTimeField(auto_now_add=True)
 
-    def iiif_url(self):
-        return settings.IIIF + '%2F' \
-               + self.issue.batch.path.replace('/opt/chronam/data/dlg_batches/','').replace('/','%2F') \
-               + self.jp2_filename.replace('/','%2F')
 
     def json(self, serialize=True, host="chroniclingamerica.loc.gov"):
         j = {
@@ -656,14 +652,20 @@ class Page(models.Model):
             }
         }
         if self.issue.batch.api_available:
-            j["jp2"] = "http://" + host + self.jp2_url
-            j["ocr"] = "http://" + host + self.ocr_url
-            j["text"] = "http://" + host + self.txt_url
-            j["pdf"] = "http://" + host + self.pdf_url
+            j["iiif"] = self.iiif_url
+            j["ocr"] = "https://" + host + self.ocr_url
+            j["text"] = "https://" + host + self.txt_url
+            j["pdf"] = "https://" + host + self.pdf_url
 
         if serialize:
             return json.dumps(j, indent=2)
         return j
+
+    @property
+    def iiif_url(self):
+        return settings.IIIF + '%2F' \
+               + self.issue.batch.path.replace('/opt/chronam/data/dlg_batches/','').replace('/','%2F') \
+               + self.jp2_filename.replace('/','%2F')
 
     @property
     def jp2_abs_filename(self):
