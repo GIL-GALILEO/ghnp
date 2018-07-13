@@ -43,7 +43,7 @@ def search_pages_results(request, view_type='gallery'):
     page_title = "Search Results"
     crumbs = list(settings.BASE_CRUMBS)
     crumbs.extend([
-        {'label':'Results'},
+        {'label': 'Results'},
     ])
     paginator = search_pages_paginator(request)
     q = paginator.query

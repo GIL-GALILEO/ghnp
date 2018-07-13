@@ -39,6 +39,7 @@ PROX_CHOICES = (
     ("100", "100"),
 )
 
+
 def _regions_options():
     form_regions = cache.get("form_regions")
     if not form_regions:
@@ -49,6 +50,7 @@ def _regions_options():
         cache.set("form_regions", form_regions)
     return form_regions
 
+
 def _types_options():
     form_types = cache.get("form_types")
     if not form_types:
@@ -58,6 +60,7 @@ def _types_options():
         form_types = sorted(form_types)
         cache.set("form_types", form_types)
     return form_types
+
 
 def _counties_options():
     # form_counties = cache.get("form_counties")
@@ -124,11 +127,12 @@ def _titles_states():
         titles, states = titles_states
     return (titles, states)
 
+
 def _titles_options():
     titles = cache.get("titles")
     if not titles:
         titles = [("", "All newspapers"), ]
-        for title in models.Title.objects.filter(has_issues=True).order_by('name').select_related():
+        for title in models.Title.objects.filter(has_issues=True).order_by('name'):
             short_name = title.name.split(":")[0]  # remove subtitle
             title_name = "%s (%s)" % (short_name,
                                       title.place_of_publication)
