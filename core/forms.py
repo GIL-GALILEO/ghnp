@@ -129,14 +129,14 @@ def _titles_states():
 
 
 def _titles_options():
-    titles = cache.get("titles")
-    if not titles:
-        titles = [("", "All newspapers"), ]
-        for title in models.Title.objects.filter(has_issues=True).order_by('name'):
-            short_name = title.name.split(":")[0]  # remove subtitle
-            title_name = "%s (%s)" % (short_name,
-                                      title.place_of_publication)
-            titles.append((title.lccn, title_name))
+    # titles = cache.get("titles")
+    # if not titles:
+    titles = [("", "All newspapers"), ]
+    for title in models.Title.objects.filter(has_issues=True).order_by('name'):
+        short_name = title.name.split(":")[0]  # remove subtitle
+        title_name = "%s (%s)" % (short_name,
+                                  title.place_of_publication)
+        titles.append((title.lccn, title_name))
     cache.set("titles", titles)
     return titles
 
