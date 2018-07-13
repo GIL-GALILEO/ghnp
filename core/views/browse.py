@@ -557,7 +557,15 @@ def page_print(request, lccn, date, edition, sequence,
                       x1=x1, y1=y1, x2=x2, y2=y2)
     url = urlresolvers.reverse('chronam_page_print',
                                kwargs=path_parts)
-
+    width, height = int(width), int(height)
+    x1, y1, x2, y2 = int(x1), int(y1), int(x2), int(y2)
+    width = min(width, (x2-x1))
+    height = min(height, (y2-y1))
+    image_url = settings.IIIF + '%2F' \
+           + page.issue.batch.path.replace('/opt/chronam/data/dlg_batches/','').replace('/','%2F') \
+           + page.jp2_filename.replace('/','%2F') + '/' \
+           + str(x1) + ',' + str(y1) + ',' + str(x2) + ',' + str(y2) \
+           + '/' + str(width) + ',' + str(height) + '/0/default.jpg'
     return render_to_response('page_print.html', dictionary=locals(),
                               context_instance=RequestContext(request))
 
