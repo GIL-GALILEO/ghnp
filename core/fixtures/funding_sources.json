@@ -80,5 +80,13 @@
     },
     "model": "core.fundingsource",
     "pk": 10
+  },
+  {
+    "fields": {
+      "slug": "clir",
+      "message": "Funding for the digitization of this title was provided by a Digitizing Hidden Collections grant from the Council on Library and Information Resources (CLIR). The grant program is made possible by funding from The Andrew W. Mellon Foundation."
+    },
+    "model": "core.fundingsource",
+    "pk": 11
   }
 ]
