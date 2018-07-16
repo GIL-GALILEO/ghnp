@@ -360,13 +360,17 @@ def institution_titles(request, code, page_number=1):
 
 @cache_page(10)
 def status(request):
+    crumbs = list(settings.BASE_CRUMBS)
+    crumbs.extend([
+        {'label': 'System Status'},
+    ])
     page_title = 'System Status'
     page_count = models.Page.objects.all().count()
     issue_count = models.Issue.objects.all().count()
     batch_count = models.Batch.objects.all().count()
     title_count = models.Title.objects.all().count()
-    holding_count = models.Holding.objects.all().count()
-    essay_count = models.Essay.objects.all().count()
+    # holding_count = models.Holding.objects.all().count()
+    # essay_count = models.Essay.objects.all().count()
     pages_indexed = index.page_count()
     titles_indexed = index.title_count()
     return render_to_response('reports/status.html', dictionary=locals(),

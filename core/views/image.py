@@ -46,7 +46,8 @@ def _get_image(page, static=False):
     batch = page.issue.batch
     url = urlparse.urljoin(batch.storage_url, filename)
     try:
-        fp = urllib2.urlopen(url)
+        # fp = urllib2.urlopen(url)
+        fp = open(url)
         stream = StringIO(fp.read())
     except IOError, e:
         e.message += " (while trying to open %s)" % url

@@ -15,84 +15,15 @@ from chronam.core.decorator import cache_page, opensearch_clean, rdf_view, cors
 from chronam.core.utils.utils import _page_range_short, _rdf_base
 from chronam.core import models, index
 from chronam.core.rdf import titles_to_graph
-from chronam.core.utils.url import unpack_url_path
-
 
 @cache_page(settings.DEFAULT_TTL_SECONDS)
 def newspapers(request, city=None, region=None, type=None, format='html'):
 
-    if region:
-        try:
-            region_obj = models.Region.objects.get(name=region)
-        except models.Region.DoesNotExist:
-            raise Http404
+    page_title = 'All Digitized Newspapers'
 
-        if not region: # region not found, error
-            raise Http404
-    else:
-        region_obj=None
-
-    if type:
-        try:
-            type_obj = models.NewspaperType.objects.get(name=type)
-        except models.NewspaperType.DoesNotExist:
-            raise Http404
-    else:
-        type_obj=None
-
-    if city:
-        city = city.title()
-
-    if region:
-        page_title = 'Results: Digitized Newspapers for %s' % region_obj.name
-    elif city:
-        page_title = 'Results: Digitized Newspapers for %s' % city
-    elif type:
-        page_title = 'Results: Digitized %s Newspapers ' % type_obj.name
-    else:
-        page_title = 'All Digitized Newspapers'
-
-    # todo titles count is wrong when list is filtered based on parameters (below)
-    titles = models.Title.objects.filter(has_issues=True)
-    titles = titles.annotate(first=Min('issues__date_issued'))
-    titles = titles.annotate(last=Max('issues__date_issued'))
-
-    _newspapers = {}
-
-    # newspapers_by_state = [(s, sorted(t, key=lambda title: title.name_normal)) for s, t in sorted(_newspapers_by_state.iteritems())]
-    if region_obj:
-        region_places = models.Place.objects.filter(region=region_obj)
-        # _newspapers_by_region = {}
-        for title in titles:
-            for place in title.places.all():
-                if place in region_places:
-                    _newspapers.setdefault(region, set()).add(title)
-
-        # newspapers = [(s, sorted(t, key=lambda title: title.name_normal)) for s, t in sorted(_newspapers_by_region.iteritems())]
-    elif type_obj:
-        # _newspapers_by_type = {}
-        for title in titles:
-            for t in title.types.all():
-                if t == type_obj:
-                    _newspapers.setdefault(t, set()).add(title)
-        # newspapers = sorted(_newspapers_by_type.iteritems())
-        # newspapers = [(s, sorted(t, key=lambda title: title.name_normal)) for s, t in sorted(_newspapers_by_type.iteritems())]
-    elif city:
-        city_places = models.Place.objects.filter(city=city)
-        # _newspapers_by_city = {}
-        for title in titles:
-            for place in title.places.all():
-                if place in city_places:
-                    _newspapers.setdefault(city, set()).add(title)
-
-        # newspapers = [(s, sorted(t, key=lambda title: title.name_normal)) for s, t in sorted(_newspapers_by_city.iteritems())]
-    else:
-        # _newspapers = {}
-        for title in titles:
-            _newspapers.setdefault(None, set()).add(title)
-        # newspapers = [(s, sorted(t, key=lambda title: title.name_normal)) for s, t in sorted(_newspapers.iteritems())]
-
-    newspapers = sorted(_newspapers.iteritems())
+    newspapers = models.Title.objects.filter(has_issues=True).order_by('name_normal')
+    newspapers = newspapers.annotate(first=Min('issues__date_issued'))
+    newspapers = newspapers.annotate(last=Max('issues__date_issued'))
 
     crumbs = list(settings.BASE_CRUMBS)
     crumbs.extend([{
@@ -103,46 +34,17 @@ def newspapers(request, city=None, region=None, type=None, format='html'):
         return render_to_response("newspapers.html",
                                   dictionary=locals(),
                                   context_instance=RequestContext(request))
-    # elif format == "txt":
-    #     host = request.get_host()
-    #     return render_to_response("newspapers.txt",
-    #                               dictionary=locals(),
-    #                               context_instance=RequestContext(request),
-    #                               content_type="text/plain")
-    # elif format == "csv":
-    #     csv_header_labels = ('Persistent Link', 'State', 'Title', 'LCCN', 'OCLC',
-    #                          'ISSN', 'No. of Issues', 'First Issue Date',
-    #                          'Last Issue Date', 'More Info')
-    #     response = HttpResponse(content_type='text/csv')
-    #     response['Content-Disposition'] = 'attachment; filename="chronam_newspapers.csv"'
-    #     writer = csv.writer(response)
-    #     writer.writerow(csv_header_labels)
-    #     for state, titles in newspapers_by_state:
-    #         for title in titles:
-    #             writer.writerow(('http://%s%s' % (request.get_host(),
-    #                                               reverse('chronam_issues',
-    #                                                        kwargs={'lccn': title.lccn}),),
-    #                              state, title, title.lccn or '', title.oclc or '',
-    #                              title.issn or '', title.issues.count(), title.first,
-    #                              title.last,
-    #                              'http://%s%s' % (request.get_host(),
-    #                                               reverse('chronam_title_essays',
-    #                                                        kwargs={'lccn': title.lccn}),),))
-    #     return response
-    #
-    # elif format == "json":
-    #     host = request.get_host()
-    #     results = {"newspapers": []}
-    #     for state, titles in newspapers_by_state:
-    #         for title in titles:
-    #             results["newspapers"].append({
-    #                 "lccn": title.lccn,
-    #                 "title": title.display_name,
-    #                 "url": "http://" + host + title.json_url,
-    #                 "state": state
-    #             })
-    #
-    #     return HttpResponse(json.dumps(results, indent=2), content_type='application/json')
+    elif format == "json":
+        host = request.get_host()
+        results = {"newspapers": []}
+        for paper in newspapers:
+            results["newspapers"].append({
+                "lccn": paper.lccn,
+                "title": paper.display_name,
+                "url": "http://" + host + paper.json_url
+            })
+
+        return HttpResponse(json.dumps(results, indent=2), content_type='application/json')
     else:
         return HttpResponseServerError("unsupported format: %s" % format)
 

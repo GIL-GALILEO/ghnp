@@ -28,7 +28,7 @@
             {% if parts.all %}<li>All of these words: {% for term in parts.all %}<span class="label label-default">{{ term }}</span> {% endfor %}</li>{% endif %}
             {% if parts.any %}<li>Any of these words: {% for term in parts.any %}<span class="label label-default">{{ term }}</span> {% endfor %}</li>{% endif %}
             {% if parts.without %}<li>Without these words: {% for term in parts.without %}<span class="label label-default">{{ term }}</span> {% endfor %}</li>{% endif %}
-            {% if parts.phrasetext %}<li>With the phrase: <span class="label label-default">{{ parts.phrasetext }}</li>{% endif %}
+            {% if parts.phrasetext %}<li>With the phrase: <span class="label label-default">{{ parts.phrasetext }}</span></li>{% endif %}
             {% if parts.proxtext %}<li>These words within <span class="badge">{{ parts.proxdistance }}</span> words of each other: {% for term in parts.proxtext %}<span class="label label-default">{{ term }}</span> {% endfor %}</li>{% endif %}
         </ul>
     </p>

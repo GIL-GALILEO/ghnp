@@ -8,16 +8,18 @@
 {% block main_content %}
 
     <div class="location">
-        {% for letter, city_titles in cities_with_titles_by_letter.items %}
+        {% for letter, county_titles in counties_with_titles_by_letter.items %}
         <div class="row">
             <div class="col-md-3">
                 <h2>{{ letter }}</h2>
             </div>
-            {% for data in city_titles %}
+            {% for data in county_titles %}
             <div class="col-md-3">
                 <div class="panel panel-default">
                     <div class="panel-heading dlg-blue">
-                        {{ data.city }}
+                         <a href="{% url 'county_page' data.county|lower|urlencode %}" class="panel-header-link">
+                            {{ data.county }}
+                         </a>
                         <span class="badge pull-right">
                             {{ data.titles|length }}
                         </span>

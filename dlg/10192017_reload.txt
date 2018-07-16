@@ -1,4 +1,0 @@
-drop/batch_gua_clg1944_ver02
-drop/batch_gua_fuw1835_ver02
-drop/batch_gua_mvn1918_ver02
-drop/batch_gua_walkermessenger03_ver02

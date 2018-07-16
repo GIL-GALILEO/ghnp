@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+<record xmlns="http://www.loc.gov/MARC21/slim">
+   <leader>01102cas a2200373Ka 4500</leader>
+   <controlfield tag="001">1082039</controlfield>
+   <controlfield tag="005">20150225200109.0</controlfield>
+   <controlfield tag="008">880323d18891897gauuu         0uuu 0eng d</controlfield>
+   <datafield tag="010" ind1=" " ind2=" ">
+      <subfield code="a">gua1082039</subfield>
+   </datafield>
+   <datafield tag="035" ind1=" " ind2=" ">
+      <subfield code="a">ocm17666411</subfield>
+   </datafield>
+   <datafield tag="035" ind1=" " ind2=" ">
+      <subfield code="9">01103022</subfield>
+   </datafield>
+   <datafield tag="035" ind1=" " ind2=" ">
+      <subfield code="a">(GUA)1082039</subfield>
+   </datafield>
+   <datafield tag="049" ind1=" " ind2=" ">
+      <subfield code="a">GUA2</subfield>
+   </datafield>
+   <datafield tag="040" ind1=" " ind2=" ">
+      <subfield code="a">MvI</subfield>
+      <subfield code="b">eng</subfield>
+      <subfield code="c">GUA</subfield>
+   </datafield>
+   <datafield tag="099" ind1=" " ind2=" ">
+      <subfield code="a">LXF9</subfield>
+      <subfield code="a">.U4</subfield>
+   </datafield>
+   <datafield tag="245" ind1="0" ind2="0">
+      <subfield code="a">University bumble bee.</subfield>
+   </datafield>
+   <datafield tag="260" ind1="0" ind2="0">
+      <subfield code="a">Athens, Ga.</subfield>
+      <subfield code="b">[Bumble Bee Pub. Co.]</subfield>
+   </datafield>
+   <datafield tag="300" ind1=" " ind2=" ">
+      <subfield code="a">v.</subfield>
+   </datafield>
+   <datafield tag="362" ind1="0" ind2=" ">
+      <subfield code="a">v. 1-4; 1889-1897.</subfield>
+   </datafield>
+   <datafield tag="550" ind1=" " ind2=" ">
+      <subfield code="a">"Published every Commencement Day by a stock company, composed of leading members of the University."</subfield>
+   </datafield>
+   <datafield tag="610" ind1="2" ind2="0">
+      <subfield code="a">University of Georgia</subfield>
+      <subfield code="v">Periodicals.</subfield>
+   </datafield>
+   <datafield tag="650" ind1=" " ind2="0">
+      <subfield code="a">College students</subfield>
+      <subfield code="v">Periodicals.</subfield>
+   </datafield>
+   <datafield tag="650" ind1=" " ind2="0">
+      <subfield code="a">American wit and humor</subfield>
+      <subfield code="v">Periodicals.</subfield>
+   </datafield>
+   <datafield tag="655" ind1=" " ind2="7">
+      <subfield code="a">Newspapers.</subfield>
+      <subfield code="2">aat</subfield>
+   </datafield>
+   <datafield tag="710" ind1="2" ind2=" ">
+      <subfield code="a">University of Georgia.</subfield>
+   </datafield>
+   <datafield tag="710" ind1="2" ind2=" ">
+      <subfield code="a">Bumble Bee Publishing Co.</subfield>
+   </datafield>
+   <datafield tag="752" ind1=" " ind2=" ">
+      <subfield code="a">United States</subfield>
+      <subfield code="b">Georgia</subfield>
+      <subfield code="c">Clarke</subfield>
+      <subfield code="d">Athens.</subfield>
+   </datafield>
+   <datafield tag="910" ind1=" " ind2=" ">
+      <subfield code="a">rc88</subfield>
+   </datafield>
+   <datafield tag="910" ind1=" " ind2=" ">
+      <subfield code="a">CA</subfield>
+   </datafield>
+   <datafield tag="946" ind1=" " ind2=" ">
+      <subfield code="a">Marcive 2015.02.23</subfield>
+   </datafield>
+   <datafield tag="971" ind1=" " ind2=" ">
+      <subfield code="a">19880323122236.0</subfield>
+   </datafield>
+   <datafield tag="973" ind1=" " ind2=" ">
+      <subfield code="a">Marcive 2015.02.23</subfield>
+      <subfield code="9">LOCAL</subfield>
+   </datafield>
+   <datafield tag="974" ind1=" " ind2=" ">
+      <subfield code="a">rc88</subfield>
+      <subfield code="9">LOCAL</subfield>
+   </datafield>
+   <datafield tag="974" ind1=" " ind2=" ">
+      <subfield code="a">CA</subfield>
+      <subfield code="9">LOCAL</subfield>
+   </datafield>
+</record>

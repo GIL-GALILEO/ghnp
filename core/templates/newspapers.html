@@ -10,14 +10,12 @@
 {% endblock %}
 
 {% block subcontent %}
-{% if titles.count > 0 %}
+{% if newspapers.count > 0 %}
 <div class="search_results_body">
     <div class="results_nav">
         <p class="term">
-            {{ titles.count|intcomma }} newspaper{% if titles.count > 1 %}s{% endif %}
-            {% if region %}from <strong>{{ region }}</strong>{% endif %}
-            {% if city %}from <strong>{{ city }}</strong>{% endif %}
-            {% if titles.count == 1 %}is{% else %}are{% endif %} available for viewing on this site. 
+            {{ newspapers.count|intcomma }} newspaper{% if newspapers.count > 1 %}s{% endif %}
+            {% if newspapers.count == 1 %}is{% else %}are{% endif %} available for viewing on this site.
         </p>
     </div>
     <table id="newspapers" class="table table-striped table-hover browse_collect tablesorter" cellspacing="0" summary="">
@@ -35,22 +33,20 @@
         </tr>
         </thead>
         <tbody>
-        {% for filter, titles in newspapers %}
-            {% for title in titles %}
-                {% with title.lccn as lccn %}
-                <tr>
-                    <td class="first left_no_border">{{ title.places.first.region.name }}</td>
-                    <td>{% for place in title.places.all %}{% if place.county %}{{ place.county }}<br />{% endif %}{% endfor %}</td>
-                    <td>{% for place in title.places.all %}{% if place.city %}{{ place.city }}<br />{% endif %}{% endfor %}</td>
-                    <td>{% for type in title.newspaper_types.all %}<p><span class="label label-default">{{ type.name }}</span></p>{% endfor %}</td>
-                    <td><a href="{% url 'chronam_title' lccn %}"><strong>{{title.display_name}}</strong></a><br />{{title.place_of_publication}}, {{title.start_year}}-{{title.end_year}}</td>
-                    <td><a href="{% url 'chronam_issues' lccn %}" shape="rect"><img src="{% static 'images/calendar_icon.gif' %}" alt="calendar"/></a></td>
-                    <td>{{ title.issues.count }}</td>
-                    <td><a href="{% url 'chronam_issue_pages' lccn title.first 1 %}">{{title.first|date:'Y-m-d'}}</a></td>
-                    <td><a href="{% url 'chronam_issue_pages' lccn title.last 1 %}">{{title.last|date:'Y-m-d'}}</a></td>
-                </tr>
-                {% endwith %}
-            {% endfor %}
+        {% for title in newspapers %}
+            {% with title.lccn as lccn %}
+            <tr>
+                <td class="first left_no_border">{{ title.places.first.region.name }}</td>
+                <td>{% for place in title.places.all %}{% if place.county %}{{ place.county }}<br />{% endif %}{% endfor %}</td>
+                <td>{% for place in title.places.all %}{% if place.city %}{{ place.city }}<br />{% endif %}{% endfor %}</td>
+                <td>{% for type in title.newspaper_types.all %}<p><span class="label label-default">{{ type.name }}</span></p>{% endfor %}</td>
+                <td><a href="{% url 'chronam_title' lccn %}"><strong>{{title.display_name}}</strong></a><br />{{title.place_of_publication}}, {{title.start_year}}-{{title.end_year}}</td>
+                <td><a href="{% url 'chronam_issues' lccn %}" shape="rect"><img src="{% static 'images/calendar_icon.gif' %}" alt="calendar"/></a></td>
+                <td>{{ title.issues.count }}</td>
+                <td><a href="{% url 'chronam_issue_pages' lccn title.first 1 %}">{{title.first|date:'Y-m-d'}}</a></td>
+                <td><a href="{% url 'chronam_issue_pages' lccn title.last 1 %}">{{title.last|date:'Y-m-d'}}</a></td>
+            </tr>
+            {% endwith %}
         {% endfor %}
         </tbody>
     </table>

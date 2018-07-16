@@ -24,6 +24,7 @@ from batches constructed according to the standards of the
     <th>Batch Name</th>
     <th>LCCNs</th>
     <th>Total Pages</th>
+    <th>Copyrighted Material?</th>
   </tr>
 
 {% for batch in batches %}
@@ -33,6 +34,7 @@ from batches constructed according to the standards of the
     <td>{{ batch.name }}</td>
     <td>{% for lccn in batch.lccns %}<p><span class="label label-default">{{ lccn }}</span></p>{% endfor %}</td>
     <td>{{ batch.page_count }}</td>
+    <td>{% if batch.api_available %}No{% else %}Yes{% endif %}</td>
   </tr>
 
 {% endfor %}

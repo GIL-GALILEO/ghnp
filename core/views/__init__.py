@@ -29,5 +29,6 @@ from reports import reports, batches, batches_atom, batches_json, batches_csv, \
 
 from regions import region_page
 from cities import cities_page, city_page
+from counties import counties_page, county_page
 
 from api import newspaper_types, funding_sources, loaded_batches

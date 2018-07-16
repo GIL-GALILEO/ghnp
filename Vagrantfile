@@ -23,15 +23,15 @@ Vagrant.configure("2") do |config|
     apt-get update
     apt-get upgrade
     apt-get -y -q install python-software-properties software-properties-common gcc htop
-    apt-get -y -q install python-dev python-virtualenv libxml2-dev libxslt-dev libjpeg-dev git-core graphicsmagick python-lxml zlib1g-dev libgraphicsmagick1-dev
+    apt-get -y -q install python-dev python-virtualenv python-pip libxml2-dev libxslt-dev libjpeg-dev git-core graphicsmagick python-lxml zlib1g-dev libgraphicsmagick1-dev
 
   SHELL
 
   # start solr
   # vagrant plugin install vagrant-triggers
-  config.trigger.after :up do
-    run_remote "solr-6.4.1/bin/solr start -c -force"
-  end
+  #config.trigger.after :up do
+  #  run_remote "solr-6.4.1/bin/solr start -c -force"
+  #end
 
   config.vm.provision :shell, path: 'provision/solr.sh'
   config.vm.provision :shell, path: 'provision/postgres.sh'

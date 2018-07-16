@@ -496,26 +496,38 @@ def page_ocr(request, lccn, date, edition, sequence):
 
 def page_pdf(request, lccn, date, edition, sequence):
     title, issue, page = _get_tip(lccn, date, edition, sequence)
-    return _stream_file(page.pdf_abs_filename, 'application/pdf')
+    if not issue.batch.api_available:
+        return HttpResponse(status=403)
+    else:
+        return _stream_file(page.pdf_abs_filename, 'application/pdf')
 
 
 def page_jp2(request, lccn, date, edition, sequence):
     title, issue, page = _get_tip(lccn, date, edition, sequence)
-    return _stream_file(page.jp2_abs_filename, 'image/jp2')
+    if not issue.batch.api_available:
+        return HttpResponse(status=403)
+    else:
+        return _stream_file(page.jp2_abs_filename, 'image/jp2')
 
 
 def page_ocr_xml(request, lccn, date, edition, sequence):
     title, issue, page = _get_tip(lccn, date, edition, sequence)
-    return _stream_file(page.ocr_abs_filename, 'application/xml')
+    if not issue.batch.api_available:
+        return HttpResponse(status=403)
+    else:
+        return _stream_file(page.ocr_abs_filename, 'application/xml')
 
 
 def page_ocr_txt(request, lccn, date, edition, sequence):
     title, issue, page = _get_tip(lccn, date, edition, sequence)
-    try:
-        text = page.ocr.text
-        return HttpResponse(text, content_type='text/plain')
-    except models.OCR.DoesNotExist:
-        raise Http404("No OCR for %s" % page)
+    if not issue.batch.api_available:
+        return HttpResponse(status=403)
+    else:
+        try:
+            text = page.ocr.text
+            return HttpResponse(text, content_type='text/plain')
+        except models.OCR.DoesNotExist:
+            raise Http404("No OCR for %s" % page)
 
 
 @cache_page(settings.DEFAULT_TTL_SECONDS)
@@ -545,7 +557,15 @@ def page_print(request, lccn, date, edition, sequence,
                       x1=x1, y1=y1, x2=x2, y2=y2)
     url = urlresolvers.reverse('chronam_page_print',
                                kwargs=path_parts)
-
+    width, height = int(width), int(height)
+    x1, y1, x2, y2 = int(x1), int(y1), int(x2), int(y2)
+    width = min(width, (x2-x1))
+    height = min(height, (y2-y1))
+    image_url = settings.IIIF + '%2F' \
+           + page.issue.batch.path.replace('/opt/chronam/data/dlg_batches/','').replace('/','%2F') \
+           + page.jp2_filename.replace('/','%2F') + '/' \
+           + str(x1) + ',' + str(y1) + ',' + str(x2) + ',' + str(y2) \
+           + '/' + str(width) + ',' + str(height) + '/0/default.jpg'
     return render_to_response('page_print.html', dictionary=locals(),
                               context_instance=RequestContext(request))
 
