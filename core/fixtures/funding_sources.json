@@ -12,7 +12,7 @@
       "slug": "taylor_fdn",
       "name": "R.J. Taylor Foundation",
       "message": "Funding for the digitization of this title was provided by R.J. Taylor, Jr. Foundation.",
-      "image": "taylor.png"
+      "image": "images/taylor.png"
     },
     "model": "core.fundingsource",
     "pk": 2
