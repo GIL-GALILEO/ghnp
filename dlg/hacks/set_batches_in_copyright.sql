@@ -1,4 +1,4 @@
-UPDATE ghnp.public.core_batch SET core_batch.api_available = FALSE WHERE core_batch.name IN (
+UPDATE public.core_batch SET api_available = FALSE WHERE name IN (
   'batch_gua_fpl1987_ver01',
   'batch_gua_fpl1988_ver01',
   'batch_gua_fpl1989_ver01',
