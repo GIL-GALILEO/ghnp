@@ -65,10 +65,22 @@
 
     {% if title.funding_source %}
         <div class="alert alert-info">
-            {% if title.funding_source.image %}
-                <img class="img-responsive funding-source-image" src="{% static title.funding_source.image %}" alt="Funding partner logo for {{ title.funding_source.name }}">
-            {% endif %}
-            {{ title.funding_source.message }}
+            <div class="row">
+                {% if title.funding_source.image %}
+                    <div class="col-md-3">
+                        <img class="img-responsive funding-source-image" src="{% static title.funding_source.image %}" alt="Funding partner logo for {{ title.funding_source.name }}">
+                    </div>
+                    <div class="col-md-9">
+                        {{ title.funding_source.message }}
+                    </div>
+                {% else %}
+                    <div class="col-md-12">
+                        {{ title.funding_source.message }}
+                    </div>
+                {% endif %}
+                {{ title.funding_source.message }}
+            </div>
+
         </div>
     {% endif %}
 
