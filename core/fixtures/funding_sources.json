@@ -2,7 +2,8 @@
   {
     "fields": {
       "slug": "houston_pls",
-      "message": "Funding for the newspaper project came from donations and grants. The estate of Alice L. Gilbert (former Perry Librarian) and a grant from Flint Energies Foundation funded the digitization of the newspaper along with permissions granted by the Houston Home Journal."
+      "message": "Funding for the newspaper project came from donations and grants. The estate of Alice L. Gilbert (former Perry Librarian) and a grant from Flint Energies Foundation funded the digitization of the newspaper along with permissions granted by the Houston Home Journal.",
+      "image": "images/tchgs_houston.jpg"
     },
     "model": "core.fundingsource",
     "pk": 1
@@ -20,7 +21,8 @@
   {
     "fields": {
       "slug": "rcd_sav",
-      "message": "Funding for the digitization of this title was provided by Roman Catholic Diocese of Savannah."
+      "message": "Funding for the digitization of this title was provided by Roman Catholic Diocese of Savannah.",
+      "image": "images/rcd_sav.png"
     },
     "model": "core.fundingsource",
     "pk": 3
@@ -28,7 +30,8 @@
   {
     "fields": {
       "slug": "hargrett",
-      "message": "Funding for the digitization of this title was provided by Hargrett Rare Book and Manuscript Library."
+      "message": "Funding for the digitization of this title was provided by Hargrett Rare Book and Manuscript Library.",
+      "image": "images/hargrett.jpg"
     },
     "model": "core.fundingsource",
     "pk": 4
@@ -36,7 +39,8 @@
   {
     "fields": {
       "slug": "tchgs_flint",
-      "message": "Funding for the digitization of this title was provided by Taylor County Historical-Genealogical Society and the Flint Energies Foundation."
+      "message": "Funding for the digitization of this title was provided by Taylor County Historical-Genealogical Society and the Flint Energies Foundation.",
+      "image": "images/tchgs_houston.jpg"
     },
     "model": "core.fundingsource",
     "pk": 5
@@ -76,7 +80,8 @@
   {
     "fields": {
       "slug": "homeplace",
-      "message": "Funding for the digitization of this title was provided by Georgia HomePLACE, a project of the Georgia Public Library Service."
+      "message": "Funding for the digitization of this title was provided by Georgia HomePLACE, a project of the Georgia Public Library Service.",
+      "image": "images/homeplace.png"
     },
     "model": "core.fundingsource",
     "pk": 10
@@ -84,7 +89,8 @@
   {
     "fields": {
       "slug": "clir",
-      "message": "Funding for the digitization of this title was provided by a Digitizing Hidden Collections grant from the Council on Library and Information Resources (CLIR). The grant program is made possible by funding from The Andrew W. Mellon Foundation."
+      "message": "Funding for the digitization of this title was provided by a Digitizing Hidden Collections grant from the Council on Library and Information Resources (CLIR). The grant program is made possible by funding from The Andrew W. Mellon Foundation.",
+      "image": "images/clir.png"
     },
     "model": "core.fundingsource",
     "pk": 11
