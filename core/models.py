@@ -320,7 +320,7 @@ class Title(models.Model):
             'note': [n.text for n in self.notes.all()],
             'city': [p.city for p in self.places.all()],
             'county': [p.county for p in self.places.all()],
-            'region': [p.region.slug for p in self.places.all()],
+            'region': [p.region.slug for p in self.places.all() if p.region],
             'newspaper_type': [p.slug for p in self.newspaper_types.all()],
             'country': self.country.name,
             'state': [p.state for p in self.places.all()],
