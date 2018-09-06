@@ -55,6 +55,19 @@ def about_resources(request):
                               context_instance=RequestContext(request))
 
 @cache_page(settings.DEFAULT_TTL_SECONDS)
+def about_api(request):
+    page_title = "GHNP API"
+    crumbs = list(settings.BASE_CRUMBS)
+    crumbs.extend([
+        {'label':'About',
+         'href': urlresolvers.reverse('about')},
+        {'label':'GHNP API',
+         'active': True},
+    ])
+    return render_to_response('api.html', dictionary=locals(),
+                              context_instance=RequestContext(request))
+
+@cache_page(settings.DEFAULT_TTL_SECONDS)
 def about_copyright(request):
     page_title = "Copyright and Reuse"
     crumbs = list(settings.BASE_CRUMBS)

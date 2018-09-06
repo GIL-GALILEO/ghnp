@@ -16,7 +16,7 @@ from directory import newspapers, newspapers_atom, search_titles_results, \
     newspapers_rdf
 
 from static import about, about_contactus, about_resources, about_partners, about_copyright, help_faq, help_searching, \
-    help_browsing, help_clipping, help_viewing, participate
+    help_browsing, help_clipping, help_viewing, participate, about_api
 
 from reports import reports, batches, batches_atom, batches_json, batches_csv, \
     batch_rdf, batch_json, batch, reels, reel, awardee_rdf, awardees, awardees_json, \
