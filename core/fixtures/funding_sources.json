@@ -94,5 +94,14 @@
     },
     "model": "core.fundingsource",
     "pk": 11
+  },
+  {
+    "fields": {
+      "slug": "ndnp",
+      "message": "Funding for the digitization of this title was provided by a grant from the National Endowment for the Humanities: National Digital Newspaper Program. Any views, findings, conclusions, or recommendations expressed in this newspaper do not necessarily represent those of the National Endowment for the Humanities.",
+      "image": "images/ndnp.png"
+    },
+    "model": "core.fundingsource",
+    "pk": 12
   }
 ]
