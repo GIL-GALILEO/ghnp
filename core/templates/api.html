@@ -1,0 +1,101 @@
+{% extends 'site_base.html' %}
+
+{% load static from staticfiles %}
+
+{% block content %}
+
+    <h2>{{ page_title }}</h2>
+
+    <p>This site provides a JSON API for researchers and digital humanists.</p>
+    <h3>Endpoints</h3>
+    <table class="table">
+      <tr>
+        <th>URL Scheme</th>
+        <th>Description</th>
+        <th>Expected Response</th>
+        <th>Notes</th>
+        <th>Example</th>
+      </tr>
+      <tr>
+        <td>
+          <code>https://gahistoricnewspapers.galileo.usg.edu/newspapers.json</code>
+        </td>
+        <td>
+          Data about all available newspaper titles.
+        </td>
+        <td>
+          LCCN, Title and URL for each title
+        </td>
+        <td></td>
+        <td>
+          <a href="https://gahistoricnewspapers.galileo.usg.edu/newspapers.json">Details for all Titles</a>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <code>https://gahistoricnewspapers.galileo.usg.edu/lccn/{<var>lccn</var>}.json</code>
+        </td>
+        <td>
+          Data about Title corresponding to LCCN number.
+        </td>
+        <td>
+          Includes URLs for information about each available Issue
+        </td>
+        <td></td>
+        <td>
+          <a href="https://gahistoricnewspapers.galileo.usg.edu/lccn/sn94029049.json">Details for <i>Flagpole</i> Title</a>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <code>https://gahistoricnewspapers.galileo.usg.edu/lccn/{<var>lccn</var>}/{<var>issue_date</var>}/ed-{<var>edition_number</var>}.json</code>
+        </td>
+        <td>
+          Data about an Issue from a given day and edition.
+        </td>
+        <td>
+          Includes links to Page data and Batch
+        </td>
+        <td></td>
+        <td>
+          <a href="https://gahistoricnewspapers.galileo.usg.edu/lccn/gua1179162/1895-03-25/ed-1.json">Details about the March 25, 1895 Issue of <i>Red & Black</i></a>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <code>https://gahistoricnewspapers.galileo.usg.edu/lccn/{<var>lccn</var>}/{<var>issue_date</var>}/ed-{<var>edition_number</var>}/seq-{<var>page_number</var>}.json</code>
+        </td>
+        <td>
+          Data about a Page of an Issue from a given day and edition.
+        </td>
+        <td>
+          Page information
+        </td>
+        <td>
+          Does not include OCR, PDF or IIIF manifest URLs if batch is thought to still be protected by copyright.
+        </td>
+        <td>
+          <a href="http://gahistoricnewspapers.galileo.usg.edu/lccn/gua1179162/1895-03-25/ed-1/seq-2.json">Details Page 2 of the March 25, 1895 Issue of <i>Red & Black</i></a>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <code>https://gahistoricnewspapers.galileo.usg.edu/lccn/{<var>lccn</var>}/{<var>issue_date</var>}/ed-{<var>edition_number</var>}/seq-{<var>page_number</var>}/ocr.txt</code>
+        </td>
+        <td>
+          Raw OCR text a Page of an Issue from a given day and edition.
+        </td>
+        <td>
+          OCR plaintext from Page image
+        </td>
+        <td>
+          Uncorrected OCR and without formatting. Returns HTTP if Issue is thought to still be protected by copyright.
+        </td>
+        <td>
+          <a href="https://gahistoricnewspapers.galileo.usg.edu/lccn/gua1179162/1895-03-25/ed-1/seq-2/ocr.txt">OCR text of Page 2 of the March 25, 1895 Issue of <i>Red & Black</i></a>
+        </td>
+      </tr>
+
+    </table>
+
+{% endblock content %}

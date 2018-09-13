@@ -96,6 +96,10 @@ urlpatterns += [
         views.about_resources,
         name="about_resources"),
 
+    url(r'^about/api$',
+        views.about_api,
+        name="about_api"),
+
     # help
     url(r'^help/browsing$',
         views.help_browsing,

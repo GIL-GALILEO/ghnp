@@ -652,7 +652,7 @@ class Page(models.Model):
             }
         }
         if self.issue.batch.api_available:
-            j["iiif"] = self.iiif_url
+            j["iiif"] = self.iiif_url + '/info.json'
             j["ocr"] = "https://" + host + self.ocr_url
             j["text"] = "https://" + host + self.txt_url
             j["pdf"] = "https://" + host + self.pdf_url
