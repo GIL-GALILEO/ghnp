@@ -213,12 +213,12 @@ def _get_tip(lccn, date, edition, sequence=1):
         issue = title.issues.filter(
             date_issued=_date, edition=edition).order_by("-created")[0]
     except IndexError, e:
-        raise Http404(e)
+        raise Http404('Problem locating issue: %s.' % e)
     try:
         page = issue.pages.filter(
             sequence=int(sequence)).order_by("-created")[0]
     except IndexError, e:
-        raise Http404(e)
+        raise Http404('Problem locating page: %s.' % e)
     return title, issue, page
 
 
