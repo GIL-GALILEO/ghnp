@@ -175,7 +175,6 @@ def issue_pages_rdf(request, lccn, date, edition):
 @cache_page(settings.DEFAULT_TTL_SECONDS)
 @vary_on_headers('Referer')
 def page(request, lccn, date, edition, sequence, words=None):
-    logger.info('debugging page')
     fragments = []
     if words:
         fragments.append("words=" + words)
@@ -190,9 +189,7 @@ def page(request, lccn, date, edition, sequence, words=None):
 
         return HttpResponseRedirect(url + "#" + "&".join(fragments))
 
-    logger.info('Getting TIP')
     title, issue, page = _get_tip(lccn, date, edition, sequence)
-    logger.info('TIP Found')
     if not page.jp2_filename:
         notes = page.notes.filter(type="noteAboutReproduction")
         num_notes = notes.count()
@@ -224,7 +221,6 @@ def page(request, lccn, date, edition, sequence, words=None):
     # that we want to skip over issues with missing pages. See ticket
     # #383.
     _issue = issue
-    logger.info('Getting prev and next')
 
     while True:
         previous_issue_first_page = None
@@ -246,14 +242,12 @@ def page(request, lccn, date, edition, sequence, words=None):
         if next_issue_first_page:
             break
 
-    logger.info('Prev and Next set')
-
-
     page_title = "%s, %s, %s" % (label(title), label(issue), label(page))
     page_head_heading = "%s, %s, %s" % (title.display_name, label(issue), label(page))
     page_head_subheading = label(title)
+    logger.info('Creating crumbs')
     crumbs = create_crumbs(title, issue, date, edition, page)
-
+    logger.info('Crumbs created')
     filename = page.jp2_abs_filename
     if filename:
         try:
@@ -261,6 +255,7 @@ def page(request, lccn, date, edition, sequence, words=None):
             image_size = filesizeformat(im)
         except OSError:
             image_size = "Unknown"
+    logger.info('Image data handled')
 
     image_credit = issue.batch.awardee.name
     host = request.get_host()
@@ -268,6 +263,7 @@ def page(request, lccn, date, edition, sequence, words=None):
 
     template = "page.html"
     page_topics = None
+    logger.info('handling topics')
     if page.topicpages_set.count():
         page_topics = map(lambda tp: {'name': tp.topic.name, 'id': tp.topic.id}, 
                           page.topicpages_set.all())
