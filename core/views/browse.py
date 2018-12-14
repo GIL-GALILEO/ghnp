@@ -245,9 +245,7 @@ def page(request, lccn, date, edition, sequence, words=None):
     page_title = "%s, %s, %s" % (label(title), label(issue), label(page))
     page_head_heading = "%s, %s, %s" % (title.display_name, label(issue), label(page))
     page_head_subheading = label(title)
-    logger.info('Creating crumbs')
     crumbs = create_crumbs(title, issue, date, edition, page)
-    logger.info('Crumbs created')
     filename = page.jp2_abs_filename
     if filename:
         try:
@@ -255,7 +253,6 @@ def page(request, lccn, date, edition, sequence, words=None):
             image_size = filesizeformat(im)
         except OSError:
             image_size = "Unknown"
-    logger.info('Image data handled')
 
     image_credit = issue.batch.awardee.name
     host = request.get_host()
@@ -263,16 +260,15 @@ def page(request, lccn, date, edition, sequence, words=None):
 
     template = "page.html"
     page_topics = None
-    logger.info('handling topics')
+    # TODO BUG HAPPENS HERE SOMEWHERE
     if page.topicpages_set.count():
         page_topics = map(lambda tp: {'name': tp.topic.name, 'id': tp.topic.id}, 
                           page.topicpages_set.all())
     related_pages = index.similar_pages(page)
-    logger.info('Composing response')
+    # TODO BUG DOESNT HAPPEN AFTER THIS
 
     response = render_to_response(template, dictionary=locals(),
                                   context_instance=RequestContext(request))
-    logger.info('Returning response')
 
     return response
 
