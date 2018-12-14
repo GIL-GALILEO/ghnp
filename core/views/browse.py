@@ -2,6 +2,7 @@ import datetime
 import os
 import re
 import urlparse
+import logging
 
 from itertools import groupby
 
@@ -28,6 +29,7 @@ from chronam.core.utils.utils import HTMLCalendar, _get_tip, _stream_file, \
     _page_range_short, _rdf_base, get_page, label, create_crumbs
 from chronam.core.decorator import cache_page, rdf_view
 
+logger = logging.getLogger('GHNP')
 
 @cache_page(settings.DEFAULT_TTL_SECONDS)
 def issues(request, lccn, year=None):
@@ -170,9 +172,10 @@ def issue_pages_rdf(request, lccn, date, edition):
     return response
 
 
-# @cache_page(settings.DEFAULT_TTL_SECONDS)
+@cache_page(settings.DEFAULT_TTL_SECONDS)
 @vary_on_headers('Referer')
 def page(request, lccn, date, edition, sequence, words=None):
+    logger.info('debugging page')
     fragments = []
     if words:
         fragments.append("words=" + words)
@@ -187,8 +190,9 @@ def page(request, lccn, date, edition, sequence, words=None):
 
         return HttpResponseRedirect(url + "#" + "&".join(fragments))
 
+    logger.info('Getting TIP')
     title, issue, page = _get_tip(lccn, date, edition, sequence)
-
+    logger.info('TIP Found')
     if not page.jp2_filename:
         notes = page.notes.filter(type="noteAboutReproduction")
         num_notes = notes.count()
@@ -220,6 +224,8 @@ def page(request, lccn, date, edition, sequence, words=None):
     # that we want to skip over issues with missing pages. See ticket
     # #383.
     _issue = issue
+    logger.info('Getting prev and next')
+
     while True:
         previous_issue_first_page = None
         _issue = _issue.previous
@@ -239,6 +245,9 @@ def page(request, lccn, date, edition, sequence, words=None):
         next_issue_first_page = _issue.first_page
         if next_issue_first_page:
             break
+
+    logger.info('Prev and Next set')
+
 
     page_title = "%s, %s, %s" % (label(title), label(issue), label(page))
     page_head_heading = "%s, %s, %s" % (title.display_name, label(issue), label(page))
@@ -263,8 +272,12 @@ def page(request, lccn, date, edition, sequence, words=None):
         page_topics = map(lambda tp: {'name': tp.topic.name, 'id': tp.topic.id}, 
                           page.topicpages_set.all())
     related_pages = index.similar_pages(page)
+    logger.info('Composing response')
+
     response = render_to_response(template, dictionary=locals(),
                                   context_instance=RequestContext(request))
+    logger.info('Returning response')
+
     return response
 
 
