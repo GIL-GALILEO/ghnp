@@ -208,17 +208,17 @@ def _get_tip(lccn, date, edition, sequence=1):
     try:
         _date = datetime.date(int(_year), int(_month), int(_day))
     except ValueError, e:
-        raise Http404
+        raise Http404(e)
     try:
         issue = title.issues.filter(
             date_issued=_date, edition=edition).order_by("-created")[0]
     except IndexError, e:
-        raise Http404
+        raise Http404(e)
     try:
         page = issue.pages.filter(
             sequence=int(sequence)).order_by("-created")[0]
     except IndexError, e:
-        raise Http404
+        raise Http404(e)
     return title, issue, page
 
 
