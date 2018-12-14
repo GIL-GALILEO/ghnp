@@ -2,7 +2,7 @@
 
 # setup python and chronam related stuff
 echo "Setting up Virtualenv"
-virtualenv -p /usr/bin/python2.7 ENV
+virtualenv -p /usr/bin/python2.7 /opt/chronam/ENV
 
 echo "Activating Virtualenv"
 source /opt/chronam/ENV/bin/activate
@@ -32,6 +32,6 @@ python /opt/chronam/core/manage.py loaddata funding_sources
 python /opt/chronam/core/manage.py refine_places
 
 # create and own django tmp dir
-mkdir /var/tmp/django_cache/
-chown -R vagrant:vagrant /var/tmp/
+# mkdir /var/tmp/django_cache/
+# chown -R vagrant:vagrant /var/tmp/
 
