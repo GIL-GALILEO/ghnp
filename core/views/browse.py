@@ -170,7 +170,7 @@ def issue_pages_rdf(request, lccn, date, edition):
     return response
 
 
-@cache_page(settings.DEFAULT_TTL_SECONDS)
+# @cache_page(settings.DEFAULT_TTL_SECONDS)
 @vary_on_headers('Referer')
 def page(request, lccn, date, edition, sequence, words=None):
     fragments = []
