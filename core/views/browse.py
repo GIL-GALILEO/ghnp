@@ -261,10 +261,11 @@ def page(request, lccn, date, edition, sequence, words=None):
     template = "page.html"
     page_topics = None
     # TODO BUG HAPPENS HERE SOMEWHERE
-    if page.topicpages_set.count():
-        page_topics = map(lambda tp: {'name': tp.topic.name, 'id': tp.topic.id}, 
-                          page.topicpages_set.all())
-    related_pages = index.similar_pages(page)
+    # commenting this out since we dont take advantage of topics or related pages
+    # if page.topicpages_set.count():
+    #     page_topics = map(lambda tp: {'name': tp.topic.name, 'id': tp.topic.id},
+    #                       page.topicpages_set.all())
+    # related_pages = index.similar_pages(page)
     # TODO BUG DOESNT HAPPEN AFTER THIS
 
     response = render_to_response(template, dictionary=locals(),
