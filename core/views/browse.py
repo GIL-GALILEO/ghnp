@@ -570,7 +570,7 @@ def page_print(request, lccn, date, edition, sequence,
     image_url = settings.IIIF + '%2F' \
            + page.issue.batch.path.replace('/opt/chronam/data/dlg_batches/','').replace('/','%2F') \
            + page.jp2_filename.replace('/','%2F') + '/' \
-           + str(x1) + ',' + str(y1) + ',' + str(x2) + ',' + str(y2) \
+           + str(x1) + ',' + str(y1) + ',' + str(x2 - x1) + ',' + str(y2 - y1) \
            + '/' + str(width) + ',' + str(height) + '/0/default.jpg'
     return render_to_response('page_print.html', dictionary=locals(),
                               context_instance=RequestContext(request))

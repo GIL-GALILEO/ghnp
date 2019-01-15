@@ -1,49 +1,69 @@
 (function($) {
 
     function printUrl(viewer, page_url) {
-        var image = viewer.tileSources[0];
-        var zoom = viewer.viewport.getZoom();
-        var size = new OpenSeadragon.Rect(0, 0, image.width, image.height);
-        var container = viewer.viewport.getContainerSize();
-        var fit_source = fitWithinBoundingBox(size, container);
-        var total_zoom = fit_source.x/image.width;
-        var container_zoom = fit_source.x/container.x;
-        var level =  (zoom * total_zoom) / container_zoom;
-        var box = getDisplayRegion(viewer, new OpenSeadragon.Point(parseInt(image.width*level), parseInt(image.height*level)));
-        var scaledBox = new OpenSeadragon.Rect(parseInt(box.x/level), parseInt(box.y/level), parseInt(box.width/level), parseInt(box.height/level));
-        var d = fitWithinBoundingBox(box, new OpenSeadragon.Point(681, 817));
-        return page_url+'print/image_'+d.x+'x'+d.y+'_from_'+ scaledBox.x+','+scaledBox.y+'_to_'+scaledBox.getBottomRight().x+','+scaledBox.getBottomRight().y;
+
+        var image = viewer.tileSources[0]; // get image object
+        var zoom = viewer.viewport.getZoom(); // get zoom level
+        var size = new OpenSeadragon.Rect(0, 0, image.width, image.height); // build osd rect
+        var container = viewer.viewport.getContainerSize(); // get size of osd window?
+        var fit_source = fitWithinBoundingBox(size, container); // returns OSD.Point
+        var total_zoom = fit_source.x / image.width; // compute zoom factor for scaled dimensions?
+        var container_zoom = fit_source.x / container.x; // ???
+        var level =  (zoom * total_zoom) / container_zoom; // ???
+        var box = getDisplayRegion(
+            viewer,
+            new OpenSeadragon.Point(
+                parseInt(image.width * level),
+                parseInt(image.height*  level)
+             )
+        ); // compute displayed region
+        var scaledBox = new OpenSeadragon.Rect(
+            parseInt(box.x / level),
+            parseInt(box.y / level),
+            parseInt(box.width / level),
+            parseInt(box.height / level)
+        ); // ???
+        var d = fitWithinBoundingBox(
+            box, new OpenSeadragon.Point(681, 817)
+        ); // ???
+        return page_url + 'print/image_' + d.x + 'x' + d.y + '_from_' +  scaledBox.x + ',' + scaledBox.y + '_to_' + scaledBox.getBottomRight().x + ',' + scaledBox.getBottomRight().y;
     }
 
-    function fitWithinBoundingBox(d, max) {
-        if (d.width/d.height > max.x/max.y) {
-            return new OpenSeadragon.Point(max.x, parseInt(d.height * max.x/d.width));
+    function fitWithinBoundingBox(size, container) {
+        if (size.width / size.height > container.x / container.y) {
+            return new OpenSeadragon.Point(
+                container.x,
+                parseInt(size.height * container.x/ size.width)
+            );
         } else {
-            return new OpenSeadragon.Point(parseInt(d.width * max.y/d.height),max.y);
+            return new OpenSeadragon.Point(
+                parseInt(size.width * container.y / size.height),
+                container.y
+            );
         }
     }
 
     function getDisplayRegion(viewer, source) {
-        //Determine portion of scaled image that is being displayed
+        // Determine portion of scaled image that is being displayed
         var box = new OpenSeadragon.Rect(0, 0, source.x, source.y);
         var container = viewer.viewport.getContainerSize();
         var bounds = viewer.viewport.getBounds();
-        //If image is offset to the left
+        // If image is offset to the left
         if (bounds.x > 0){
             box.x = box.x - viewer.viewport.pixelFromPoint(new OpenSeadragon.Point(0,0)).x;
         }
-        //If full image doesn't fit
+        // If full image doesn't fit
         if (box.x + source.x > container.x) {
             box.width = container.x - viewer.viewport.pixelFromPoint(new OpenSeadragon.Point(0,0)).x;
             if (box.width > container.x) {
                 box.width = container.x;
             }
         }
-        //If image is offset up
+        // If image is offset up
         if (bounds.y > 0) {
             box.y = box.y - viewer.viewport.pixelFromPoint(new OpenSeadragon.Point(0,0)).y;
         }
-        //If full image doesn't fit
+        // If full image doesn't fit
         if (box.y + source.y > container.y) {
             box.height = container.y - viewer.viewport.pixelFromPoint(new OpenSeadragon.Point(0,0)).y;
             if (box.height > container.y) {
@@ -95,7 +115,7 @@
         var viewer = OpenSeadragon({
             id: "viewer_container",
             prefixUrl:          static_url,
-            visibilityRatio:    1,
+            showNavigator:      false,
             minZoomLevel:       1,
             defaultZoomLevel:   1,
             tileSources:   [{
@@ -114,8 +134,10 @@
 
         viewer.addHandler("open", addOverlays(viewer, coordinates_url));
 
-        $('#clip').on('click', function(){
+        $('#clip').on('click', function(e){
            window.open(printUrl(viewer, page_url));
+           e.preventDefault();
+           return false;
         });
 
     }
